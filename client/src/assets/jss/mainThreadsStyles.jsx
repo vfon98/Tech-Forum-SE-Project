@@ -1,4 +1,4 @@
-import { container, primaryColor, secondaryColor, textColor } from "./main";
+import { container, primaryColor, secondaryColor, textColor, title } from "./main";
 
 const mainThreadsStyles = {
     container :{
@@ -6,9 +6,9 @@ const mainThreadsStyles = {
         background: secondaryColor,
     },
     title : {
+        ...title,
         color: textColor,
-        fontFamily: 'Roboto',
-        fontWeight: '900'
+
     }
 }
 

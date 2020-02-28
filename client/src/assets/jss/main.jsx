@@ -8,7 +8,18 @@ const dyan = "#22A2B1"
 const container  = {
     width: "100%",
     padding: "0 15%",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    "@media (min-width: 768px)" : {
+        padding: '0 15px'
+    },
+    "@media (min-width: 1500px)": {
+        padding: "0 15%"
+      }
+}
+const title = {
+    color : textColor,
+    fontSize: '1.5rem',
+    fontWeight: "700"
 }
 
 export  {
@@ -19,5 +30,6 @@ export  {
     green,
     blue,
     dyan,
-    container
+    container,
+    title
 }

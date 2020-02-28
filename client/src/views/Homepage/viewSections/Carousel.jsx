@@ -6,7 +6,7 @@ import img3 from 'assets/img/news_3.jpg'
 import img4 from 'assets/img/news_4.jpg'
 import img5 from 'assets/img/news_5.jpg'
 import { withStyles } from "@material-ui/styles";
-import carouselStyles from "../assets/jss/carouselStyles";
+import carouselStyles from "../../../assets/jss/carouselStyles";
 import classNames from 'classnames'
 
 const items = [

@@ -3,7 +3,7 @@ import {Grid} from "@material-ui/core"
 import { withStyles } from '@material-ui/styles'
 import mainThreadsStyles from 'assets/jss/mainThreadsStyles.jsx'
 import Carousel from './Carousel'
-import VerticalCarousel from './VerticalCarousel'
+import VerticalCarousel from 'views/Homepage/viewSections/VerticalCarousel'
 
 class MainThreads extends Component {
 
