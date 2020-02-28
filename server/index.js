@@ -9,8 +9,8 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const app = express();
 
-app.use(cors());
 app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
@@ -24,7 +24,7 @@ app.use(flash());
 
 app.use('/users', userRouter);
 
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
   console.log('Sever running on PORT ' + PORT);
 });

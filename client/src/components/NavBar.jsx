@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { AppBar, Toolbar, Button, Grid, TextField } from '@material-ui/core'
 
 import { withStyles } from '@material-ui/styles'
@@ -19,7 +19,6 @@ class NavBar extends Component {
 							<Grid
 								item
 								sm={3}
-
 							>
 								{this.props.brand ? this.props.brand : "BRAND"}
 								<span className={classes.brandHighlight}>	{this.props.brandHighlight ? this.props.brandHighlight : ""}</span>
@@ -42,9 +41,11 @@ class NavBar extends Component {
 							<Grid container sm={3} justify='flex-end'>
 								<input type="text" name="searchBox" className={classes.searchBox} placeholder='Search'/>
 								<Button ><Search className={classes.accountBtn}/></Button>
-								<Button>
-									<AccountCircle className={classes.accountBtn} />
-								</Button>
+								<Link to='/login'>
+                  <Button>
+                      <AccountCircle className={classes.accountBtn} />
+                  </Button>
+                </Link>
 							</Grid>
 						</Grid>
 

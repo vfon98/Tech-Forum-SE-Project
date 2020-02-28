@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Register.css';
+import { Link } from 'react-router-dom'
+
 class Register extends Component{
   render(){  
     return (
@@ -19,7 +21,7 @@ class Register extends Component{
           <label className="single-lbl">Choose your avatar</label>
           <input className="input" type="file" />
           <input className="input" type="password" placeholder='Your address' name="txtAddress"/>          
-          <a href="login.js">Sign in now!</a>
+          <Link to='/login'>Sign in now!</Link>
     			<button className="button" type="submit" name="signup">SIGN UP</button>
     		  
         </form>

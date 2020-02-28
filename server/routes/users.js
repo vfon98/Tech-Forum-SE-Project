@@ -10,7 +10,7 @@ router.post('/register', (req, res) => {
   user
     .save()
     .then(result => {
-      res.json({ result });
+      res.json({ user: result });
     })
     .catch(err => {
       res.json({ err });
@@ -23,7 +23,8 @@ router.post('/login', passport.authenticate('local-login'), (req, res) => {
   }
 });
 
-router.post('/logout', passport.authenticate('local-login'), (req, res) => {
+router.post('/logout', (req, res) => {
+  req.logOut();
   res.end();
 });
 
