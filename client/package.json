@@ -1,31 +1,23 @@
 {
-  "name": "tech-forum-se-project",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
+    "@material-ui/core": "^4.9.4",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.9.0",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.19.2",
-    "bcrypt": "^4.0.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.0",
-    "mongoose": "^5.9.2",
-    "morgan": "^1.9.1",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
+    "@testing-library/react": "^9.4.1",
+    "@testing-library/user-event": "^7.2.1",
+    "classnames": "^2.2.6",
+    "material-ui-carousel": "^1.0.0",
+    "mdbreact": "^4.25.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-redux": "^7.2.0",
+    "react-material-ui-carousel": "^1.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
-    "react-slick": "^0.25.2",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "validator": "^12.2.0",
-    "slick-carousel": "^1.8.1"
+    "react-scripts": "3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,8 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
   }
 }
