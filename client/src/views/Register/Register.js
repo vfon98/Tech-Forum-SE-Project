@@ -2,20 +2,67 @@ import React, { Component } from 'react';
 import axios from '../../axios/instance';
 import './Register.css';
 import { Link } from 'react-router-dom';
+import FormError from '../../components/FormError';
+import { validateInput, isDefined } from '../../utils';
+
 
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      display_name: '',
-      password: '',
-      repass: '',
-      gender: 'male',
-      address: '',
-      error: null,
+    this.state = { 
+            email: {
+                value: '',
+                isInputValid: true, 
+                errorMessage: ''
+            },
+            display_name: {
+                value: '',
+                isInputValid: true, 
+                errorMessage: ''
+            },
+            password: {
+                value: '',
+                isInputValid: true, 
+                errorMessage: ''
+            },
+            repass: {
+                value: '',
+                isInputValid: true, 
+                errorMessage: ''
+            },
+            gender:{
+              value: '',
+              isInputValid: true,
+              errorMessage: ''
+            },
+            address:{
+              value: '',
+              isInputValid: true,
+              errorMessage: ''
+            }
+
+        }
+    }
+
+
+
+  handleInput = event => {
+        const { name, value } = event.target;
+        console.log(value);
+        const newState = { ...this.state[name] };
+        newState.value = value;
+        this.setState({ [name]: newState });
     };
-  }
+
+  handleInputValidation = event => {
+        const { name } = event.target;
+        const { isInputValid, errorMessage } = validateInput(name, this.state[name].value);
+        const newState = { ...this.state[name] };
+        newState.isInputValid = isInputValid;
+        newState.errorMessage = errorMessage;
+        this.setState({ [name]: newState })
+  };
+  
 
   handleRegister = e => {
     e.preventDefault();
@@ -42,6 +89,7 @@ class Register extends Component {
   };
 
   render() {
+   
     return (
       <div className='wrapper'>
         <div className='title'>
@@ -53,37 +101,46 @@ class Register extends Component {
               className='input'
               type='text'
               placeholder='Email'
-              onChange={e => {
-                this.setState({ email: e.target.value });
-              }}
+              name = "email"
+              onChange={this.handleInput}
+              onBlur={this.handleInputValidation}
             />
-            {
-              <div className="error"></div>
-            }
+            <FormError
+              type="email"
+              isHidden={this.state.email.isInputValid} 
+              errorMessage={this.state.email.errorMessage} 
+            />
+
             <input
               className='input'
               type='text'
               placeholder='Display name'
-              onChange={e => {
-                this.setState({ display_name: e.target.value });
-              }}
+              name = "display_name"
+              onChange = {this.handleInput}
+              onBlur = {this.handleInputValidation}
             />
+            <FormError
+              type="display_name"
+              isHidden={this.state.display_name.isInputValid} 
+              errorMessage={this.state.display_name.errorMessage} 
+            />
+
             <input
               className='input'
               type='password'
               placeholder='Password'
-              onChange={e => {
-                this.setState({ password: e.target.value });
-              }}
+              name = 'password'
+              onChange={this.handleInput}
+              onBlur ={this.handleInputValidation}
             />
-            <input
-              className='input'
+            <FormError
               type='password'
-              placeholder='Confirm Password'
-              onChange={e => {
-                this.setState({ repass: e.target.value });
-              }}
+              isHidden={this.state.password.isInputValid} 
+              errorMessage={this.state.password.errorMessage} 
             />
+
+          
+
             <label className='single-lbl'>Gender</label>
             <input
               className='radio-button'
@@ -96,13 +153,14 @@ class Register extends Component {
               }}
             />
             <label className='lbl'>Male</label>
+       
             <input
               className='radio-button'
               type='radio'
               value='female'
               name='gender'
               checked={this.state.gender === 'female'}
-              onChange={e => {
+              onChange ={e => {
                 this.setState({ gender: e.target.value });
               }}
             />
@@ -113,9 +171,14 @@ class Register extends Component {
               className='input'
               type='text'
               placeholder='Your address'
-              onChange={e => {
-                this.setState({ address: e.target.value });
-              }}
+              name = "address"
+              onChange={this.handleInput}
+              onBlur={this.handleInputValidation}
+            />
+            <FormError
+              type="address"
+              isHidden={this.state.address.isInputValid} 
+              errorMessage={this.state.address.errorMessage} 
             />
             <Link to='/login'>Sign in now!</Link>
             <button className='button' type='submit'>
