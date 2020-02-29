@@ -13,19 +13,34 @@ router.post('/register', (req, res) => {
       res.json({ user: result });
     })
     .catch(err => {
-      res.json({ err });
+      // Return error for client
+      res.json({
+        err: err.keyValue,
+        message: err.errmsg,
+      });
     });
 });
 
-router.post('/login', passport.authenticate('local-login'), (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ isAuthenticated: true, user: req.user });
+router.post(
+  '/login',
+  passport.authenticate('local-login', {
+    failureFlash: true,
+  }),
+  (req, res) => {
+    if (req.isAuthenticated()) {
+      res.json({ isAuthenticated: true, user: req.user });
+    }
   }
-});
+);
 
 router.post('/logout', (req, res) => {
   req.logOut();
   res.end();
+});
+
+// Just for testing
+router.all('/check', (req, res) => {
+  res.json({ status: req.flash(), isAuthenticated: req.isAuthenticated() });
 });
 
 module.exports = router;

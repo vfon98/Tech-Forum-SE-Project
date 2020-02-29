@@ -7,8 +7,8 @@ const UserSchema = new Schema(
   {
     email: {
       type: String,
-      // required: true,
-      // unique: true,
+      required: true,
+      unique: true,
       lowercase: true,
       trim: true,
       validate: {
@@ -18,12 +18,11 @@ const UserSchema = new Schema(
     },
     password_hash: {
       type: String,
-      select: false,
     },
     display_name: {
       type: String,
-      // required: true,
-      // unique: true,
+      required: true,
+      unique: true
     },
     avatar: String,
     gender: String,
