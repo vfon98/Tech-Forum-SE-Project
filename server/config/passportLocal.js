@@ -22,10 +22,10 @@ passport.use(
     },
     function(email, password, done) {
       User.findOne({ email })
-        .then(user => {
-          if (!user || !user.validatePassword(password)) {
+      .then(user => {
+        if (!user || !user.validatePassword(password)) {
             return done(null, false, {
-              message: 'Invalid email or password',
+              message: 'Invalid email or password !',
             });
           }
           return done(null, user);
