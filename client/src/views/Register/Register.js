@@ -139,7 +139,10 @@ class Register extends Component {
                 this.setState({ address: e.target.value });
               }}
             />
-            <Link to='/login'>Sign in now!</Link>
+            <button className='link'onClick={e => {
+              e.preventDefault();
+              this.props.handlePopup('login')
+            }}>Sign in now!</button>
             <button className='button' type='submit'>
               SIGN UP
             </button>
