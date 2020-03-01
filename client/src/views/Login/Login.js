@@ -8,7 +8,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      error: ''
+      error: '',
     };
   }
   componentDidMount() {
@@ -35,9 +35,17 @@ class Login extends Component {
 
   resetError = () => {
     this.setState({
-      error: ''
-    })
-  }
+      error: '',
+    });
+  };
+
+  handleFBLogin = () => {
+    console.log('ok');
+    axios
+      .get('/users/check')
+      .then(res => console.log(res.data))
+      .catch(err => console.log({ err }));
+  };
 
   render() {
     return (
@@ -51,6 +59,7 @@ class Login extends Component {
               className='input'
               type='email'
               placeholder='Email'
+              required
               onInput={this.resetError}
               onChange={e => {
                 this.setState({ email: e.target.value });
@@ -60,6 +69,7 @@ class Login extends Component {
               className='input'
               type='password'
               placeholder='Password'
+              required
               onInput={this.resetError}
               onChange={e => {
                 this.setState({ password: e.target.value });
@@ -76,6 +86,10 @@ class Login extends Component {
             <button className='button' type='submit' name='signin'>
               SIGN IN
             </button>
+            <button type='button' onClick={this.handleFBLogin}>
+              Sign in with Facebook
+            </button>
+            <a href='http://localhost:9000/auth/facebook'>With a</a>
           </form>
         </div>
       </div>

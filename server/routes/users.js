@@ -40,7 +40,12 @@ router.post('/logout', (req, res) => {
 
 // Just for testing
 router.all('/check', (req, res) => {
-  res.json({ status: req.flash(), isAuthenticated: req.isAuthenticated() });
+  console.log(req.user)
+  res.json({
+    isAuthenticated: req.isAuthenticated(),
+    user: JSON.stringify(req.user),
+    // session: JSON.stringify(req.session.passport.user)
+  });
 });
 
 module.exports = router;
