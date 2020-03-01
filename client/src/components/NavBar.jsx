@@ -41,11 +41,9 @@ class NavBar extends Component {
 							<Grid container sm={3} justify='flex-end'>
 								<input type="text" name="searchBox" className={classes.searchBox} placeholder='Search'/>
 								<Button ><Search className={classes.accountBtn}/></Button>
-								<Link to='/login'>
-                  <Button>
+                  <Button onClick={() => this.props.handlePopup('login')}>
                       <AccountCircle className={classes.accountBtn} />
-                  </Button>
-                </Link>
+                  </Button> 
 							</Grid>
 						</Grid>
 

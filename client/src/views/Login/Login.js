@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
 import axios from '../../axios/instance';
 
 class Login extends Component {
@@ -12,6 +11,10 @@ class Login extends Component {
       error: ''
     };
   }
+  componentDidMount() {
+    console.log(this.props)
+  }
+
 
   handleLogin = e => {
     e.preventDefault();
@@ -64,7 +67,12 @@ class Login extends Component {
             />
             <div className='error'>{this.state.error}</div>
             <input type='checkbox' /> <label className='lbl'>Remember Me</label>
-            <Link to='/register'>Register an account ?</Link>
+            <button
+             className='link'
+             onClick={(e) => {
+              e.preventDefault()
+              this.props.handlePopup('register')
+            }}>Register an account ?</button>
             <button className='button' type='submit' name='signin'>
               SIGN IN
             </button>
