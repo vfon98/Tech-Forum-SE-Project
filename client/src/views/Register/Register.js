@@ -19,7 +19,9 @@ class Register extends Component {
 
   handleRegister = e => {
     e.preventDefault();
-    console.log(this.state);
+    // Password check
+    if (!this.isPasswordMatched()) return;
+    //
     const { email, password, display_name, gender } = this.state;
     axios
       .post('users/register', {
@@ -41,7 +43,13 @@ class Register extends Component {
       });
   };
 
+  isPasswordMatched = () => {
+    let { password, repass } = this.state;
+    return password === repass;
+  }
+
   render() {
+    const { error, password, repass } = this.state;
     return (
       <div className='wrapper'>
         <div className='title'>
@@ -51,27 +59,36 @@ class Register extends Component {
           <form onSubmit={this.handleRegister} encType='multipart/form-data'>
             <input
               className='input'
-              type='text'
+              type='email'
               placeholder='Email'
+              required
               onChange={e => {
                 this.setState({ email: e.target.value });
               }}
             />
             {
-              <div className="error"></div>
+              error && error.email ? <div className="error">Email is already used</div> : ''
             }
             <input
               className='input'
               type='text'
               placeholder='Display name'
+              minLength='3'
+              maxLength='20'
+              required
               onChange={e => {
                 this.setState({ display_name: e.target.value });
               }}
-            />
+              />
+              {
+                error && error.display_name ? <div className="error">This name is existed</div> : ''
+              }
             <input
               className='input'
               type='password'
               placeholder='Password'
+              minLength='4'
+              required
               onChange={e => {
                 this.setState({ password: e.target.value });
               }}
@@ -79,11 +96,16 @@ class Register extends Component {
             <input
               className='input'
               type='password'
+              minLength='4'
+              required
               placeholder='Confirm Password'
               onChange={e => {
                 this.setState({ repass: e.target.value });
               }}
             />
+            {
+              !this.isPasswordMatched() ? <div className="error">Password does not match</div> : ''
+            }
             <label className='single-lbl'>Gender</label>
             <input
               className='radio-button'
