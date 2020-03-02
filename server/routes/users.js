@@ -25,9 +25,12 @@ router.post(
   '/login',
   passport.authenticate('local-login', {
     failureFlash: true,
+    session: true
   }),
   (req, res) => {
+    // res.cookie('cookie_token', 'testing_token', { maxAge: 900000 });
     if (req.isAuthenticated()) {
+      req.session.username = req.user.display_name;
       res.json({ isAuthenticated: true, user: req.user });
     }
   }
@@ -40,10 +43,10 @@ router.post('/logout', (req, res) => {
 
 // Just for testing
 router.all('/check', (req, res) => {
-  console.log(req.user)
   res.json({
     isAuthenticated: req.isAuthenticated(),
-    user: JSON.stringify(req.user),
+    user: req.user,
+    session: req.session
     // session: JSON.stringify(req.session.passport.user)
   });
 });

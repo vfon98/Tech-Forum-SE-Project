@@ -4,12 +4,15 @@ const passport = require('passport');
 
 router.get(
   '/facebook',
-  passport.authenticate('fb-login', { scope: 'email' })
+  passport.authenticate('fb-login', {
+    scope: ['email', 'user_gender'],
+  })
 );
 
 router.get(
   '/facebook/callback',
   passport.authenticate('fb-login', {
+    display: 'popup',
     successRedirect: 'http://localhost:3000/',
     // failureFlash: true,
   }),

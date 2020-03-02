@@ -32,9 +32,11 @@ passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(email, done) {
-  User.findById(id).then((err, user) => {
-    if (err) done(err);
-    done(user);
-  });
+passport.deserializeUser(function(user, done) {
+  console.log("-- LOCAL DESERIALIZED")
+  done(null, user);
+  // User.findById(id).then((err, user) => {
+  //   if (err) done(err);
+  //   done(user);
+  // });
 });

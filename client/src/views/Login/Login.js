@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
+import { Button, Grid } from '@material-ui/core';
+import { Facebook } from '@material-ui/icons';
 import axios from '../../axios/instance';
 
 class Login extends Component {
@@ -12,9 +14,8 @@ class Login extends Component {
     };
   }
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
   }
-
 
   handleLogin = e => {
     e.preventDefault();
@@ -23,9 +24,12 @@ class Login extends Component {
       .post('/users/login', {
         email,
         password,
+      }, {
+        withCredentials: true
       })
       .then(() => {
-        this.props.history.push('/');
+        console.log('Logged in')
+        this.props.handlePopup(null);
       })
       .catch(err => {
         console.log({ err });
@@ -37,14 +41,6 @@ class Login extends Component {
     this.setState({
       error: '',
     });
-  };
-
-  handleFBLogin = () => {
-    console.log('ok');
-    axios
-      .get('/users/check')
-      .then(res => console.log(res.data))
-      .catch(err => console.log({ err }));
   };
 
   render() {
@@ -78,18 +74,31 @@ class Login extends Component {
             <div className='error'>{this.state.error}</div>
             <input type='checkbox' /> <label className='lbl'>Remember Me</label>
             <button
-             className='link'
-             onClick={(e) => {
-              e.preventDefault()
-              this.props.handlePopup('register')
-            }}>Register an account ?</button>
-            <button className='button' type='submit' name='signin'>
-              SIGN IN
+              className='link'
+              onClick={e => {
+                e.preventDefault();
+                this.props.handlePopup('register');
+              }}
+            >
+              Register an account ?
             </button>
-            <button type='button' onClick={this.handleFBLogin}>
-              Sign in with Facebook
-            </button>
-            <a href='http://localhost:9000/auth/facebook'>With a</a>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Button className='button' type='submit' variant='contained'>
+                  SIGN IN
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  href='http://localhost:9000/auth/facebook'
+                  variant='contained'
+                  color='primary'
+                  startIcon={<Facebook />}
+                >
+                  Continue with Facebook
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </div>
       </div>
