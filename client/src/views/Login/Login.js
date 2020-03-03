@@ -3,6 +3,7 @@ import './Login.css';
 import { Button, Grid } from '@material-ui/core';
 import { Facebook } from '@material-ui/icons';
 import axios from '../../axios/instance';
+import { setUser } from '../../utils/session';
 
 class Login extends Component {
   constructor(props) {
@@ -13,9 +14,6 @@ class Login extends Component {
       error: '',
     };
   }
-  componentDidMount() {
-    console.log(this.props);
-  }
 
   handleLogin = e => {
     e.preventDefault();
@@ -24,11 +22,14 @@ class Login extends Component {
       .post('/users/login', {
         email,
         password,
-      }, {
-        withCredentials: true
       })
-      .then(() => {
-        console.log('Logged in')
+      .then(res => {
+        console.log('Logged in');
+        // Set user to session storage
+        setUser({
+          displayName: res.data.user.display_name,
+          loginMethod: 'email'
+        });
         this.props.handlePopup(null);
       })
       .catch(err => {

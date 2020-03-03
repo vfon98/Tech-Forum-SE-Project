@@ -1,12 +1,12 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
+const User = require('../models/User');
 
 // passport.serializeUser((user, done) => {
 //   done(null, user.id);
 // });
 
 // passport.deserializeUser((user, done) => {
-//   console.log("-- FB DESERIALIZED")
 //   done(null, user);
 // });
 
@@ -23,12 +23,37 @@ passport.use(
         'displayName',
         'gender',
         'name',
-        'profileUrl',
+        'location',
+        'picture{url,height,width}',
       ],
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      return done(null, profile);
+      const { id, email, name, gender, location, picture } = profile._json;
+      // Create new user
+      User.findOne({ email }).then(user => {
+        // User has not created
+        if (!user) {
+          const fbUser = new User();
+          fbUser.login_method = 'fb';
+          fbUser.fbID = id;
+          fbUser.email = email;
+          fbUser.display_name = name;
+          fbUser.avatar = picture.data.url;
+          fbUser.gender = gender;
+          fbUser.address = location.name;
+          fbUser
+            .save()
+            .then(() => {
+              done(null, fbUser);
+            })
+            .catch(err => console.log(err));
+        }
+        // Existed user
+        console.log("FORM", user)
+        done(null, user)
+        // done(null, user)
+      }).catch(err => console.log(err));
+      // done(null, profile._json);
     }
   )
 );

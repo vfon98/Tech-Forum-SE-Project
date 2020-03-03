@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const UserControllers = require('../controllers/userController');
 const User = require('../models/User');
+const authenticate = require('../middlewares/authenticate');
 
 router.post('/register', (req, res) => {
   const user = new User(req.body);
@@ -25,12 +26,10 @@ router.post(
   '/login',
   passport.authenticate('local-login', {
     failureFlash: true,
-    session: true
   }),
   (req, res) => {
-    // res.cookie('cookie_token', 'testing_token', { maxAge: 900000 });
     if (req.isAuthenticated()) {
-      req.session.username = req.user.display_name;
+      req.session.method = 'email';
       res.json({ isAuthenticated: true, user: req.user });
     }
   }
@@ -45,9 +44,6 @@ router.post('/logout', (req, res) => {
 router.all('/check', (req, res) => {
   res.json({
     isAuthenticated: req.isAuthenticated(),
-    user: req.user,
-    session: req.session
-    // session: JSON.stringify(req.session.passport.user)
   });
 });
 

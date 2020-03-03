@@ -10,7 +10,7 @@ import HotTopic from './viewSections/HotTopic';
 import Footer from '../../components/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import axios from '../../axios/instance';
+import Slide from '@material-ui/core/Slide'
 
 const useStyles = makeStyles({
   root: {
@@ -23,6 +23,10 @@ const useStyles = makeStyles({
   },
 });
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const Popup = props => {
   const { type } = props;
   const classes = useStyles();
@@ -31,6 +35,8 @@ const Popup = props => {
       <Dialog
         open={true}
         onClose={() => props.handlePopup(null)}
+        TransitionComponent={Transition}
+        keepMounted
         className={classes.root}
         scroll='body'
         BackdropProps={{
@@ -62,13 +68,6 @@ export class Homepage extends Component {
     this.state = {
       popup: null,
     };
-  }
-
-  componentDidMount() {
-    axios
-      .get('/users/check')
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err));
   }
 
   handlePopup = value => {

@@ -11,49 +11,43 @@ const app = express();
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(flash());
+app.set('trust proxy', 1);
 app.use(
   session({
     secret: 'CovidForum',
     resave: false,
     saveUninitialized: false,
     cookie: {
-      // httpOnly: false,
-      // secure: null,
-      // sameSite: 'none',
-      httpOnly: false,
-      maxAge: 1000 * 60 * 24 * 7, // 7 days
+      maxAge: 1000 * 3600 * 24 * 7, // 7 days
     },
   })
 );
 
+// Passport config
 require('./config/passportFB');
 require('./config/passportLocal');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  // res.header('Accept', 'application/json',);
-  // res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-  );
-  // res.header('Access-Control-Allow-Credentials', true);
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//   );
+//   next();
+// });
+
+// Route config
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
 
+// Server config
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
   console.log('Sever running on PORT ' + PORT);

@@ -5,7 +5,8 @@ const passport = require('passport');
 router.get(
   '/facebook',
   passport.authenticate('fb-login', {
-    scope: ['email', 'user_gender'],
+    display: 'popup',
+    scope: ['email', 'public_profile', 'user_location', 'user_gender'],
   })
 );
 
@@ -17,8 +18,14 @@ router.get(
     // failureFlash: true,
   }),
   (req, res) => {
-    res.json({ fbLogin: 'ok', user: req.user });
+    req.session.method = 'fb';
+    console.log("FACEBOOK AUTH")
+    res.end();
   }
 );
+
+router.all('/facebook/check', (req, res) => {
+  res.json({ isAuthenticated: req.isAuthenticated(), user: req.user, session: req.session });
+});
 
 module.exports = router;

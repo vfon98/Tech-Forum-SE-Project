@@ -18,7 +18,6 @@ passport.use(
               message: 'Invalid email or password !',
             });
           }
-          console.log('FROM LOCAL successful');
           return done(null, user);
         })
         .catch(err => {
@@ -33,7 +32,6 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(user, done) {
-  console.log("-- LOCAL DESERIALIZED")
   done(null, user);
   // User.findById(id).then((err, user) => {
   //   if (err) done(err);

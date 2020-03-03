@@ -68,7 +68,7 @@ class Carousel extends Component {
       <div>
         <Slider {...settings}>
           {
-            items.map(item => <Item item={item} classes={classes}/>)
+            items.map((item, index) => <Item key={index} item={item} classes={classes}/>)
           }
 
 

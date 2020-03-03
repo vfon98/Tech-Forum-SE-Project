@@ -15,8 +15,8 @@ let history = createBrowserHistory();
 ReactDOM.render(
   <Router history={history}>
     <Switch>
-      <Route path='/discussion' exact component={Discussion} />
       <Route path='/' exact component={Homepage} />
+      <Route path='/discussion' exact component={Discussion} />
     </Switch>
   </Router>,
   document.getElementById('root')
