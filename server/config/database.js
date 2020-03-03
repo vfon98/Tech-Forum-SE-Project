@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const dbURI =
   'mongodb+srv://covid-forum:yV5GvSYEZwgA7WkC@cluster0-g0kfh.mongodb.net/covid_forum?retryWrites=true&w=majority';
 
+mongoose.set('useCreateIndex', true);
+mongoose.Promise = global.Promise;
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -11,6 +13,5 @@ mongoose
   .catch(err => {
     console.log(err);
   });
-mongoose.Promise = global.Promise;
 
 module.exports = mongoose;

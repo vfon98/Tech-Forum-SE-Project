@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './Login.css';
+import { Button, Grid } from '@material-ui/core';
+import { Facebook } from '@material-ui/icons';
 import axios from '../../axios/instance';
+import { setUser } from '../../utils/session';
 
 class Login extends Component {
   constructor(props) {
@@ -8,13 +11,9 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      error: ''
+      error: '',
     };
   }
-  componentDidMount() {
-    console.log(this.props)
-  }
-
 
   handleLogin = e => {
     e.preventDefault();
@@ -24,8 +23,14 @@ class Login extends Component {
         email,
         password,
       })
-      .then(() => {
-        this.props.history.push('/');
+      .then(res => {
+        console.log('Logged in');
+        // Set user to session storage
+        setUser({
+          displayName: res.data.user.display_name,
+          loginMethod: 'email'
+        });
+        this.props.handlePopup(null);
       })
       .catch(err => {
         console.log({ err });
@@ -35,9 +40,9 @@ class Login extends Component {
 
   resetError = () => {
     this.setState({
-      error: ''
-    })
-  }
+      error: '',
+    });
+  };
 
   render() {
     return (
@@ -51,6 +56,7 @@ class Login extends Component {
               className='input'
               type='email'
               placeholder='Email'
+              required
               onInput={this.resetError}
               onChange={e => {
                 this.setState({ email: e.target.value });
@@ -60,6 +66,7 @@ class Login extends Component {
               className='input'
               type='password'
               placeholder='Password'
+              required
               onInput={this.resetError}
               onChange={e => {
                 this.setState({ password: e.target.value });
@@ -68,14 +75,31 @@ class Login extends Component {
             <div className='error'>{this.state.error}</div>
             <input type='checkbox' /> <label className='lbl'>Remember Me</label>
             <button
-             className='link'
-             onClick={(e) => {
-              e.preventDefault()
-              this.props.handlePopup('register')
-            }}>Register an account ?</button>
-            <button className='button' type='submit' name='signin'>
-              SIGN IN
+              className='link'
+              onClick={e => {
+                e.preventDefault();
+                this.props.handlePopup('register');
+              }}
+            >
+              Register an account ?
             </button>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Button className='button' type='submit' variant='contained'>
+                  SIGN IN
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  href='http://localhost:9000/auth/facebook'
+                  variant='contained'
+                  color='primary'
+                  startIcon={<Facebook />}
+                >
+                  Continue with Facebook
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </div>
       </div>

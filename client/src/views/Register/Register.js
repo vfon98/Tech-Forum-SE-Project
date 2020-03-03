@@ -49,7 +49,7 @@ class Register extends Component {
   }
 
   render() {
-    const { error, password, repass } = this.state;
+    const { error } = this.state;
     return (
       <div className='wrapper'>
         <div className='title'>

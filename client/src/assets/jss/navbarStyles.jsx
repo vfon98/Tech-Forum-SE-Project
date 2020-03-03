@@ -52,6 +52,13 @@ const navbarStyles = {
         "@media (min-width: 1400px)" : {
             'width' : '10rem'
         },
+    },
+    displayName: {
+      "color": textColor,
+      textTransform: 'none'
+    },
+    avatar: {
+      marginRight: '0.5em'
     }
 }
 

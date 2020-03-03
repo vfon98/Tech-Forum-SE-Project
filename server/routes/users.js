@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const UserControllers = require('../controllers/userController');
 const User = require('../models/User');
+const authenticate = require('../middlewares/authenticate');
 
 router.post('/register', (req, res) => {
   const user = new User(req.body);
@@ -28,6 +29,7 @@ router.post(
   }),
   (req, res) => {
     if (req.isAuthenticated()) {
+      req.session.method = 'email';
       res.json({ isAuthenticated: true, user: req.user });
     }
   }
@@ -40,7 +42,9 @@ router.post('/logout', (req, res) => {
 
 // Just for testing
 router.all('/check', (req, res) => {
-  res.json({ status: req.flash(), isAuthenticated: req.isAuthenticated() });
+  res.json({
+    isAuthenticated: req.isAuthenticated(),
+  });
 });
 
 module.exports = router;
