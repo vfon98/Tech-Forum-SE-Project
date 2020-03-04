@@ -24,6 +24,10 @@ const UserSchema = new Schema(
       required: true,
       unique: true
     },
+    image: {
+      data: Buffer,
+      contentType: String
+    },
     avatar: String,
     gender: String,
     address: String,

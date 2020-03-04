@@ -5,7 +5,8 @@ const RoomSchema = new Schema({
   name: {
     type: String,
     required: true
-  }
+  },
+  image: String
 }, {
   timestamps: {
     createdAt: 'created_at',

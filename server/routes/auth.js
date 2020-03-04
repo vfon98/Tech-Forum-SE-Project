@@ -24,8 +24,8 @@ router.get(
   }
 );
 
-router.all('/facebook/check', (req, res) => {
-  res.json({ isAuthenticated: req.isAuthenticated(), user: req.user, session: req.session });
+router.all('/check', (req, res) => {
+  res.json({ isAuthenticated: req.isAuthenticated(), user: req.user });
 });
 
 module.exports = router;

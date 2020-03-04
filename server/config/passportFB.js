@@ -24,10 +24,11 @@ passport.use(
         'gender',
         'name',
         'location',
-        'picture{url,height,width}',
+        'picture.type(large)',
       ],
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log(profile)
       const { id, email, name, gender, location, picture } = profile._json;
       // Create new user
       User.findOne({ email }).then(user => {
@@ -40,7 +41,7 @@ passport.use(
           fbUser.display_name = name;
           fbUser.avatar = picture.data.url;
           fbUser.gender = gender;
-          fbUser.address = location.name;
+          fbUser.address = location ? location.name : '';
           fbUser
             .save()
             .then(() => {
@@ -49,7 +50,6 @@ passport.use(
             .catch(err => console.log(err));
         }
         // Existed user
-        console.log("FORM", user)
         done(null, user)
         // done(null, user)
       }).catch(err => console.log(err));
