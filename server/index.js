@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('./config/database');
 const express = require('express');
 const session = require('express-session');
@@ -9,7 +10,11 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const app = express();
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(express.static('./upload'))
+app.use(cors({ 
+  credentials: true,
+  origin: process.env.CLIENT_DOMAIN
+}));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

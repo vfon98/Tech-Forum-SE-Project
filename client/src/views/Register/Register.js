@@ -15,6 +15,7 @@ class Register extends Component {
       address: '',
       error: null,
     };
+    this.fileRef = React.createRef();
   }
 
   handleRegister = e => {
@@ -23,17 +24,23 @@ class Register extends Component {
     if (!this.isPasswordMatched()) return;
     //
     const { email, password, display_name, gender } = this.state;
+    const body = new FormData();
+    body.append('avatar', this.fileRef.current.files[0]);
+    body.append('email', email);
+    body.append('password', password);
+    body.append('display_name', display_name);
+    body.append('gender', gender);
     axios
-      .post('users/register', {
-        email,
-        password,
-        display_name,
-        gender,
+      .post('/users/register', body, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
       })
       .then(res => {
+        console.log(res.data);
         // No error
         if (!res.data.err) {
-          this.props.history.push('/login');
+          this.props.handlePopup('login');
         }
         // Has error
         this.setState({ error: res.data.err });
@@ -46,7 +53,7 @@ class Register extends Component {
   isPasswordMatched = () => {
     let { password, repass } = this.state;
     return password === repass;
-  }
+  };
 
   render() {
     const { error } = this.state;
@@ -66,9 +73,11 @@ class Register extends Component {
                 this.setState({ email: e.target.value });
               }}
             />
-            {
-              error && error.email ? <div className="error">Email is already used</div> : ''
-            }
+            {error && error.email ? (
+              <div className='error'>Email is already used</div>
+            ) : (
+              ''
+            )}
             <input
               className='input'
               type='text'
@@ -79,10 +88,12 @@ class Register extends Component {
               onChange={e => {
                 this.setState({ display_name: e.target.value });
               }}
-              />
-              {
-                error && error.display_name ? <div className="error">This name is existed</div> : ''
-              }
+            />
+            {error && error.display_name ? (
+              <div className='error'>This name is existed</div>
+            ) : (
+              ''
+            )}
             <input
               className='input'
               type='password'
@@ -103,9 +114,11 @@ class Register extends Component {
                 this.setState({ repass: e.target.value });
               }}
             />
-            {
-              !this.isPasswordMatched() ? <div className="error">Password does not match</div> : ''
-            }
+            {!this.isPasswordMatched() ? (
+              <div className='error'>Password does not match</div>
+            ) : (
+              ''
+            )}
             <label className='single-lbl'>Gender</label>
             <input
               className='radio-button'
@@ -130,7 +143,14 @@ class Register extends Component {
             />
             <label className='lbl'>Female</label>
             <label className='single-lbl'>Choose your avatar</label>
-            <input className='input' type='file' />
+            <input
+              type='file'
+              className='input'
+              name='avatar'
+              accept='image/*'
+              ref={this.fileRef}
+              onChange={this.handleUploadAvatar}
+            />
             <input
               className='input'
               type='text'
@@ -139,10 +159,16 @@ class Register extends Component {
                 this.setState({ address: e.target.value });
               }}
             />
-            <button className='link'onClick={e => {
-              e.preventDefault();
-              this.props.handlePopup('login')
-            }}>Sign in now!</button>
+            <button
+              type='button'
+              className='link'
+              onClick={e => {
+                e.preventDefault();
+                this.props.handlePopup('login');
+              }}
+            >
+              Sign in now!
+            </button>
             <button className='button' type='submit'>
               SIGN UP
             </button>

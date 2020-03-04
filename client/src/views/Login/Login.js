@@ -75,6 +75,7 @@ class Login extends Component {
             <div className='error'>{this.state.error}</div>
             <input type='checkbox' /> <label className='lbl'>Remember Me</label>
             <button
+              type='button'
               className='link'
               onClick={e => {
                 e.preventDefault();
