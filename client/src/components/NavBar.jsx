@@ -24,7 +24,7 @@ class NavBar extends Component {
   
   componentDidMount() {
     axios
-      .get('/auth/facebook/check')
+      .get('/auth/check')
       .then(res => {
         if (res.data.isAuthenticated) {
           const { display_name, avatar } = res.data.user;
@@ -39,6 +39,18 @@ class NavBar extends Component {
       })
       .catch(err => console.log(err));
   }
+
+  // For email login cause cannot reload
+  componentDidUpdate(prevState) {
+    // Check if displayName has changed
+    const user = getUser();
+    if (user && user.displayName !== this.state.displayName) {
+      this.setState({
+        displayName: user.displayName
+      });
+    }
+  }
+  
 
   handleClickUserBtn = e => {
     if (!isLogin()) {
