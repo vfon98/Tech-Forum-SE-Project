@@ -14,12 +14,11 @@ router.get(
   '/facebook/callback',
   passport.authenticate('fb-login', {
     display: 'popup',
-    successRedirect: 'http://localhost:3000/',
-    // failureFlash: true,
+    successRedirect: process.env.CLIENT_DOMAIN,
+    failureFlash: true,
   }),
   (req, res) => {
     req.session.method = 'fb';
-    console.log("FACEBOOK AUTH")
     res.end();
   }
 );

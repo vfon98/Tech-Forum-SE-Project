@@ -1,16 +1,25 @@
-import React, { Component } from 'react'
-import { NavLink, Link } from 'react-router-dom'
-import { AppBar, Toolbar, Button, Grid, TextField, Typography, Avatar } from '@material-ui/core'
+import React, { Component } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Avatar,
+  Hidden,
+} from '@material-ui/core';
 
-import { withStyles } from '@material-ui/styles'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import Search from '@material-ui/icons/Search'
-import UserPanel from './UserPanel'
+import { withStyles } from '@material-ui/styles';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Search from '@material-ui/icons/Search';
+import UserPanel from './UserPanel';
 
-import navbarStyles from 'assets/jss/navbarStyles.jsx'
-import { getUser, logoutUser } from '../utils/session'
-import axios from '../axios/instance'
-import { setUser, isLogin } from '../utils/session'
+import navbarStyles from 'assets/jss/navbarStyles.jsx';
+import { getUser, logoutUser } from '../utils/session';
+import axios from '../axios/instance';
+import { setUser, isLogin } from '../utils/session';
 
 class NavBar extends Component {
   constructor(props) {
@@ -18,11 +27,23 @@ class NavBar extends Component {
     this.state = {
       popoverAnchor: null,
       displayName: '',
-      avatar: ''
+      avatar: '',
+    };
+  }
+
+  componentDidMount() {
+    this.fetchUser();
+  }
+
+  componentDidUpdate(prevState) {
+    // Check if displayName has changed
+    const user = getUser();
+    if (user && user.displayName !== this.state.displayName) {
+      this.fetchUser();
     }
   }
-  
-  componentDidMount() {
+
+  fetchUser = () => {
     axios
       .get('/auth/check')
       .then(res => {
@@ -33,35 +54,26 @@ class NavBar extends Component {
           // Set to state
           this.setState({
             displayName: display_name,
-            avatar: avatar
-          })
+            avatar: avatar,
+          });
         }
       })
       .catch(err => console.log(err));
-  }
-
-  // For email login cause cannot reload
-  componentDidUpdate(prevState) {
-    // Check if displayName has changed
-    const user = getUser();
-    if (user && user.displayName !== this.state.displayName) {
-      this.setState({
-        displayName: user.displayName
-      });
-    }
-  }
-  
+  };
 
   handleClickUserBtn = e => {
     if (!isLogin()) {
-      this.props.handlePopup('login')
-    }
-    else {
+      this.props.handlePopup('login');
+    } else {
       this.setState({
-        popoverAnchor: e.currentTarget
-      })
+        popoverAnchor: e.currentTarget,
+      });
     }
-  }
+  };
+
+  handleCloseUserPanel = () => {
+    this.setState({ popoverAnchor: null });
+  };
 
   handleLogout = () => {
     axios.post('/users/logout').then(() => {
@@ -69,20 +81,20 @@ class NavBar extends Component {
       logoutUser();
       this.setState({
         displayName: '',
-        avatar: ''
-      })
-    })
-  }
+        avatar: '',
+      });
+    });
+  };
 
-	render() {
+  render() {
     const { classes } = this.props;
     const user = getUser();
-		return (
+    return (
       <>
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
-              <Grid item md={2}>
+              <Grid item sm={2}>
                 <Link to='/' className={classes.link}>
                   {this.props.brand ? this.props.brand : 'BRAND'}
                   <span className={classes.brandHighlight}>
@@ -91,7 +103,7 @@ class NavBar extends Component {
                   </span>
                 </Link>
               </Grid>
-              <Grid container md={6} justify='center'>
+              <Grid container sm={6} justify='center'>
                 <Button className={classes.btn}>
                   <NavLink className={classes.link} to='/'>
                     Home
@@ -113,13 +125,15 @@ class NavBar extends Component {
                   </NavLink>
                 </Button>
               </Grid>
-              <Grid container md={4} justify='flex-end'>
-                <input
-                  type='text'
-                  name='searchBox'
-                  className={classes.searchBox}
-                  placeholder='Search'
-                />
+              <Grid container sm={4} justify='flex-end'>
+                <Hidden smDown>
+                  <input
+                    type='text'
+                    name='searchBox'
+                    className={classes.searchBox}
+                    placeholder='Search'
+                  />
+                </Hidden>
                 {/* USER BUTTON */}
                 <Button>
                   <Search className={classes.accountBtn} />
@@ -135,7 +149,7 @@ class NavBar extends Component {
                 </Button>
                 <UserPanel
                   popoverAnchor={this.state.popoverAnchor}
-                  onClose={() => this.setState({ popoverAnchor: null, displayName: '' })}
+                  onClose={this.handleCloseUserPanel}
                   onLogout={this.handleLogout}
                 />
               </Grid>
@@ -144,7 +158,7 @@ class NavBar extends Component {
         </AppBar>
       </>
     );
-	}
+  }
 }
 
-export default withStyles(navbarStyles)(NavBar)
+export default withStyles(navbarStyles)(NavBar);

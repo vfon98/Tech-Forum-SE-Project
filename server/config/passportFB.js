@@ -14,9 +14,9 @@ passport.use(
   'fb-login',
   new FacebookStrategy(
     {
-      clientID: '2559291467516498',
-      clientSecret: '36dd97ec71bb829e7096430ecdbe24ed',
-      callbackURL: 'http://localhost:9000/auth/facebook/callback',
+      clientID: process.env.FB_ID,
+      clientSecret: process.env.FB_SECRET,
+      callbackURL: '/auth/facebook/callback',
       profileFields: [
         'id',
         'email',
@@ -41,6 +41,7 @@ passport.use(
           fbUser.display_name = name;
           fbUser.avatar = picture.data.url;
           fbUser.gender = gender;
+          // If user deny location access
           fbUser.address = location ? location.name : '';
           fbUser
             .save()

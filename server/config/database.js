@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI =
-  'mongodb+srv://covid-forum:yV5GvSYEZwgA7WkC@cluster0-g0kfh.mongodb.net/covid_forum?retryWrites=true&w=majority';
+const dbURI = process.env.MONGODB_URI;
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
