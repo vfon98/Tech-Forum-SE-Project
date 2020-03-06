@@ -24,49 +24,49 @@ import Register from '../Register/Register'
 
 const rooms = [
   {
-    id: '1',
+    id: '5e5e76ff0df4c97fa160c193',
     title: 'Windows',
     img: windows,
     newPost: 1
   },
   {
-    id: '2',
+    id: '5e5e770c0df4c97fa160c194',
     title: 'macOS',
     img: macos,
     newPost: 3
   },
   {
-    id: '3',
+    id: '5e5e77110df4c97fa160c195',
     title: 'Linux',
     img: linux,
     newPost: 5
   },
   {
-    id: '4',
+    id: '5e5e77170df4c97fa160c196',
     title: 'iOS',
     img: ios,
     newPost: 2
   },
   {
-    id: '5',
+    id: '5e5e771c0df4c97fa160c197',
     title: 'Android',
     img: android,
     newPost: 1
   },
   {
-    id: '6',
+    id: '5e5e77250df4c97fa160c198',
     title: 'Smartphone',
     img: smartphone,
     newPost: 1
   },
   {
-    id: '7',
+    id: '5e5e772d0df4c97fa160c199',
     title: 'Laptop - Desktop',
     img: laptop_desktop,
     newPost: 8
   },
   {
-    id: '8',
+    id: '5e5e77340df4c97fa160c19a',
     title: 'Programing',
     img: programing,
     newPost: 1
@@ -122,7 +122,7 @@ class Discussion extends React.Component {
     }
   }
   handleClick = value => {
-    console.log(value)
+    window.location = `/${value.toLowerCase()}`
   }
 
   handlePopup = (value) => {

@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import NavBar from '../../components/NavBar'
 import { Dialog, DialogContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
-import NavBar from 'components/NavBar.jsx';
-import MainThreads from './viewSections/MainThreads';
-import RecentNews from './viewSections/RecentNews';
-import HotTopic from './viewSections/HotTopic';
-import Footer from '../../components/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import Slide from '@material-ui/core/Slide'
+
+import Header from './viewSections/Header'
 
 const useStyles = makeStyles({
   root: {
@@ -56,11 +51,25 @@ const Popup = props => {
   );
 };
 
-export class Homepage extends Component {
+const data = {
+  _id: '5e5e001e50b5c51a38840a21',
+  is_banned: false,
+  fbID: "2635529400057723",
+  email: "vfon98@gmail.com",
+  display_name: "Phong Vủ",
+  avatar: "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2635529400057723&height=50&width=50&ext=1585810717&hash=AeTv691agEZpRcDX",
+  gender: "male",
+  address: "Cần Thơ",
+  status: "Status"
+}
+
+
+export class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       popup: null,
+      userInfo: data
     };
   }
 
@@ -71,8 +80,9 @@ export class Homepage extends Component {
   };
 
   render() {
+    const { userInfo } = this.state;
     return (
-      <>
+      <div>
         {this.state.popup !== null ? (
           <Popup handlePopup={this.handlePopup} type={this.state.popup} />
         ) : null}
@@ -81,13 +91,17 @@ export class Homepage extends Component {
           brandHighlight='Forum'
           handlePopup={this.handlePopup}
         />
-        <MainThreads />
-        <RecentNews />
-        <HotTopic />
-        <Footer />
-      </>
-    );
+
+        <Header
+          id={userInfo.id}
+          avatar={userInfo.avatar}
+          status={userInfo.status}
+
+        />
+
+      </div>
+    )
   }
 }
 
-export default Homepage;
+export default ProfilePage
