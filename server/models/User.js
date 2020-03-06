@@ -18,15 +18,12 @@ const UserSchema = new Schema(
     },
     password_hash: {
       type: String,
+      select: false
     },
     display_name: {
       type: String,
       required: true,
       unique: true
-    },
-    image: {
-      data: Buffer,
-      contentType: String
     },
     avatar: String,
     gender: String,

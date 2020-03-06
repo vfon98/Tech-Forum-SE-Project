@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('../models/User');
 
 const CommentSchema = new Schema({
   content: {
@@ -19,6 +20,12 @@ const CommentSchema = new Schema({
     createdAt: 'created_at',
     updatedAt: 'updated_at'
   }
+})
+
+CommentSchema.virtual('user', {
+  ref: 'User',
+  localField: 'user_id',
+  foreignField: '_id'
 })
 
 module.exports = mongoose.model('Comment', CommentSchema);

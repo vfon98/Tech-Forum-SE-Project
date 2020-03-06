@@ -15,11 +15,17 @@ const PostSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Room'
     },
+    type: {
+      type: String,
+      enum: ['post', 'news'],
+      default: 'post'
+    },
     likes: [{
         type: Schema.Types.ObjectId,
-        ref: 'Like'
+        ref: 'Like',
+        unique: true
     }],
-    comment: [{
+    comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment'
     }],
@@ -31,5 +37,12 @@ const PostSchema = new Schema(
     },
   }
 );
+
+function autoPopulate(next) {
+  this.populate('user_id');
+  next();
+}
+
+PostSchema.pre('find', autoPopulate);
 
 module.exports = mongoose.model('Post', PostSchema);
