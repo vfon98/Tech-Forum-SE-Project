@@ -5,7 +5,7 @@ const passport = require('passport');
 router.get(
   '/facebook',
   passport.authenticate('fb-login', {
-    display: 'dialog',
+    display: 'popup',
     scope: ['email', 'public_profile', 'user_location', 'user_gender'],
   })
 );
@@ -13,6 +13,7 @@ router.get(
 router.get(
   '/facebook/callback',
   passport.authenticate('fb-login', {
+    display: 'popup',
     successRedirect: process.env.CLIENT_DOMAIN,
     failureFlash: true,
   }),

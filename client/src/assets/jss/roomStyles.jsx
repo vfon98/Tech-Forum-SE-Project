@@ -19,8 +19,9 @@ const roomStyles = {
     color: textColor,
     fontSize: '0.9rem',
   },
-  border: {
-    border: '1px dotted #fff',
+  roomWrapper: {
+    backgroundColor: secondaryColor,
+    paddingTop: '24px'
   },
   text: {
     color: textColor,
@@ -103,7 +104,7 @@ const roomStyles = {
     backgroundColor: primaryColor,
     color: textColor,
     '&:last-child': {
-      paddingBottom: '0.6em'
+      paddingBottom: '0.8em'
     }
   },
   comment: {

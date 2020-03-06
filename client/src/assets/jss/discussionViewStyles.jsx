@@ -1,11 +1,12 @@
-import { container } from "./main";
+import { container, secondaryColor } from "./main";
 
 const discussionViewStyles = {
   container: {
     ...container
   },
   background: {
-    background: "#fff",
+    // background: "#fff",
+    backgroundColor: secondaryColor,
     padding: '5rem 0'
   }
 

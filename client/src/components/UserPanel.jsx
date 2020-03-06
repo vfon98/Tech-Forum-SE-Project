@@ -7,9 +7,11 @@ import {
   Divider,
   ListItemIcon,
 } from '@material-ui/core';
-import { isLogin } from '../utils/session';
-import { withStyles } from '@material-ui/styles';
 import { PowerSettingsNew, Person, Assignment } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+import { isLogin } from '../utils/session';
+
+import { withStyles } from '@material-ui/styles';
 import userPanelStyles from '../assets/jss/userPanelStyles';
 
 

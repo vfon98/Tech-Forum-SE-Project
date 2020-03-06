@@ -47,6 +47,7 @@ class NavBar extends Component {
     axios
       .get('/auth/check')
       .then(res => {
+        console.log('res', res)
         if (res.data.isAuthenticated) {
           const { display_name, avatar } = res.data.user;
           // Set user info into client storage
@@ -56,6 +57,10 @@ class NavBar extends Component {
             displayName: display_name,
             avatar: avatar,
           });
+        }
+        else {
+          // Delete session on browser
+          logoutUser();
         }
       })
       .catch(err => console.log(err));
@@ -88,7 +93,6 @@ class NavBar extends Component {
 
   render() {
     const { classes } = this.props;
-    const user = getUser();
     return (
       <>
         <AppBar position='relative'>

@@ -46,7 +46,7 @@ export class Room extends Component {
           brandHighlight='Forum'
           handlePopup={this.handlePopup}
         />
-        <Box borderRadius={1} mt={3}>
+        <Box className={classes.roomWrapper}>
           <Container>
             <Grid container spacing={2}>
               <Grid item sm={3}>

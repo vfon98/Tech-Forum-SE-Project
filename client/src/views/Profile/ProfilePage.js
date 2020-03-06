@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-
-import { Dialog, DialogContent } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-
-import NavBar from 'components/NavBar.jsx';
-import MainThreads from './viewSections/MainThreads';
-import RecentNews from './viewSections/RecentNews';
-import HotTopic from './viewSections/HotTopic';
-import Footer from '../../components/Footer';
+import React, { Component } from 'react'
+import axios from '../../axios/instance'
+import NavBar from '../../components/NavBar'
+import { Dialog, DialogContent, Grid } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/styles';
+import profilePageStyles  from '../../assets/jss/profilePageStyles';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-import Slide from '@material-ui/core/Slide'
+
+import Header from './viewSections/Header'
+import Tabs from './viewSections/VerticalTabs'
 
 const useStyles = makeStyles({
   root: {
@@ -55,14 +53,25 @@ const Popup = props => {
     </>
   );
 };
-
-export class Homepage extends Component {
+export class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       popup: null,
+      userInfo: null
     };
   }
+  componentDidMount() {
+    axios
+    .get('/profile')
+    .then(res => {
+      this.setState({
+        userInfo: res.data
+      })
+    })
+    
+  }
+  
 
   handlePopup = value => {
     this.setState({
@@ -71,8 +80,10 @@ export class Homepage extends Component {
   };
 
   render() {
+    const { userInfo } = this.state;
+    const { classes } = this.props;
     return (
-      <>
+      <div>
         {this.state.popup !== null ? (
           <Popup handlePopup={this.handlePopup} type={this.state.popup} />
         ) : null}
@@ -81,13 +92,18 @@ export class Homepage extends Component {
           brandHighlight='Forum'
           handlePopup={this.handlePopup}
         />
-        <MainThreads />
-        <RecentNews />
-        <HotTopic />
-        <Footer />
-      </>
-    );
+
+        <Header
+          avatar={userInfo ? userInfo.profile.user_id.avatar: null}
+          // status={userInfo.status}
+        />
+        <Grid container className={classes.container}>
+           <Tabs userInfo={this.state.userInfo}/>
+        </Grid>
+
+      </div>
+    )
   }
 }
 
-export default Homepage;
+export default withStyles(profilePageStyles)(ProfilePage)
