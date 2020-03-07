@@ -11,7 +11,7 @@ passport.use(
       passwordField: 'password',
     },
     function(email, password, done) {
-      User.findOne({ email })
+      User.findOne({ email }).select('+password_hash')
         .then(user => {
           if (!user || !user.validatePassword(password)) {
             return done(null, false, {
