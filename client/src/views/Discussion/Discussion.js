@@ -123,6 +123,7 @@ class Discussion extends React.Component {
   }
   handleClick = value => {
     console.log(value)
+    this.props.history.push(`/room/${value}`)
   }
 
   handlePopup = (value) => {
