@@ -24,7 +24,7 @@ passport.use(
         'gender',
         'name',
         'location',
-        'picture.width(9999).height(9999)',
+        'picture.type(large)',
       ],
     },
     (accessToken, refreshToken, profile, done) => {

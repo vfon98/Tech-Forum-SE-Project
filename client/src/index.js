@@ -4,14 +4,13 @@ import './index.css';
 
 // import Router
 import { Switch, Route, Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import history from './utils/history'
 
 //Import view of this product
 import Homepage from './views/Homepage/Homepage.jsx';
 import Discussion from './views/Discussion/Discussion'
 import Profile from './views/Profile/ProfilePage'
 
-let history = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={history}>

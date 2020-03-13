@@ -33,7 +33,10 @@ const useStyles = makeStyles({
     width: '10rem',
     height: '10rem',
     borderRadius: '50%',
-    border: '.3rem solid #fff'
+    border: '.3rem solid #fff',
+    overflow: "hidden",
+    objectFit: 'cover',
+    objectPosition: 'center',
   },
   editAvatarBtn: {
     position: 'absolute',
@@ -74,6 +77,14 @@ const useStyles = makeStyles({
     fontSize: "1rem",
     color: "rgba(51,51,51,.8)",
     textAlign: 'center'
+  },
+  hr: {
+    height: "1px",
+    width: '70%',
+    display: 'block',
+    background: "rgba(51,51,51,.5)",
+    margin: '0 auto'
+
   }
 
 })
@@ -81,10 +92,8 @@ const useStyles = makeStyles({
 
 
 const img = 'https://wallpaperaccess.com/full/7280.jpg'
-const avt = 'https://scontent.fsgn5-1.fna.fbcdn.net/v/t1.0-1/p160x160/67149291_864932330549540_4452945672139702272_o.jpg?_nc_cat=101&_nc_sid=7206a8&_nc_ohc=4Y5lzp1uG2QAX_osD9W&_nc_ht=scontent.fsgn5-1.fna&_nc_tp=6&oh=0959aa6f7e87a4a6b782d7949c3fe6cf&oe=5E80D2E7'
-
 export default function Header(props) {
-  
+
   const classes = useStyles()
   return (
     <>
@@ -97,11 +106,13 @@ export default function Header(props) {
           <div className={classes.editAvatarBtn}>
             <CameraAlt />
             <input type='file' className={classes.avatarInputFile} />
-          </div> 
+          </div>
           <h3 className={classes.displayName}>Nguyen Khoa</h3>
           <p className={classes.status} >Status</p>
+
         </Grid>
       </Grid>
+      <div className={classes.hr}></div>
     </>
   )
 }

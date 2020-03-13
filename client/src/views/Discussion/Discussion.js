@@ -1,7 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import history from '../../utils/history'
 
 import { Grid, Dialog, DialogContent } from '@material-ui/core'
 import { withStyles, makeStyles } from '@material-ui/styles'
+
 
 import Card from './view components/CustomCard'
 import NavBar from '../../components/NavBar'
@@ -117,12 +120,19 @@ const Popup = (props) => {
 class Discussion extends React.Component {
   constructor(props) {
     super(props);
-    this.state ={
+    this.state = {
       popup: null
     }
   }
-  handleClick = value => {
-    window.location = `/${value.toLowerCase()}`
+  handleClick = (value, id) => {
+    history.push(
+      {
+        pathname: `/room/${value.toLowerCase()}`,
+        props: {
+          id: id
+        }
+      }
+    )
   }
 
   handlePopup = (value) => {
@@ -130,7 +140,9 @@ class Discussion extends React.Component {
       popup: value
     })
   }
+
   render() {
+
     const { classes } = this.props
     return (
       <>

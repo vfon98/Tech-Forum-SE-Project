@@ -55,7 +55,7 @@ function CustomCard(props) {
   return (
     <>
       <button
-        onClick={() => props.handleClick(props.title)}
+        onClick={() => props.handleClick(props.title, props.id)}
         className={classes.background}
       >
         <Card className={classes.card}>

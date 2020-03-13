@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
+import axios from '../../axios/instance'
 import NavBar from '../../components/NavBar'
-import { Dialog, DialogContent } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Dialog, DialogContent, Grid } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/styles';
+import profilePageStyles  from '../../assets/jss/profilePageStyles';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 import Header from './viewSections/Header'
+import Tabs from './viewSections/VerticalTabs'
 
 const useStyles = makeStyles({
   root: {
@@ -50,28 +53,25 @@ const Popup = props => {
     </>
   );
 };
-
-const data = {
-  _id: '5e5e001e50b5c51a38840a21',
-  is_banned: false,
-  fbID: "2635529400057723",
-  email: "vfon98@gmail.com",
-  display_name: "Phong Vủ",
-  avatar: "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2635529400057723&height=50&width=50&ext=1585810717&hash=AeTv691agEZpRcDX",
-  gender: "male",
-  address: "Cần Thơ",
-  status: "Status"
-}
-
-
 export class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       popup: null,
-      userInfo: data
+      userInfo: null
     };
   }
+  componentDidMount() {
+    axios
+    .get('/profile')
+    .then(res => {
+      this.setState({
+        userInfo: res.data
+      })
+    })
+    
+  }
+  
 
   handlePopup = value => {
     this.setState({
@@ -81,6 +81,7 @@ export class ProfilePage extends Component {
 
   render() {
     const { userInfo } = this.state;
+    const { classes } = this.props;
     return (
       <div>
         {this.state.popup !== null ? (
@@ -93,15 +94,16 @@ export class ProfilePage extends Component {
         />
 
         <Header
-          id={userInfo.id}
-          avatar={userInfo.avatar}
-          status={userInfo.status}
-
+          avatar={userInfo ? userInfo.profile.user_id.avatar: null}
+          // status={userInfo.status}
         />
+        <Grid container className={classes.container}>
+           <Tabs userInfo={this.state.userInfo}/>
+        </Grid>
 
       </div>
     )
   }
 }
 
-export default ProfilePage
+export default withStyles(profilePageStyles)(ProfilePage)
