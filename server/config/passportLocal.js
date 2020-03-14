@@ -11,13 +11,16 @@ passport.use(
       passwordField: 'password',
     },
     function(email, password, done) {
-      User.findOne({ email }).select('+password_hash')
+      User.findOne({ email })
+        .select('+password_hash')
         .then(user => {
           if (!user || !user.validatePassword(password)) {
             return done(null, false, {
               message: 'Invalid email or password !',
             });
           }
+          user = user.toObject();
+          delete user.password_hash;
           return done(null, user);
         })
         .catch(err => {

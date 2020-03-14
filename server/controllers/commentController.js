@@ -3,6 +3,21 @@ const Post = require('../models/Post');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
+  allComments(req, res) {
+    Comment.find({})
+      .then(comments => {
+        res.json({ comments });
+      })
+      .catch(err => console.log(err));
+  },
+  getByPostId(req, res) {
+    const id = req.params.id;
+    Post.findById(id)
+      .then(_post => {
+        res.json({ comments: _post.comments });
+      })
+      .catch(err => console.log(err));
+  },
   createComment(req, res) {
     const comment = new Comment({
       user_id: req.user._id,
@@ -21,10 +36,9 @@ module.exports = {
             },
           },
           { new: true }
-        )
-          .then(_post => {
-            res.json({ status: 'ok', _post });
-          });
+        ).then(_post => {
+          res.json({ status: 'ok', comments: _post.comments });
+        });
       })
       .catch(err => res.status(400).json({ err }));
   },
@@ -34,7 +48,15 @@ module.exports = {
     // Update comment
     Comment.findByIdAndUpdate(id, { content }, { new: true })
       .then(comment => {
-        res.json({ status: 'ok', comment });
+        Post.findById(comment.post_id)
+          .then(_post => {
+            res.json({
+              status: 'ok',
+              old: comment,
+              comments: _post.comments,
+            });
+          })
+          .catch(err => res.status(400).json(err));
       })
       .catch(err => res.status(400).json({ err }));
   },
@@ -43,14 +65,24 @@ module.exports = {
     // Delete comment first then its post's ref
     Comment.findByIdAndDelete(id)
       .then(_comment => {
-        Post.findByIdAndUpdate(_comment.post_id, {
-          $pull: {
-            comments: _comment.id
-          }
-        }, { new : true }).then(_post => {
-          res.json({ status: 'ok', _comment, _post });
-        })
+        Post.findByIdAndUpdate(
+          _comment.post_id,
+          {
+            $pull: {
+              comments: _comment.id,
+            },
+          },
+          { new: true }
+        ).then(_post => {
+          res.json({
+            status: 'ok',
+            old: _comment,
+            comments: _post.comments,
+          });
+        });
       })
-      .catch(err => res.json(400).json({ err, message: 'Delete comment failed' }));
+      .catch(err =>
+        res.json(400).json({ err, message: 'Delete comment failed' })
+      );
   },
 };

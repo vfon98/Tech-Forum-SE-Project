@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios/instance';
 import './Register.css';
-import { Link } from 'react-router-dom';
 
 class Register extends Component {
   constructor(props) {

@@ -128,7 +128,7 @@ const CardItem = (props) => {
 
     <Button className={classes.btn}>
       <NavLink to={props.item.link} style={{ textDecoration: 'none', textTransform: 'none' }}>
-        <Grid container>
+        <Grid container spacing={3}>
           <Grid item sm={4}>
             <img
               className={classes.img}

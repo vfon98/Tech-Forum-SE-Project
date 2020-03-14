@@ -17,11 +17,6 @@ import smartphone from '../../assets/img/title/smartphone.jpg'
 import laptop_desktop from '../../assets/img/title/laptop_desktop.jpg'
 import programing from '../../assets/img/title/programing.jpg'
 
-
-import Login from '../Login/Login';
-import Register from '../Register/Register'
-
-
 const rooms = [
   {
     id: '5e5e76ff0df4c97fa160c193',
@@ -73,76 +68,19 @@ const rooms = [
   },
 ]
 
-const useStyles = makeStyles({
-  root: {
-    marginTop: '-5%',
-    background: 'rgba(0,0,0,.7)'
-  },
-  paper: {
-    background: 'transparent',
-    boxShadow: 'none'
-  }
-})
-
-const Popup = (props) => {
-  const { type } = props;
-  const classes = useStyles();
-  return (
-    <>
-      <Dialog
-        open={true}
-        onClose={() => props.handlePopup(null)}
-        className={classes.root}
-        BackdropProps={{
-          classes: {
-            root: classes.root
-          }
-        }}
-        PaperProps={{
-          classes: {
-            root: classes.paper
-          }
-        }}
-      >
-        <DialogContent>
-          {
-            type == 'login' ? <Login handlePopup={props.handlePopup} /> : type == "register" ? <Register handlePopup={props.handlePopup} /> : null
-          }
-        </DialogContent>
-      </Dialog>
-    </>
-  )
-}
-
 class Discussion extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state ={
-      popup: null
-    }
-  }
   handleClick = value => {
     console.log(value)
     this.props.history.push(`/room/${value}`)
   }
 
-  handlePopup = (value) => {
-    this.setState({
-      popup: value
-    })
-  }
   render() {
     const { classes } = this.props
     return (
       <>
-
-        {
-          this.state.popup !== null ? <Popup handlePopup={this.handlePopup} type={this.state.popup} /> : null
-        }
         <NavBar
           brand="Covid"
           brandHighlight="Forum"
-          handlePopup={this.handlePopup}
         />
         <div
           className={classes.background}
@@ -150,7 +88,7 @@ class Discussion extends React.Component {
           <Grid container className={classes.container} spacing={2}>
             {
               rooms.map(room => (
-                <Grid sm={4} item>
+                <Grid sm={4} item key={room.id}>
                   <Card
                     image={room.img}
                     handleClick={this.handleClick}

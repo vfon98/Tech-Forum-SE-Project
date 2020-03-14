@@ -45,7 +45,7 @@ const recentNewsStyles = {
     color: textColor,
     textDecoration: 'none',
     display: 'block',
-    marginLeft: '2rem',
+    // marginLeft: '2rem',
     textAlign: 'right'
   },
   btn: {

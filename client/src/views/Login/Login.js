@@ -28,6 +28,7 @@ class Login extends Component {
         // Set user to session storage
         setUser({
           displayName: res.data.user.display_name,
+          ...res.data.user,
           loginMethod: 'email'
         });
         this.props.handlePopup(null);

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {
   Button,
-  Paper,
   Card,
   CardContent,
   Avatar,
-  CardHeader,
   Box,
   Divider,
   List,
@@ -14,14 +12,23 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
-import { Edit, BorderBottom, BorderColor } from '@material-ui/icons';
+import { BorderColor } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+import { getUser } from '../../../utils/session';
+
+import { withStyles } from '@material-ui/styles';
+import roomStyles from '../../../assets/jss/roomStyles';
 
 class RightSection extends Component {
+  convertDate = date => {
+    return new Date(date).toLocaleDateString();
+  }
+
   render() {
     const { classes } = this.props;
-
+    const user = getUser();
     return (
-      <>
+      <Box className={classes.rightWrapper}>
         <Button
           variant='outlined'
           className={classes.btnNewPost}
@@ -35,9 +42,11 @@ class RightSection extends Component {
           <Divider />
           <CardContent className={classes.boxWrapper}>
             <Box className={classes.userBox}>
-              <Avatar className={classes.avatarXl}>JM</Avatar>
-              <div className={classes.userBox_name}>Display Name</div>
-              <div>example@gmail.com</div>
+              <Avatar src={user && user.avatar} className={classes.avatarXl} />
+              <div className={classes.userBox_name}>
+                {user ? user.displayName : 'Display Name'}
+              </div>
+              <div>{user ? user.email : 'example@gmail.com'}</div>
             </Box>
           </CardContent>
           <Divider />
@@ -46,7 +55,7 @@ class RightSection extends Component {
               <ListItem>
                 <ListItemText>
                   <Typography className={classes.userBox_text}>
-                    Joined date: {new Date().toLocaleDateString()}
+                    Joined date: {user ? this.convertDate(user.created_at) : this.convertDate(new Date())}
                   </Typography>
                 </ListItemText>
               </ListItem>
@@ -61,18 +70,30 @@ class RightSection extends Component {
           </CardContent>
           <Divider />
           <CardActions style={{ padding: '0' }}>
-            <Button fullWidth color='primary' className={classes.userBox_link}>
+            <Button
+              component={Link}
+              to='/profile'
+              fullWidth
+              color='primary'
+              className={classes.userBox_link}
+            >
               My profile
             </Button>
             <Divider orientation='vertical' flexItem />
-            <Button fullWidth color='primary' className={classes.userBox_link}>
+            <Button
+              Component={Link}
+              to='/wall'
+              fullWidth
+              color='primary'
+              className={classes.userBox_link}
+            >
               My wall
             </Button>
           </CardActions>
         </Card>
-      </>
+      </Box>
     );
   }
 }
 
-export default RightSection;
+export default withStyles(roomStyles)(RightSection);

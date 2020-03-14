@@ -1,20 +1,27 @@
-export const getUser = () => {
+const getUser = () => {
   if (sessionStorage.user) {
     return JSON.parse(sessionStorage.user);
   }
   return null;
 };
 
-export const setUser = user => {
+const setUser = user => {
   sessionStorage.user = JSON.stringify(user);
 };
 
-export const logoutUser = () => {
+const logoutUser = () => {
   if (sessionStorage.user) {
     sessionStorage.removeItem('user');
   }
 }
 
-export const isLogin = () => {
+const isLogin = () => {
   return sessionStorage.user !== undefined;
 };
+
+export {
+  getUser,
+  setUser,
+  logoutUser,
+  isLogin
+}

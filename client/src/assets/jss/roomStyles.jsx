@@ -1,16 +1,10 @@
-import {
-  container,
-  primaryColor,
-  secondaryColor,
-  textColor,
-  title,
-} from './main';
-import bgUniverse from '../img/bg-universe.jpg';
+import { container, primaryColor, secondaryColor, textColor } from './main';
 
 const lightColor = 'rgba(255,255,255,.9)';
 const feedColor = '#1D1D1D';
 const textSecondaryColor = '#8F8F8F';
 const defaultAvatarBg = '#00a152';
+const orangeColor = '#f57c00';
 
 const roomStyles = {
   container: {
@@ -21,10 +15,20 @@ const roomStyles = {
   },
   roomWrapper: {
     backgroundColor: secondaryColor,
-    paddingTop: '24px'
+    paddingTop: '24px',
   },
   text: {
     color: textColor,
+  },
+  // Left section
+  leftHeader: {
+    color: textColor,
+    fontWeight: 500,
+    fontSize: '1.2em',
+  },
+  leftSecondary: {
+    fontSize: '0.8em',
+    color: defaultAvatarBg,
   },
   listIcon: {
     // background: 'linear-gradient(45deg, #fdd835 30%, #f9a825 90%)',
@@ -44,7 +48,7 @@ const roomStyles = {
   },
   timeText: {
     color: textSecondaryColor,
-    fontSize: '0.8rem',
+    fontSize: '0.75rem',
   },
   headerIcon: {
     marginLeft: '-1px',
@@ -63,19 +67,11 @@ const roomStyles = {
   // Post content
   postContent: {
     fontSize: '0.9rem',
+    marginTop: '0.5em'
   },
   btnLink: {
     textTransform: 'none',
-    color: textColor,
     fontSize: '0.9rem',
-  },
-  btnNewPost: {
-    textTransform: 'none',
-    marginBottom: '1em',
-    width: '100%',
-    backgroundColor: '#f57c00',
-    borderRadius: '9999px',
-    color: textColor,
   },
   bgPrimary: {
     backgroundColor: primaryColor,
@@ -91,23 +87,59 @@ const roomStyles = {
   bgFeed: {
     backgroundColor: feedColor,
   },
-  //
+  // Comment Input
+  avatarDot: {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${primaryColor}`,
+    '&::after': {
+      position: 'absolute',
+      content: '""',
+      top: -1,
+      left: -1,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      border: `1px solid #fff`,
+      animation: '$ripple 1.2s infinite ease-in-out',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2)',
+      // transform: 'scale(1.5)',
+      opacity: 0,
+    },
+  },
   commentInput: {
     marginLeft: '8px',
     color: textColor,
+    boxSizing: 'border-box',
+  },
+  commentInputText: {
+    color: textColor,
+    fontSize: '1em'
+  },
+  commentInputIcon: {
+    marginRight: '-0.5em'
   },
   // Comment
   commentContainer: {
-    width: "100%",
-    padding: "0.4em 15px",
-    boxSizing: "border-box",
+    width: '100%',
+    padding: '0.4em 15px',
+    boxSizing: 'border-box',
     backgroundColor: primaryColor,
     color: textColor,
     '&:last-child': {
-      paddingBottom: '0.8em'
-    }
+      paddingBottom: '0.8em',
+    },
   },
   comment: {
+    position: 'relative',
     backgroundColor: feedColor,
     padding: '0.5em 1em',
     marginLeft: '6px',
@@ -117,11 +149,35 @@ const roomStyles = {
     fontSize: '0.86em',
     // marginBottom: '0.2em',
     margin: '0.4em 0',
+    // color: '#33CCDD',
   },
-  // User panel
+  moreIcon: {
+    position: 'absolute',
+    right: 0,
+    // top: 0,
+  },
+  commentOwnerIcon: {
+    margin: '0 0.15em 0 -0.15em',
+  },
+  commentAdminIcon: {
+    margin: '0 0.15em 0 -0.1em',
+  },
+  // Right section
+  rightWrapper: {
+    position: 'sticky',
+    top: '0.8em',
+  },
+  btnNewPost: {
+    textTransform: 'none',
+    marginBottom: '1em',
+    width: '100%',
+    backgroundColor: orangeColor,
+    borderRadius: '9999px',
+    color: textColor,
+  },
   thumbnailBg: {
     backgroundColor: feedColor,
-    height: '4em',
+    height: '4.5em',
     borderBottom: `4px solid ${secondaryColor}`,
   },
   boxWrapper: {
@@ -143,12 +199,12 @@ const roomStyles = {
     fontSize: '1.6rem',
   },
   userBox_text: {
-    fontSize: '0.9rem'
+    fontSize: '0.9rem',
   },
   userBox_link: {
     textTransform: 'none',
     padding: '1em',
-    color: '#f57c00',
+    color: orangeColor,
   },
   avatarXl: {
     width: '5em',

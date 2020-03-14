@@ -5,16 +5,13 @@ import {
   Toolbar,
   Button,
   Grid,
-  TextField,
-  Typography,
-  Avatar,
-  Hidden,
+  Avatar, Hidden,
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Search from '@material-ui/icons/Search';
 import UserPanel from './UserPanel';
+import LoginPopup from './LoginPopup'
 
 import navbarStyles from 'assets/jss/navbarStyles.jsx';
 import { getUser, logoutUser } from '../utils/session';
@@ -28,6 +25,7 @@ class NavBar extends Component {
       popoverAnchor: null,
       displayName: '',
       avatar: '',
+      popup: null
     };
   }
 
@@ -35,7 +33,7 @@ class NavBar extends Component {
     this.fetchUser();
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate() {
     // Check if displayName has changed
     const user = getUser();
     if (user && user.displayName !== this.state.displayName) {
@@ -47,16 +45,16 @@ class NavBar extends Component {
     axios
       .get('/auth/check')
       .then(res => {
-        console.log('res', res)
         if (res.data.isAuthenticated) {
           const { display_name, avatar } = res.data.user;
           // Set user info into client storage
-          setUser({ displayName: display_name });
+          setUser({ displayName: display_name, ...res.data.user });
           // Set to state
           this.setState({
             displayName: display_name,
             avatar: avatar,
           });
+          this.props.isLogin(true);
         }
         else {
           // Delete session on browser
@@ -68,7 +66,7 @@ class NavBar extends Component {
 
   handleClickUserBtn = e => {
     if (!isLogin()) {
-      this.props.handlePopup('login');
+      this.handlePopup('login');
     } else {
       this.setState({
         popoverAnchor: e.currentTarget,
@@ -88,13 +86,23 @@ class NavBar extends Component {
         displayName: '',
         avatar: '',
       });
+      this.props.isLogin(false);
     });
   };
+
+  handlePopup = (value) => {
+    this.setState({
+      popup: value
+    })
+  }
 
   render() {
     const { classes } = this.props;
     return (
       <>
+        {
+          this.state.popup !== null ? <LoginPopup handlePopup={this.handlePopup} type={this.state.popup} /> : null
+        }
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
