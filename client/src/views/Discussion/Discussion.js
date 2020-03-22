@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Grid, Dialog, DialogContent } from '@material-ui/core'
-import { withStyles, makeStyles } from '@material-ui/styles'
+import { Grid } from '@material-ui/core'
+import { withStyles } from '@material-ui/styles'
 
 import Card from './view components/CustomCard'
 import NavBar from '../../components/NavBar'

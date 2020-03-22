@@ -72,6 +72,7 @@ class PostHeader extends Component {
             <PostOptions
               popoverAnchor={this.state.popoverAnchor}
               handleClosePopover={this.handleClosePopover}
+              postId={post.id}
             />
           </>
         }

@@ -49,6 +49,7 @@ const roomStyles = {
   timeText: {
     color: textSecondaryColor,
     fontSize: '0.75rem',
+    marginLeft: '0.15em'
   },
   headerIcon: {
     marginLeft: '-1px',
@@ -67,7 +68,14 @@ const roomStyles = {
   // Post content
   postContent: {
     fontSize: '0.9rem',
-    marginTop: '0.5em'
+    marginTop: '0.5em',
+    '& a': {
+      color: textColor,
+      fontWeight: 'bold'
+    },
+    '& img' : {
+      maxWidth: '100%'
+    }
   },
   btnLink: {
     textTransform: 'none',

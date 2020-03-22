@@ -15,6 +15,7 @@ import {
 import { BorderColor } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../../utils/session';
+import history from '../../../utils/history';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from '../../../assets/jss/roomStyles';
@@ -26,10 +27,13 @@ class RightSection extends Component {
 
   render() {
     const { classes } = this.props;
+    const { location } = history;
     const user = getUser();
     return (
       <Box className={classes.rightWrapper}>
         <Button
+          component={Link}
+          to={`${location.pathname}/create`}
           variant='outlined'
           className={classes.btnNewPost}
           startIcon={<BorderColor />}
@@ -81,7 +85,7 @@ class RightSection extends Component {
             </Button>
             <Divider orientation='vertical' flexItem />
             <Button
-              Component={Link}
+              component={Link}
               to='/wall'
               fullWidth
               color='primary'

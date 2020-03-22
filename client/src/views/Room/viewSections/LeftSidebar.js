@@ -93,7 +93,7 @@ const SideBar = props => {
   const { classes } = props;
   return (
     <Box>
-      <h3 className={classes.title}>Visit others</h3>
+      <h3 className={classes.title}>Our Community</h3>
       {rooms.map(room => (
         <CardItem key={room.id} room={room} classes={classes} />
       ))}

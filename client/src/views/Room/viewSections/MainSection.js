@@ -8,6 +8,7 @@ class MainSection extends Component {
     super(props);
     this.state = {
       posts: [],
+      isLoading: true
     };
   }
 
@@ -29,8 +30,6 @@ class MainSection extends Component {
         {posts.map(post => (
           <UserPost key={post.id} post={post} />
         ))}
-        {/* <UserPost />
-        <UserPost /> */}
       </>
     );
   }

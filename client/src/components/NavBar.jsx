@@ -5,13 +5,14 @@ import {
   Toolbar,
   Button,
   Grid,
-  Avatar, Hidden,
+  Avatar,
+  Hidden,
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
 import Search from '@material-ui/icons/Search';
 import UserPanel from './UserPanel';
-import LoginPopup from './LoginPopup'
+import LoginPopup from './LoginPopup';
 
 import navbarStyles from 'assets/jss/navbarStyles.jsx';
 import { getUser, logoutUser } from '../utils/session';
@@ -25,8 +26,10 @@ class NavBar extends Component {
       popoverAnchor: null,
       displayName: '',
       avatar: '',
-      popup: null
+      popup: null,
     };
+    // Make handlePopup can call global
+    window.handlePopup = this.handlePopup.bind(this);
   }
 
   componentDidMount() {
@@ -55,8 +58,7 @@ class NavBar extends Component {
             avatar: avatar,
           });
           this.props.isLogin(true);
-        }
-        else {
+        } else {
           // Delete session on browser
           logoutUser();
         }
@@ -90,19 +92,20 @@ class NavBar extends Component {
     });
   };
 
-  handlePopup = (value) => {
+  handlePopup = value => {
+    // Only show when user is not login
     this.setState({
-      popup: value
-    })
-  }
+      popup: value,
+    });
+  };
 
   render() {
     const { classes } = this.props;
     return (
       <>
-        {
-          this.state.popup !== null ? <LoginPopup handlePopup={this.handlePopup} type={this.state.popup} /> : null
-        }
+        {this.state.popup !== null ? (
+          <LoginPopup handlePopup={this.handlePopup} type={this.state.popup} />
+        ) : null}
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
@@ -152,7 +155,6 @@ class NavBar extends Component {
                 </Button>
                 <Button
                   onClick={this.handleClickUserBtn}
-                  // startIcon={<AccountCircle className={classes.accountBtn} />}
                 >
                   <Avatar className={classes.avatar} src={this.state.avatar} />
                   <span className={classes.displayName}>

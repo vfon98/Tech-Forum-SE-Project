@@ -27,7 +27,7 @@ import {
   Close,
 } from '@material-ui/icons';
 
-import { getUser } from '../../../../utils/session';
+import { getUser, isLogin } from '../../../../utils/session';
 import axios from '../../../../axios/instance';
 
 import { withStyles } from '@material-ui/styles';
@@ -35,6 +35,7 @@ import roomStyles from 'assets/jss/roomStyles';
 
 import UserComment from './UserComment';
 import PostHeader from './PostHeader';
+import ReportPopup from '../../../../components/ReportPopup';
 
 class UserPost extends Component {
   constructor(props) {
@@ -49,8 +50,11 @@ class UserPost extends Component {
       isUpdateCommentMode: false,
       // Comment in updating
       selectedCommentId: null,
+      // Post number of likes and comments
       likesNum: post.likes.length,
       commentsNum: post.comments.length,
+      // Report poup
+      isOpenReport: false,
       commnetContent: '',
       post: post,
     };
@@ -63,12 +67,30 @@ class UserPost extends Component {
     });
   }
 
+  // Check likes and comments when user login on Post page
+  componentDidUpdate(prevProps, prevState) {
+    // const liked = this.checkLiked(this.state.post);
+    // if (prevState.liked !== liked) {
+    //   this.setState({ liked });
+    // }
+    const { comments } = this.state.post;
+    if (prevState.commentsNum !== comments.length) {
+      this.setState({
+        commentsNum: comments.length,
+      });
+    }
+  }
+
   checkLiked = post => {
-    if (!post) return false;
-    return post.likes.some(like => like.user_id === post.user_id);
+    const user = getUser();
+    if (!post || !user) return false;
+    return post.likes.some(like => like.user_id === user._id);
   };
 
   toggleLike = () => {
+    if (!isLogin()) {
+      return this.showLoginPopup();
+    }
     axios
       .post('/likes', { postID: this.state.post.id })
       .then(res => {
@@ -84,6 +106,9 @@ class UserPost extends Component {
 
   handleSendComment = e => {
     e.preventDefault();
+    if (!isLogin()) {
+      return this.showLoginPopup();
+    }
     const { isUpdateCommentMode } = this.state;
     if (isUpdateCommentMode) {
       this.updateCommentAPI();
@@ -152,6 +177,16 @@ class UserPost extends Component {
       .catch(err => console.log(err));
   };
 
+  showLoginPopup = () => {
+    window.handlePopup('login');
+  };
+
+  toggleReportPopup = () => {
+    this.setState({
+      isOpenReport: !this.state.isOpenReport,
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const { post, liked, commentContent } = this.state;
@@ -160,22 +195,26 @@ class UserPost extends Component {
     return (
       <Box className={classes.postWrapper}>
         <Card className={classes.bgPrimary}>
+          {/* HEADER SECTION */}
           <PostHeader post={post} />
           <Divider />
           {/* CONTENT SECTION */}
           <CardContent>
             <CardMedia component='img' image='https://placehold.it/400x200' />
-            <Typography className={classes.postContent}>
-              {post
+            <Typography
+              className={classes.postContent}
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            >
+              {/* {post
                 ? post.content
                 : `Lorem iipsum dolor sit amet consectetur adipisicing elit. Error
               consequuntur dicta non cum voluptate rerum, sed dolor aut debitis
               dolore ut incidunt dolorum? aliquid aliquam nesciunt quisquam
-              aspernatur ipsam doloribus`}
+              aspernatur ipsam doloribus`} */}
             </Typography>
           </CardContent>
           <Divider />
-          {/* REACT SECTION */}
+          {/* ACTIONS SECTION */}
           <CardActions>
             <Grid container className={classes.container}>
               <Grid item container justify='flex-start' sm={3}>
@@ -210,11 +249,19 @@ class UserPost extends Component {
                 </Button>
               </Grid>
               <Grid item container justify='flex-end' sm={1}>
-                <IconButton color='inherit' className={classes.btnLink}>
+                <IconButton
+                  color='inherit'
+                  className={classes.btnLink}
+                  onClick={this.toggleReportPopup}
+                >
                   <Tooltip title='Report this post' arrow placement='top'>
                     <Report />
                   </Tooltip>
                 </IconButton>
+                <ReportPopup
+                  isOpen={this.state.isOpenReport}
+                  onClose={this.toggleReportPopup}
+                />
               </Grid>
             </Grid>
           </CardActions>
@@ -258,6 +305,7 @@ class UserPost extends Component {
                     size='small'
                     // multiline={true}
                     value={commentContent}
+                    required
                     onChange={e =>
                       this.setState({ commentContent: e.target.value })
                     }
@@ -284,6 +332,7 @@ class UserPost extends Component {
                       ),
                       className: classes.commentInputText,
                     }}
+                    InputLabelProps={{ required: false }}
                   />
                 </FormControl>
               </Grid>
