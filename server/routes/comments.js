@@ -3,9 +3,6 @@ const router = express.Router();
 const CommentControllers = require('../controllers/commentController');
 const authenticate = require('../middlewares/authenticate');
 
-router.get('/', CommentControllers.allComments);
-router.get('/post/:id', CommentControllers.getByPostId);
-
 router.use(authenticate);
 
 router.post('/', CommentControllers.createComment);

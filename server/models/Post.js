@@ -18,17 +18,14 @@ const PostSchema = new Schema(
     type: {
       type: String,
       enum: ['post', 'news'],
-      default: 'post',
+      default: 'post'
     },
-    likes: [
-      {
+    likes: [{
         type: Schema.Types.ObjectId,
         ref: 'Like',
-        unique: true,
-      },
-    ],
-    comments: [
-      {
+        unique: true
+    }],
+    comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment',
       },

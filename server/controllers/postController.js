@@ -26,6 +26,14 @@ module.exports = {
   getPost(req, res) {
     const id = ObjectId(req.params.id);
     Post.findById(id)
+      .populate({
+        path: 'likes comments',
+        select: '-post_id',
+        populate: {
+          path: 'user_id',
+          select: '-_id email display_name avatar',
+        },
+      })
       .then(post => {
         res.status(200).json({ post });
       })

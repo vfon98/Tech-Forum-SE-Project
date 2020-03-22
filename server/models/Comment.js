@@ -41,4 +41,10 @@ function populateComment(next) {
 
 CommentSchema.pre(/^find/, populateComment);
 
+CommentSchema.virtual('user', {
+  ref: 'User',
+  localField: 'user_id',
+  foreignField: '_id'
+})
+
 module.exports = mongoose.model('Comment', CommentSchema);

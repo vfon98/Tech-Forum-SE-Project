@@ -10,6 +10,9 @@ const NewSchema = new Schema({
     type: String,
     required: true
   },
+  thumbnail: {
+    type: String
+  },
   views: {
     type: Number,
     min: 0,
