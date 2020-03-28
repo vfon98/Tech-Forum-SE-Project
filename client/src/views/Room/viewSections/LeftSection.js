@@ -74,7 +74,7 @@ class LeftSection extends Component {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary='Forum'
+                primary='Discussion'
                 secondary={
                   <Typography className={classes.leftSecondary}>
                     +10 new posts

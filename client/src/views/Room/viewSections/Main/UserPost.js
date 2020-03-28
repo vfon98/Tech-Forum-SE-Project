@@ -43,7 +43,7 @@ class UserPost extends Component {
     const { post } = this.props;
     this.state = {
       // Default comments expansion state
-      isExpanded: true,
+      isExpanded: false,
       // Does user like this post
       liked: false,
       // Mode of comment input
@@ -55,6 +55,7 @@ class UserPost extends Component {
       commentsNum: post.comments.length,
       // Report poup
       isOpenReport: false,
+      isShadow: false,
       commnetContent: '',
       post: post,
     };
@@ -69,10 +70,6 @@ class UserPost extends Component {
 
   // Check likes and comments when user login on Post page
   componentDidUpdate(prevProps, prevState) {
-    // const liked = this.checkLiked(this.state.post);
-    // if (prevState.liked !== liked) {
-    //   this.setState({ liked });
-    // }
     const { comments } = this.state.post;
     if (prevState.commentsNum !== comments.length) {
       this.setState({
@@ -187,14 +184,26 @@ class UserPost extends Component {
     });
   };
 
+  toggleShadow = () => {
+    console.log('toggle');
+    this.setState({
+      isShadow: !this.state.isShadow,
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { post, liked, commentContent } = this.state;
+    const { post, liked, commentContent, isShadow } = this.state;
     const user = getUser();
 
     return (
       <Box className={classes.postWrapper}>
-        <Card className={classes.bgPrimary}>
+        <Card
+          className={classes.bgPrimary}
+          raised={isShadow}
+          onMouseEnter={this.toggleShadow}
+          onMouseLeave={this.toggleShadow}
+        >
           {/* HEADER SECTION */}
           <PostHeader post={post} />
           <Divider />
@@ -265,95 +274,96 @@ class UserPost extends Component {
               </Grid>
             </Grid>
           </CardActions>
-        </Card>
-        {/* COLLAPSE SECTION */}
-        <Collapse in={this.state.isExpanded} timeout='auto' unmountOnExit>
-          <Divider />
-          {/* COMMENT INPUT SECTION */}
-          <Box py={1} className={classes.bgPrimary}>
-            <Grid container className={classes.container} alignItems='center'>
-              <Grid item sm={1}>
-                <Badge
-                  overlap='circle'
-                  variant='dot'
-                  color='primary'
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  classes={{
-                    badge: classes.avatarDot,
-                  }}
-                >
-                  <Avatar
-                    src={user && user.avatar}
-                    alt={user && user.display_name}
-                  />
-                </Badge>
-              </Grid>
-              <Grid item sm={11} container alignItems='center'>
-                <FormControl
-                  component='form'
-                  fullWidth
-                  onSubmit={this.handleSendComment}
-                >
-                  <TextField
-                    className={classes.commentInput}
-                    inputRef={this.commentInputRef}
-                    variant='outlined'
-                    label='Enter your comment...'
-                    size='small'
-                    // multiline={true}
-                    value={commentContent}
-                    required
-                    onChange={e =>
-                      this.setState({ commentContent: e.target.value })
-                    }
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position='end'>
-                          <IconButton
-                            type='submit'
-                            color='primary'
-                            className={classes.commentInputIcon}
-                          >
-                            <Telegram />
-                          </IconButton>
-                          {this.state.isUpdateCommentMode && (
-                            <IconButton
-                              color='secondary'
-                              className={classes.commentInputIcon}
-                              onClick={this.cancelUpdateMode}
-                            >
-                              <Close />
-                            </IconButton>
-                          )}
-                        </InputAdornment>
-                      ),
-                      className: classes.commentInputText,
+          {/* </Card> */}
+          {/* COLLAPSE SECTION */}
+          <Collapse in={this.state.isExpanded} timeout='auto' unmountOnExit>
+            <Divider />
+            {/* COMMENT INPUT SECTION */}
+            <Box py={1} className={classes.bgPrimary}>
+              <Grid container className={classes.container} alignItems='center'>
+                <Grid item sm={1}>
+                  <Badge
+                    overlap='circle'
+                    variant='dot'
+                    color='primary'
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
                     }}
-                    InputLabelProps={{ required: false }}
-                  />
-                </FormControl>
+                    classes={{
+                      badge: classes.avatarDot,
+                    }}
+                  >
+                    <Avatar
+                      src={user && user.avatar}
+                      alt={user && user.display_name}
+                    />
+                  </Badge>
+                </Grid>
+                <Grid item sm={11} container alignItems='center'>
+                  <FormControl
+                    component='form'
+                    fullWidth
+                    onSubmit={this.handleSendComment}
+                  >
+                    <TextField
+                      className={classes.commentInput}
+                      inputRef={this.commentInputRef}
+                      variant='outlined'
+                      label='Enter your comment...'
+                      size='small'
+                      // multiline={true}
+                      value={commentContent}
+                      required
+                      onChange={e =>
+                        this.setState({ commentContent: e.target.value })
+                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position='end'>
+                            <IconButton
+                              type='submit'
+                              color='primary'
+                              className={classes.commentInputIcon}
+                            >
+                              <Telegram />
+                            </IconButton>
+                            {this.state.isUpdateCommentMode && (
+                              <IconButton
+                                color='secondary'
+                                className={classes.commentInputIcon}
+                                onClick={this.cancelUpdateMode}
+                              >
+                                <Close />
+                              </IconButton>
+                            )}
+                          </InputAdornment>
+                        ),
+                        className: classes.commentInputText,
+                      }}
+                      InputLabelProps={{ required: false }}
+                    />
+                  </FormControl>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
-          <Divider />
-          {/* COMMENT SECTION */}
-          {post &&
-            post.comments.map(comment => (
-              <UserComment
-                key={comment.id}
-                comment={comment}
-                isOwner={post.user_id === comment.user_id}
-                onUpdateComment={this.handleUpdateComment}
-                onDeleteComment={this.handleDeleteComment}
-              />
-            ))}
-          {/* <UserComment isAdmin />
+            </Box>
+            <Divider />
+            {/* COMMENT SECTION */}
+            {post &&
+              post.comments.map(comment => (
+                <UserComment
+                  key={comment.id}
+                  comment={comment}
+                  isOwner={post.user_id === comment.user_id}
+                  onUpdateComment={this.handleUpdateComment}
+                  onDeleteComment={this.handleDeleteComment}
+                />
+              ))}
+            {/* <UserComment isAdmin />
           <UserComment isOwner />
           <UserComment /> */}
-        </Collapse>
+          </Collapse>
+        </Card>
       </Box>
     );
   }

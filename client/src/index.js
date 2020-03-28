@@ -11,6 +11,7 @@ import Homepage from './views/Homepage/Homepage.jsx';
 import Discussion from './views/Discussion/Discussion'
 import Room from './views/Room/Room';
 import Profile from './views/Profile/ProfilePage'
+import NewsDetail from './views/NewsDetail/NewsDetail';
 
 
 ReactDOM.render(
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path='/' exact component={Homepage} />
       <Route path='/discussion' exact component={Discussion} />
       <Route path='/room/:name' exact component={Room} />
+      <Route path='/news' exact component={NewsDetail} />
       <Route path='/profile' exact component={Profile} />
     </Switch>
   </Router>,

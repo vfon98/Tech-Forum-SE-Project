@@ -74,6 +74,12 @@ class Discussion extends React.Component {
     this.props.history.push(`/room/${value}`)
   }
 
+  handleAuthChanged = state => {
+    this.setState({
+      isLogin: state,
+    });
+  };
+
   render() {
     const { classes } = this.props
     return (
@@ -81,6 +87,7 @@ class Discussion extends React.Component {
         <NavBar
           brand="Covid"
           brandHighlight="Forum"
+          isLogin={this.handleAuthChanged}
         />
         <div
           className={classes.background}
