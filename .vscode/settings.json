@@ -1,3 +1,7 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "files.exclude": {
+    "**/node_modules": true
+  }
 }

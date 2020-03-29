@@ -1,5 +1,6 @@
 const Comment = require('../models/Comment');
 const Post = require('../models/Post');
+const News = require('../models/News');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
@@ -24,31 +25,36 @@ module.exports = {
       post_id: ObjectId(req.body.postID),
       content: req.body.content,
     });
+    const type = req.body.type || 'post';
     // Save comment then update post
     comment
       .save()
       .then(_comment => {
-        Post.findByIdAndUpdate(
-          _comment.post_id,
-          {
-            $push: {
-              comments: _comment,
+        getModelByType(type)
+          .findByIdAndUpdate(
+            _comment.post_id,
+            {
+              $push: {
+                comments: _comment,
+              },
             },
-          },
-          { new: true }
-        ).then(_post => {
-          res.json({ status: 'ok', comments: _post.comments });
-        });
+            { new: true }
+          )
+          .then(_post => {
+            res.json({ status: 'ok', comments: _post.comments });
+          });
       })
       .catch(err => res.status(400).json({ err }));
   },
   updateComment(req, res) {
     const id = ObjectId(req.params.id);
     const content = req.body.content;
+    const type = req.body.type || 'post';
+
     // Update comment
     Comment.findByIdAndUpdate(id, { content }, { new: true })
       .then(comment => {
-        Post.findById(comment.post_id)
+        getModelByType(type).findById(comment.post_id)
           .then(_post => {
             res.json({
               status: 'ok',
@@ -62,10 +68,12 @@ module.exports = {
   },
   deleteComment(req, res) {
     const id = ObjectId(req.params.id);
+    const type = req.query.type || 'post';
+
     // Delete comment first then its post's ref
     Comment.findByIdAndDelete(id)
       .then(_comment => {
-        Post.findByIdAndUpdate(
+        getModelByType(type).findByIdAndUpdate(
           _comment.post_id,
           {
             $pull: {
@@ -86,3 +94,9 @@ module.exports = {
       );
   },
 };
+
+function getModelByType(type) {
+  if (type === 'post') return Post;
+  else if (type === 'news') return News;
+  else return null;
+}

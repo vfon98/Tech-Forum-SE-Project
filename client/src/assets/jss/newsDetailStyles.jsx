@@ -9,10 +9,13 @@ const newsDetailStyles = {
   userName,
   timeText,
   headerIcon,
-  avatarLg,
   // END
   secondaryBg: {
     backgroundColor: secondaryColor,
+  },
+  avatarLg: {
+    ...avatarLg,
+    border: '2px solid #2E83F2'
   },
   pageWrapper: {
     backgroundColor: secondaryColor,

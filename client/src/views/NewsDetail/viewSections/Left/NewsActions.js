@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardActions, Grid, Button } from '@material-ui/core';
+import { CardActions, Grid, Button, lighten } from '@material-ui/core';
 import {
   ReportRounded,
   ThumbUpRounded,
@@ -12,6 +12,9 @@ const newsActionsStyles = {
   wrapper: {
     padding: '0 1em',
   },
+  blueText: {
+    // color: lighten('#2E83F2', 0.4)
+  },
   btn: {
     textTransform: 'none',
   },
@@ -21,8 +24,7 @@ const newsActionsStyles = {
   btnShare: {
     textTransform: 'none',
     color: '#A2F6FF',
-    border: '1px solid #A2F6FF'
-  }
+  },
 };
 
 class NewsActions extends Component {
@@ -38,7 +40,8 @@ class NewsActions extends Component {
                 className={classes.btnLike}
                 color='primary'
                 variant='contained'
-                startIcon={<ThumbUpRounded />}
+                startIcon={<ThumbUpRounded className={classes.blueText} />}
+                onClick={this.props.toggleLike}
               >
                 {likesNum} Likes
               </Button>

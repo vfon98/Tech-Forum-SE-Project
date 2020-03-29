@@ -3,6 +3,7 @@ const router = express.Router();
 const newsControllers = require('../controllers/newsController');
 
 router.get('/', newsControllers.allNews);
+router.get('/random', newsControllers.randomNews);
 router.get('/:id', newsControllers.getNews);
 
 module.exports = router;

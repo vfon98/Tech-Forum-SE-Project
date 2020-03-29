@@ -1,9 +1,11 @@
 const primaryColor = "#292E38"
 const secondaryColor = "#313947"
+const darkColor = "#1D1D1D";
 const textColor = "rgba(255,255,255,.8)"
 const highlightColor = "#DD163B"
 const green = "#38A220"
 const blue = "#1464D2"
+const lightBlueColor = "#2D88FF"
 const dyan = "#22A2B1"
 const container  = {
     width: "100%",
@@ -25,10 +27,12 @@ const title = {
 export  {
     primaryColor,
     secondaryColor,
+    darkColor,
     textColor,
     highlightColor,
     green,
     blue,
+    lightBlueColor,
     dyan,
     container,
     title

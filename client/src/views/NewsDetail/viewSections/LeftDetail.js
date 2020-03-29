@@ -6,6 +6,7 @@ import {
   Divider,
   CardContent,
   CardMedia,
+  Box,
 } from '@material-ui/core';
 import newsPlaceholder from 'assets/img/news-placeholder.jpg';
 import axios from '../../../axios/instance';
@@ -17,12 +18,15 @@ import NewsBreadcrumbs from './Left/NewsBreadcrumbs';
 import NewsHeader from './Left/NewsHeader';
 import NewsActions from './Left/NewsActions';
 import UserComment from '../../Room/viewSections/Main/UserComment';
+import CommentInput from '../../Room/viewSections/Main/CommentInput';
+import OtherNews from './Left/OtherNews';
 
 class LeftDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       news: {},
+      needUpdateComment: null,
       commentsNum: 0,
       likesNum: 0,
       viewsNum: 0,
@@ -44,13 +48,49 @@ class LeftDetail extends Component {
       .catch(err => console.log(err));
   }
 
+  handleToggleLike = () => {
+    axios
+      .post('/likes', {
+        postID: this.state.news.id,
+        type: 'news',
+      })
+      .then(res => {
+        this.setState({
+          likesNum: res.data.likes,
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleUpdateComment = comment => {
+    this.setState({
+      needUpdateComment: comment,
+    });
+  };
+
+  handleDeleteComment = id => {
+    axios
+      .delete(`/comments/${id}?type=news`)
+      .then(res => {
+        this.handleRefreshComments(res.data.comments);
+      })
+      .catch(err => console.log(err));
+  };
+
+  handleRefreshComments = comments => {
+    console.log('refresh', comments);
+    const { news } = this.state;
+    news.comments = comments;
+    this.setState({ news });
+  };
+
   render() {
     const { classes } = this.props;
     const { news, likesNum, commentsNum, viewsNum } = this.state;
 
     return (
       <>
-        <Card className={classes.secondaryBg} raised>
+        <Card className={classes.secondaryBg}>
           <Paper elevation={3} className={classes.leftWrapper}>
             <NewsBreadcrumbs room={news.room} />
 
@@ -74,7 +114,10 @@ class LeftDetail extends Component {
               />
             </CardContent>
 
-            <NewsActions likesNum={likesNum} />
+            <NewsActions
+              likesNum={likesNum}
+              toggleLike={this.handleToggleLike}
+            />
           </Paper>
         </Card>
         <Paper
@@ -82,17 +125,34 @@ class LeftDetail extends Component {
           className={classes.leftWrapper}
           style={{ marginTop: '0.5em' }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint
-          perferendis deserunt. Saepe aliquid tempora quasi, consectetur eaque
-          quae neque cum dolore minus officiis atque nulla maxime, eveniet
-          commodi voluptatum?
+          <OtherNews />
         </Paper>
         <Paper
           elevation={2}
           className={classes.leftWrapper}
           style={{ marginTop: '0.5em' }}
         >
-          <UserComment />
+          {/* <Button fullWidth color='inherit' variant='outlined'>30 Comments</Button> */}
+          <Box mb={1}>
+            <CommentInput
+              postId={news.id}
+              type='news'
+              refreshComments={this.handleRefreshComments}
+              needUpdateComment={this.state.needUpdateComment}
+              cancelUpdateMode={() => this.setState({ needUpdateComment: null })}
+            />
+          </Box>
+          <Divider />
+          {news.comments &&
+            news.comments.map(comment => (
+              <UserComment
+                key={comment.id}
+                comment={comment}
+                isOwner={news.user_id === comment.user_id}
+                onUpdateComment={this.handleUpdateComment}
+                onDeleteComment={this.handleDeleteComment}
+              />
+            ))}
         </Paper>
       </>
     );

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Card,
   CardContent,
-  Avatar,
   IconButton,
   Divider,
   Typography,
@@ -10,22 +9,11 @@ import {
   Grid,
   CardMedia,
   Button,
-  FormControl,
-  TextField,
-  InputAdornment,
   Box,
   Collapse,
   Tooltip,
-  Badge,
 } from '@material-ui/core';
-import {
-  ThumbUp,
-  Share,
-  Chat,
-  Telegram,
-  Report,
-  Close,
-} from '@material-ui/icons';
+import { ThumbUp, Share, Chat, Report } from '@material-ui/icons';
 
 import { getUser, isLogin } from '../../../../utils/session';
 import axios from '../../../../axios/instance';
@@ -36,6 +24,7 @@ import roomStyles from 'assets/jss/roomStyles';
 import UserComment from './UserComment';
 import PostHeader from './PostHeader';
 import ReportPopup from '../../../../components/ReportPopup';
+import CommentInput from './CommentInput';
 
 class UserPost extends Component {
   constructor(props) {
@@ -43,23 +32,20 @@ class UserPost extends Component {
     const { post } = this.props;
     this.state = {
       // Default comments expansion state
-      isExpanded: false,
+      isExpanded: true,
       // Does user like this post
       liked: false,
-      // Mode of comment input
-      isUpdateCommentMode: false,
-      // Comment in updating
-      selectedCommentId: null,
       // Post number of likes and comments
       likesNum: post.likes.length,
       commentsNum: post.comments.length,
       // Report poup
       isOpenReport: false,
+      // Comment pass to CommentInput that need to update
+      needUpdateComment: null,
+      // Display shadow on hover post
       isShadow: false,
-      commnetContent: '',
       post: post,
     };
-    this.commentInputRef = React.createRef();
   }
 
   componentDidMount() {
@@ -86,7 +72,7 @@ class UserPost extends Component {
 
   toggleLike = () => {
     if (!isLogin()) {
-      return this.showLoginPopup();
+      return window.handlePopup('login');
     }
     axios
       .post('/likes', { postID: this.state.post.id })
@@ -101,81 +87,26 @@ class UserPost extends Component {
     });
   };
 
-  handleSendComment = e => {
-    e.preventDefault();
-    if (!isLogin()) {
-      return this.showLoginPopup();
-    }
-    const { isUpdateCommentMode } = this.state;
-    if (isUpdateCommentMode) {
-      this.updateCommentAPI();
-    } else {
-      this.addNewCommentAPI();
-    }
-  };
-
-  addNewCommentAPI = () => {
-    const { commentContent, post } = this.state;
-    axios
-      .post('/comments', {
-        postID: post.id,
-        content: commentContent,
-      })
-      .then(res => {
-        this.setState({
-          commentContent: '',
-          post: { ...post, comments: res.data.comments },
-        });
-      })
-      .catch(err => console.log(err));
-  };
-
-  updateCommentAPI = () => {
-    const { commentContent, post, selectedCommentId } = this.state;
-    axios
-      .put(`/comments/${selectedCommentId}`, {
-        content: commentContent,
-      })
-      .then(res => {
-        this.cancelUpdateMode();
-        this.setState({
-          post: { ...post, comments: res.data.comments },
-        });
-      })
-      .catch(err => console.log(err));
+  handleRefreshComments = comments => {
+    console.log('refresh', comments)
+    const { post } = this.state;
+    post.comments = comments;
+    this.setState({ post });
   };
 
   handleUpdateComment = comment => {
-    this.commentInputRef.current.focus();
     this.setState({
-      isUpdateCommentMode: true,
-      commentContent: comment.content,
-      selectedCommentId: comment.id,
-    });
-  };
-
-  cancelUpdateMode = () => {
-    this.setState({
-      isUpdateCommentMode: false,
-      commentContent: '',
-      selectedCommentId: null,
+      needUpdateComment: comment,
     });
   };
 
   handleDeleteComment = id => {
-    const { post } = this.state;
     axios
       .delete(`/comments/${id}`)
       .then(res => {
-        this.setState({
-          post: { ...post, comments: res.data.comments },
-        });
+        this.handleRefreshComments(res.data.comments)
       })
       .catch(err => console.log(err));
-  };
-
-  showLoginPopup = () => {
-    window.handlePopup('login');
   };
 
   toggleReportPopup = () => {
@@ -185,7 +116,6 @@ class UserPost extends Component {
   };
 
   toggleShadow = () => {
-    console.log('toggle');
     this.setState({
       isShadow: !this.state.isShadow,
     });
@@ -193,8 +123,7 @@ class UserPost extends Component {
 
   render() {
     const { classes } = this.props;
-    const { post, liked, commentContent, isShadow } = this.state;
-    const user = getUser();
+    const { post, liked, isShadow } = this.state;
 
     return (
       <Box className={classes.postWrapper}>
@@ -213,14 +142,7 @@ class UserPost extends Component {
             <Typography
               className={classes.postContent}
               dangerouslySetInnerHTML={{ __html: post.content }}
-            >
-              {/* {post
-                ? post.content
-                : `Lorem iipsum dolor sit amet consectetur adipisicing elit. Error
-              consequuntur dicta non cum voluptate rerum, sed dolor aut debitis
-              dolore ut incidunt dolorum? aliquid aliquam nesciunt quisquam
-              aspernatur ipsam doloribus`} */}
-            </Typography>
+            />
           </CardContent>
           <Divider />
           {/* ACTIONS SECTION */}
@@ -274,80 +196,24 @@ class UserPost extends Component {
               </Grid>
             </Grid>
           </CardActions>
-          {/* </Card> */}
+
           {/* COLLAPSE SECTION */}
           <Collapse in={this.state.isExpanded} timeout='auto' unmountOnExit>
             <Divider />
+
             {/* COMMENT INPUT SECTION */}
             <Box py={1} className={classes.bgPrimary}>
-              <Grid container className={classes.container} alignItems='center'>
-                <Grid item sm={1}>
-                  <Badge
-                    overlap='circle'
-                    variant='dot'
-                    color='primary'
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    classes={{
-                      badge: classes.avatarDot,
-                    }}
-                  >
-                    <Avatar
-                      src={user && user.avatar}
-                      alt={user && user.display_name}
-                    />
-                  </Badge>
-                </Grid>
-                <Grid item sm={11} container alignItems='center'>
-                  <FormControl
-                    component='form'
-                    fullWidth
-                    onSubmit={this.handleSendComment}
-                  >
-                    <TextField
-                      className={classes.commentInput}
-                      inputRef={this.commentInputRef}
-                      variant='outlined'
-                      label='Enter your comment...'
-                      size='small'
-                      // multiline={true}
-                      value={commentContent}
-                      required
-                      onChange={e =>
-                        this.setState({ commentContent: e.target.value })
-                      }
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position='end'>
-                            <IconButton
-                              type='submit'
-                              color='primary'
-                              className={classes.commentInputIcon}
-                            >
-                              <Telegram />
-                            </IconButton>
-                            {this.state.isUpdateCommentMode && (
-                              <IconButton
-                                color='secondary'
-                                className={classes.commentInputIcon}
-                                onClick={this.cancelUpdateMode}
-                              >
-                                <Close />
-                              </IconButton>
-                            )}
-                          </InputAdornment>
-                        ),
-                        className: classes.commentInputText,
-                      }}
-                      InputLabelProps={{ required: false }}
-                    />
-                  </FormControl>
-                </Grid>
-              </Grid>
+              <CommentInput
+                postId={post.id}
+                refreshComments={this.handleRefreshComments}
+                needUpdateComment={this.state.needUpdateComment}
+                cancelUpdateMode={() =>
+                  this.setState({ needUpdateComment: null })
+                }
+              />
             </Box>
             <Divider />
+
             {/* COMMENT SECTION */}
             {post &&
               post.comments.map(comment => (
