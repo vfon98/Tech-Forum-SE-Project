@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CardHeader, Avatar, Box, Typography, IconButton} from '@material-ui/core'
 import { AccessTimeTwoTone, MoreVert } from '@material-ui/icons';
 import { getIdentifier } from '../../../../utils/userIdentifier';
-import { timeFrom } from '../../../../utils/time';
+import { timeFrom } from '../../../../utils/converter';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from 'assets/jss/roomStyles';

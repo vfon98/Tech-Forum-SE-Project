@@ -1,4 +1,4 @@
-import { primaryColor, secondaryColor, textColor } from './main';
+import { primaryColor, secondaryColor, textColor, lightBlueColor, green } from './main';
 import roomStyles from './roomStyles';
 
 const { avatarLg, text, secondaryText, userName, timeText, headerIcon } = roomStyles;
@@ -25,6 +25,7 @@ const newsDetailStyles = {
     backgroundColor: primaryColor,
     color: textColor,
     padding: '1.2em',
+    marginBottom: '0.6em'
   },
   rightWrapper: {
     backgroundColor: primaryColor,
@@ -74,6 +75,16 @@ const newsDetailStyles = {
       borderRadius: '4px'
     }
   },
+  btnComments: {
+    textTransform: 'none',
+  },
+  btnCommentsToggle: {
+    margin: '0 15px',
+  },
+  commentBoxWrapper: {
+    padding: '8px 0',
+    marginTop: '6px'
+  }
 };
 
 export default newsDetailStyles;

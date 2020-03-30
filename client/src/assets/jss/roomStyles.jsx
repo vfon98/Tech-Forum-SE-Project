@@ -1,8 +1,7 @@
-import { container, primaryColor, secondaryColor, textColor } from './main';
+import { container, primaryColor, secondaryColor, textColor, textSecondaryColor } from './main';
 
 const lightColor = 'rgba(255,255,255,.9)';
 const feedColor = '#1D1D1D';
-const textSecondaryColor = '#8F8F8F';
 const defaultAvatarBg = '#00a152';
 const orangeColor = '#f57c00';
 

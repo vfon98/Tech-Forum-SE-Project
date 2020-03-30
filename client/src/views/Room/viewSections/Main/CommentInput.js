@@ -104,7 +104,7 @@ class CommentInput extends Component {
 
     return (
       <Grid container className={classes.container} alignItems='center'>
-        <Grid item sm={1}>
+        <Grid item sm={1} container justify='center'>
           <Badge
             overlap='circle'
             variant='dot'

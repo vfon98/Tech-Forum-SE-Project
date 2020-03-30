@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
-import { CardActions, Grid, Button, lighten } from '@material-ui/core';
-import {
-  ReportRounded,
-  ThumbUpRounded,
-  Facebook,
-} from '@material-ui/icons';
+import { CardActions, Grid, Button } from '@material-ui/core';
+import { ReportRounded, ThumbUpRounded, Facebook } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/styles';
+import ReportPopup from '../../../../components/ReportPopup';
 
 const newsActionsStyles = {
   wrapper: {
     padding: '0 1em',
-  },
-  blueText: {
-    // color: lighten('#2E83F2', 0.4)
   },
   btn: {
     textTransform: 'none',
@@ -28,6 +22,19 @@ const newsActionsStyles = {
 };
 
 class NewsActions extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpenReport: false
+    }
+  }
+
+  toggleReportPopup = () => {
+    this.setState({
+      isOpenReport: !this.state.isOpenReport,
+    });
+  };
+  
   render() {
     const { classes, likesNum } = this.props;
 
@@ -63,9 +70,15 @@ class NewsActions extends Component {
               color='secondary'
               variant='outlined'
               startIcon={<ReportRounded />}
+              onClick={this.toggleReportPopup}
             >
               Report
             </Button>
+            {/* Report Popup */}
+            <ReportPopup
+              isOpen={this.state.isOpenReport}
+              onClose={this.toggleReportPopup}
+            />
           </Grid>
         </Grid>
       </CardActions>

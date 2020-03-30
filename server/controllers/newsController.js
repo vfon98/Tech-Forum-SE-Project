@@ -11,8 +11,9 @@ module.exports = {
   },
   randomNews(req, res) {
     // News.aggregate()
-      // .sample(5)
-      News.find({}).skip(1).limit(5)
+    // .sample(5)
+    News.find({})
+      .limit(6)
       .then(news => res.json({ news }))
       .catch(err => res.status(400).json({ err }));
   },
@@ -21,7 +22,8 @@ module.exports = {
     News.findByIdAndUpdate(
       id,
       {
-        $inc: { views: 5 },
+        // Random increase views from 1 to 10
+        $inc: { views: Math.floor(Math.random() * 10) },
       },
       { new: true }
     )

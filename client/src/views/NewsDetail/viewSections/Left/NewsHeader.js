@@ -12,7 +12,7 @@ import {
   VisibilityTwoTone,
   ChatTwoTone,
 } from '@material-ui/icons';
-import { parseDateFrom } from '../../../../utils/time';
+import { parseDateFrom } from '../../../../utils/converter';
 
 import { withStyles } from '@material-ui/styles';
 import newsDetailStyles from '../../../../assets/jss/newsDetailStyles';

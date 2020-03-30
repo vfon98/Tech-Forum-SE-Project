@@ -7,9 +7,12 @@ import {
   CardContent,
   CardMedia,
   Box,
+  Button,
+  Collapse,
 } from '@material-ui/core';
 import newsPlaceholder from 'assets/img/news-placeholder.jpg';
 import axios from '../../../axios/instance';
+import history from '../../../utils/history';
 
 import newsDetailStyles from '../../../assets/jss/newsDetailStyles';
 import { withStyles } from '@material-ui/styles';
@@ -20,6 +23,8 @@ import NewsActions from './Left/NewsActions';
 import UserComment from '../../Room/viewSections/Main/UserComment';
 import CommentInput from '../../Room/viewSections/Main/CommentInput';
 import OtherNews from './Left/OtherNews';
+import Loading from '../../../components/Loading';
+import { ExpandMoreRounded, ExpandLessRounded } from '@material-ui/icons';
 
 class LeftDetail extends Component {
   constructor(props) {
@@ -27,6 +32,8 @@ class LeftDetail extends Component {
     this.state = {
       news: {},
       needUpdateComment: null,
+      isLoading: true,
+      isCommentsShown: true,
       commentsNum: 0,
       likesNum: 0,
       viewsNum: 0,
@@ -34,12 +41,34 @@ class LeftDetail extends Component {
   }
 
   componentDidMount() {
+    // Fetch when loaded
+    this.fetchNews();
+    // Fetch when location changed
+    history.listen(() => {
+      window.scrollTo(0, 0);
+      this.setState({ isLoading: true });
+      this.fetchNews();
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { comments } = this.state.news;
+    if (comments && prevState.commentsNum !== comments.length) {
+      this.setState({
+        commentsNum: comments.length,
+      });
+    }
+  }
+
+  fetchNews() {
+    const { pathname } = history.location;
     axios
-      .get('/news/5e7b290e292573070b0435c1')
+      .get(pathname || '/news/5e7b290e292573070b0435c1')
       .then(res => {
         const { news } = res.data;
         this.setState({
           news: news,
+          isLoading: false,
           commentsNum: news.comments.length,
           likesNum: news.likes.length,
           viewsNum: news.views,
@@ -78,17 +107,23 @@ class LeftDetail extends Component {
   };
 
   handleRefreshComments = comments => {
-    console.log('refresh', comments);
     const { news } = this.state;
     news.comments = comments;
     this.setState({ news });
   };
 
+  toggleComments = () => {
+    this.setState({
+      isCommentsShown: !this.state.isCommentsShown,
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { news, likesNum, commentsNum, viewsNum } = this.state;
+    const { news, isLoading, likesNum, commentsNum, viewsNum } = this.state;
+    const { isCommentsShown } = this.state;
 
-    return (
+    return isLoading ? <Loading /> : (
       <>
         <Card className={classes.secondaryBg}>
           <Paper elevation={3} className={classes.leftWrapper}>
@@ -120,39 +155,49 @@ class LeftDetail extends Component {
             />
           </Paper>
         </Card>
-        <Paper
-          elevation={2}
-          className={classes.leftWrapper}
-          style={{ marginTop: '0.5em' }}
-        >
+        <Paper elevation={2} className={classes.leftWrapper}>
           <OtherNews />
         </Paper>
-        <Paper
-          elevation={2}
-          className={classes.leftWrapper}
-          style={{ marginTop: '0.5em' }}
-        >
-          {/* <Button fullWidth color='inherit' variant='outlined'>30 Comments</Button> */}
-          <Box mb={1}>
-            <CommentInput
-              postId={news.id}
-              type='news'
-              refreshComments={this.handleRefreshComments}
-              needUpdateComment={this.state.needUpdateComment}
-              cancelUpdateMode={() => this.setState({ needUpdateComment: null })}
-            />
+        <Paper elevation={2} className={classes.leftWrapper}>
+          <Box className={classes.btnCommentsToggle}>
+            <Button
+              color='primary'
+              className={classes.btnComments}
+              variant='contained'
+              fullWidth
+              onClick={this.toggleComments}
+              endIcon={
+                isCommentsShown ? <ExpandLessRounded /> : <ExpandMoreRounded />
+              }
+            >
+              {commentsNum} Comments
+            </Button>
           </Box>
-          <Divider />
-          {news.comments &&
-            news.comments.map(comment => (
-              <UserComment
-                key={comment.id}
-                comment={comment}
-                isOwner={news.user_id === comment.user_id}
-                onUpdateComment={this.handleUpdateComment}
-                onDeleteComment={this.handleDeleteComment}
+          <Collapse in={isCommentsShown}>
+            <Box className={classes.commentBoxWrapper}>
+              <CommentInput
+                postId={news.id}
+                type='news'
+                refreshComments={this.handleRefreshComments}
+                needUpdateComment={this.state.needUpdateComment}
+                cancelUpdateMode={() =>
+                  this.setState({ needUpdateComment: null })
+                }
               />
-            ))}
+            </Box>
+            <Divider variant='middle' />
+
+            {news.comments &&
+              news.comments.map(comment => (
+                <UserComment
+                  key={comment.id}
+                  comment={comment}
+                  isOwner={news.user_id === comment.user_id}
+                  onUpdateComment={this.handleUpdateComment}
+                  onDeleteComment={this.handleDeleteComment}
+                />
+              ))}
+          </Collapse>
         </Paper>
       </>
     );

@@ -10,7 +10,7 @@ import {
   ButtonGroup,
 } from '@material-ui/core';
 import { getIdentifier } from '../../../../utils/userIdentifier';
-import { timeFrom } from '../../../../utils/time';
+import { timeFrom } from '../../../../utils/converter';
 import { getUser } from '../../../../utils/session';
 
 import { withStyles } from '@material-ui/styles';
@@ -132,7 +132,7 @@ class UserComment extends Component {
 
     return (
       <Grid container className={classes.commentContainer}>
-        <Grid item sm={1}>
+        <Grid container sm={1} justify='center'>
           <Avatar
             src={comment && comment.user.avatar}
             alt={comment && comment.user.display_name}
@@ -169,9 +169,9 @@ class UserComment extends Component {
                   {comment ? timeFrom(comment.created_at) : 'long time ago'}
                 </Box>
               </Box>
-              <p className={classes.commentContent}>
+              <Typography className={classes.commentContent}>
                 {comment && comment.content}
-              </p>
+              </Typography>
             </Typography>
           </Box>
         </Grid>
