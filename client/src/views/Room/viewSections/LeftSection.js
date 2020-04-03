@@ -11,12 +11,16 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Forum, MenuBookTwoTone } from '@material-ui/icons';
-import { withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from '../../../assets/jss/roomStyles';
 
-import LeftSidebar from './LeftSidebar';
+import RoomSidebar from './RoomSidebar';
+
+const activeLink = {
+  background: 'rgb(0,0,0,0.3)',
+};
 
 class LeftSection extends Component {
   constructor(props) {
@@ -37,22 +41,30 @@ class LeftSection extends Component {
     const { params } = this.props.match;
     if (prevState.roomName !== params.name) {
       this.setState({
-        roomName: params.name
-      })
+        roomName: params.name,
+      });
     }
   }
 
   render() {
     const { classes } = this.props;
+    const { roomName } = this.state;
+
     return (
       <>
         <Card variant='outlined' className={classes.bgPrimary}>
           <List style={{ padding: 0 }}>
             <ListSubheader className={classes.leftHeader}>
-              {this.state.roomName} Community
+              {roomName} Community
             </ListSubheader>
             <Divider />
-            <ListItem button classes={{ selected: classes.active }}>
+            <ListItem
+              button
+              component={NavLink}
+              activeStyle={activeLink}
+              to={`/room/${roomName}/news`}
+              exact
+            >
               <ListItemAvatar>
                 <Avatar className={classes.listIcon}>
                   <MenuBookTwoTone color='action' />
@@ -67,7 +79,14 @@ class LeftSection extends Component {
                 }
               />
             </ListItem>
-            <ListItem button classes={{ selected: classes.active }} selected>
+
+            <ListItem
+              button
+              component={NavLink}
+              activeStyle={activeLink}
+              to={`/room/${roomName}`}
+              exact
+            >
               <ListItemAvatar>
                 <Avatar className={classes.listIcon}>
                   <Forum color='action' />
@@ -85,7 +104,7 @@ class LeftSection extends Component {
           </List>
         </Card>
         {/* SIDEBAR */}
-        <LeftSidebar />
+        <RoomSidebar />
       </>
     );
   }

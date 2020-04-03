@@ -51,7 +51,7 @@ const news = [
   },
   {
     img: news_img2,
-    title: 'MacBook Air 2019 256GB giảm 300 USD, chỉ còn 999 USD trên Amazon',
+    title: 'macBook Air 2019 256GB giảm 300 USD, chỉ còn 999 USD trên Amazon',
     body: 'MacBook Air 2019 bản SSD 256GB hiện chỉ còn 999 USD trên Amazon, giảm gần 300 đô so với mức 1.299 USD trước đó.',
     author: 'VPhong'
   },
@@ -69,7 +69,7 @@ const news = [
   },
   {
     img: news_img5,
-    title: 'Sony Xperia PRO: phiên bản "Xperia 1 II" hướng đến việc truyền video 5G từ máy ảnh / máy quay',
+    title: 'Sony xperia PRO: phiên bản "Xperia 1 II" hướng đến việc truyền video 5G từ máy ảnh / máy quay',
     body: 'Ngoài Xperia 1 II, Sony còn cho ra mắt một chiếc điện thoại được đặt tên là Xperia PRO. Bỏ qua tên gọi bị trùng với phiên bản MK16i thời Sony Ericsson thì đây chính là chiếc máy có phần cứng của Xperia 1 II nhưng có một thiết kế mang tính chuyên dụng',
     author: 'Phong'
   },
@@ -81,7 +81,7 @@ const news = [
   },
   {
     img: news_img7,
-    title: 'Dịch COVID-19 khiến các kỹ sư Foxconn và Apple không thể gặp nhau để giám định sản phẩm',
+    title: 'Dịch COVID-19 khiến các kỹ sư foxconn và Apple không thể gặp nhau để giám định sản phẩm',
     body: 'Nhà máy Foxconn - Trung Quốc đang gặp khó khăn vì trì hoãn sản xuất iPhone mới (iPhone 12) do tình hình dịch COVID-19. Vấn đề nằm ở chỗ khi các kỹ sư Apple và kỹ sư của Foxconn không thể gặp nhau để…',
     author: 'khoanv'
   },

@@ -1,4 +1,4 @@
-import { container, primaryColor, secondaryColor, textColor, textSecondaryColor } from './main';
+import { container, primaryColor, secondaryColor, textColor, textSecondaryColor, darkColor } from './main';
 
 const lightColor = 'rgba(255,255,255,.9)';
 const feedColor = '#1D1D1D';
@@ -34,6 +34,7 @@ const roomStyles = {
   },
   active: {
     // Custom here
+    background: 'rgb(0,0,0,0.3)',
   },
   postWrapper: {
     marginBottom: '1em',

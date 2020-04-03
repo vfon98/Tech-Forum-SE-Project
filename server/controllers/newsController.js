@@ -9,6 +9,16 @@ module.exports = {
       })
       .catch(err => res.status(400).json({ err }));
   },
+  getRecentNews(req, res) {},
+  getNewsByRoom(req, res) {
+    const { name } = req.params;
+    News.find({})
+      .select('-likes -comments')
+      .then(news => {
+        res.json({ news });
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
+  },
   randomNews(req, res) {
     // News.aggregate()
     // .sample(5)
@@ -22,7 +32,7 @@ module.exports = {
     News.findByIdAndUpdate(
       id,
       {
-        // Random increase views from 1 to 10
+        // Random increase view from 1 to 10
         $inc: { views: Math.floor(Math.random() * 10) },
       },
       { new: true }

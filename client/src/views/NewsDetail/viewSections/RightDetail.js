@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Box, Paper, Grid, Container } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 
 import newsDetailStyles from '../../../assets/jss/newsDetailStyles';
 import { withStyles } from '@material-ui/styles';
 
-import Sidebar from '../../Room/viewSections/LeftSidebar';
+import RoomSidebar from '../../Room/viewSections/RoomSidebar';
 import RightSection from '../../Room/viewSections/RightSection';
 
 class RightDetail extends Component {
@@ -12,15 +12,13 @@ class RightDetail extends Component {
     const { classes } = this.props;
     return (
       <>
-        <Box mb={2}>
-          <Paper elevation={3} className={classes.rightWrapper}>
-            <Grid container>
-              <Grid container item>
-                <Sidebar />
-              </Grid>
+        <Paper elevation={3} className={classes.rightWrapper}>
+          <Grid container>
+            <Grid container item>
+              <RoomSidebar />
             </Grid>
-          </Paper>
-        </Box>
+          </Grid>
+        </Paper>
 
         <RightSection />
       </>

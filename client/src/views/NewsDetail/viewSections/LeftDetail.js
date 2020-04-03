@@ -45,7 +45,6 @@ class LeftDetail extends Component {
     this.fetchNews();
     // Fetch when location changed
     history.listen(() => {
-      window.scrollTo(0, 0);
       this.setState({ isLoading: true });
       this.fetchNews();
     });
@@ -61,6 +60,7 @@ class LeftDetail extends Component {
   }
 
   fetchNews() {
+    window.scrollTo(0, 0);
     const { pathname } = history.location;
     axios
       .get(pathname || '/news/5e7b290e292573070b0435c1')

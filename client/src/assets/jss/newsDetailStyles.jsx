@@ -31,6 +31,8 @@ const newsDetailStyles = {
     backgroundColor: primaryColor,
     color: textColor,
     paddingLeft: '1.2em',
+    paddingBottom: '0.6em',
+    marginBottom: '1em'
   },
   // News styles
   newsHeader: {
