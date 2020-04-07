@@ -1,4 +1,4 @@
-import { lightBlueColor, secondaryColor, textColor, blue, textSecondaryColor } from './main';
+import { lightBlueColor, blue } from './main';
 
 const otherNewsStyles = {
   slideWrapper: {
@@ -45,7 +45,7 @@ const otherNewsStyles = {
     alignItems: 'center',
     fontSize: '0.8rem',
     fontWeight: 500,
-    color: '#6f6f6f'
+    color: '#5f5f5f'
   },
   actionIcon: {
     marginRight: '3px',

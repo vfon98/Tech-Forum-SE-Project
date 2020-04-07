@@ -46,40 +46,47 @@ const NewsSchema = new Schema(
       updatedAt: 'updated_at',
     },
     toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+NewsSchema.index({
+  header: 'text',
+  // content: 'text',
+});
 
 NewsSchema.virtual('user', {
   ref: 'User',
   localField: 'user_id',
   foreignField: '_id',
-  justOne: true
+  justOne: true,
 });
 
 NewsSchema.virtual('room', {
   ref: 'Room',
   localField: 'room_id',
   foreignField: '_id',
-  justOne: true
-})
+  justOne: true,
+});
 
 function populateNews(next) {
-  this.populate('user', 'email display_name avatar')
-  .populate('room', 'name')
-  .populate('likes', 'user_id')
-  .populate({
-    path: 'comments',
-    select: '-post_id -updated_at',
-    populate: {
-      path: 'user',
-      select: '-_id email display_name avatar',
-    },
-    options: {
-      sort: {
-        created_at: -1,
+  this.sort({ created_at: -1 })
+    .populate('user', 'email display_name avatar')
+    .populate('room', 'name')
+    .populate('likes', 'user_id')
+    .populate({
+      path: 'comments',
+      select: '-post_id -updated_at',
+      populate: {
+        path: 'user',
+        select: '-_id email display_name avatar',
       },
-    },
-  });
+      options: {
+        sort: {
+          created_at: -1,
+        },
+      },
+    });
   next();
 }
 

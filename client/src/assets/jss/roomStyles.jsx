@@ -1,4 +1,10 @@
-import { container, primaryColor, secondaryColor, textColor, textSecondaryColor, darkColor } from './main';
+import {
+  container,
+  primaryColor,
+  secondaryColor,
+  textColor,
+  textSecondaryColor,
+} from './main';
 
 const lightColor = 'rgba(255,255,255,.9)';
 const feedColor = '#1D1D1D';
@@ -20,6 +26,17 @@ const roomStyles = {
     color: textColor,
   },
   // Left section
+  leftSliderWrapper: {
+    position: 'sticky',
+    top: '1em',
+    height: 'calc(100vh - 1em)',
+    overflowY: 'auto',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    /* Hide scrollbar for IE and Edge */
+    MsOverflowStyle: 'none',
+  },
   leftHeader: {
     color: textColor,
     fontWeight: 500,
@@ -49,7 +66,7 @@ const roomStyles = {
   timeText: {
     color: textSecondaryColor,
     fontSize: '0.75rem',
-    marginLeft: '0.15em'
+    marginLeft: '0.15em',
   },
   headerIcon: {
     marginLeft: '-1px',
@@ -71,11 +88,11 @@ const roomStyles = {
     marginTop: '0.5em',
     '& a': {
       color: textColor,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
-    '& img' : {
-      maxWidth: '100%'
-    }
+    '& img': {
+      maxWidth: '100%',
+    },
   },
   btnLink: {
     textTransform: 'none',
@@ -130,10 +147,10 @@ const roomStyles = {
   },
   commentInputText: {
     color: textColor,
-    fontSize: '1em'
+    fontSize: '1em',
   },
   commentInputIcon: {
-    marginRight: '-0.5em'
+    marginRight: '-0.5em',
   },
   // Comment
   commentContainer: {

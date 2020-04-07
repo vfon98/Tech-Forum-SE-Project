@@ -13,6 +13,7 @@ import Room from './views/Room/Room';
 import Profile from './views/Profile/ProfilePage'
 import NewsDetail from './views/NewsDetail/NewsDetail';
 import RoomNews from './views/RoomNews/RoomNews';
+import News from './views/News/News';
 
 
 ReactDOM.render(
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Route path='/discussion' exact component={Discussion} />
       <Route path='/room/:name' exact component={Room} />
       <Route path='/room/:name/news' exact component={RoomNews} />
+      <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
       <Route path='/profile' exact component={Profile} />
     </Switch>

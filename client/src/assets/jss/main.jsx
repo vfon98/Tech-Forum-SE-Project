@@ -27,6 +27,14 @@ const title = {
     fontWeight: "700"
 }
 
+const limitLine = numberOfLine => ({
+  display: '-webkit-box',
+  overflow: 'hidden',
+  textOverflow: 'hidden',
+  lineClamp: numberOfLine,
+  boxOrient: 'vertical',
+});
+
 export  {
     primaryColor,
     secondaryColor,
@@ -41,5 +49,6 @@ export  {
     lightBlueColor,
     dyan,
     container,
-    title
+    title,
+    limitLine
 }

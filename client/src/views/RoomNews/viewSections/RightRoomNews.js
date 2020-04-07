@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { withStyles, Paper, Box, Grid } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import axios from '../../../axios/instance';
 import history from '../../../utils/history';
 
 import NewsItem from './Right/NewsItem';
 import Loading from '../../../../src/components/Loading';
-import roomNewsStyles from '../../../assets/jss/roomNewsStyles';
+import InfiniteScroll from 'react-infinite-scroller';
 import { parseTagFrom } from '../../../utils/converter';
+
+import { withStyles } from '@material-ui/styles';
+import roomNewsStyles from '../../../assets/jss/roomNewsStyles';
 
 class RightRoomNews extends Component {
   constructor(props) {
@@ -14,41 +17,60 @@ class RightRoomNews extends Component {
     this.state = {
       newsItems: [],
       isLoading: true,
-      roomName: ''
+      roomName: '',
+      hasNextPage: false,
     };
   }
 
   componentDidMount() {
     const { pathname } = history.location;
+    this.loadMorePage(1);
+    this.setState({
+      // pathname format /room/:name/news
+      roomName: pathname.split('/')[2],
+    });
+  }
+
+  loadMorePage = pageNumber => {
+    // Old news
+    const { newsItems } = this.state;
     axios
-      .get('/news/all')
+      .post('/news/test', { page: pageNumber })
       .then(res => {
-        console.log('res.data', res.data);
         this.setState({
-          newsItems: res.data.news,
+          newsItems: newsItems.concat(res.data.news),
           isLoading: false,
+          hasNextPage: res.data.hasNextPage,
         });
       })
       .catch(err => console.log(err));
-    this.setState({
-      roomName: pathname.split('/')[2]
-    })
-  }
+  };
 
   render() {
     const { classes } = this.props;
-    const { newsItems, isLoading, roomName } = this.state;
+    const { newsItems, isLoading, roomName, hasNextPage } = this.state;
 
     return (
       <Paper className={classes.cardBg}>
         <Grid className={classes.titleWrapper}>
           <h3 className={classes.cardTitle}>Recent News</h3>
-          <p className={classes.cardTag}>{parseTagFrom(roomName)}</p>
+          {/* <p className={classes.cardTag}>{parseTagFrom(roomName)}</p> */}
         </Grid>
         {isLoading ? (
           <Loading />
         ) : (
-          newsItems.map(news => <NewsItem key={news.id} news={news} />)
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={this.loadMorePage}
+            hasMore={hasNextPage}
+            loader={<Loading />}
+            threshold={400}
+          >
+            {newsItems.map(news => (
+              <NewsItem key={news.id} news={news} />
+            ))}
+            {!hasNextPage ? <Typography textAlign='center'>No more to show</Typography> : ''}
+          </InfiniteScroll>
         )}
       </Paper>
     );

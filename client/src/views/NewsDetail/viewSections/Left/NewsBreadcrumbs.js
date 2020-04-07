@@ -37,12 +37,20 @@ class NewsBreadcrumbs extends Component {
           <Link className={classes.link} component={RouterLink} to='/'>
             Home
           </Link>
-          <Link className={classes.link} component={RouterLink} to='/discussion'>
+          <Link
+            className={classes.link}
+            component={RouterLink}
+            to='/discussion'
+          >
             Discussion
           </Link>
-          <Typography className={classes.currentLink} color='primary'>
+          <Link
+            className={classes.currentLink}
+            component={RouterLink}
+            to={`/room/${room.name}/news`}
+          >
             [{room && room.name}] News
-          </Typography>
+          </Link>
         </Breadcrumbs>
       </CardContent>
     );

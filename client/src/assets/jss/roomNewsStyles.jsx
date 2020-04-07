@@ -7,16 +7,9 @@ import {
   dyan,
   darkGreen,
   orangeColor,
+  limitLine
 } from './main';
 import newsStyles from './recentNewsStyles';
-
-const limitLine = numberOfLine => ({
-  display: '-webkit-box',
-  overflow: 'hidden',
-  textOverflow: 'hidden',
-  lineClamp: numberOfLine,
-  boxOrient: 'vertical',
-});
 
 const { newsItem, newsTitle, newsBodyText } = newsStyles;
 const roomNewsStyles = {
@@ -25,6 +18,10 @@ const roomNewsStyles = {
     ...newsItem,
     margin: 0,
     padding: '1em 8px',
+    boxSizing: 'border-box',
+    '&:hover img:first-child': {
+      boxShadow: '0 0 2px 2px rgba(0, 140, 186, 0.2)'
+    }
   },
   imgWrapper: {
     display: 'flex',

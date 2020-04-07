@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button, Grid, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import history from '../../../utils/history';
 
 import recentNewsStyles from '../../../assets/jss/recentNewsStyles';
 import { withStyles } from '@material-ui/styles';
@@ -66,12 +67,12 @@ const rooms = [
 ];
 
 const CardItem = props => {
-  const { classes, room } = props;
+  const { classes, room, isNews } = props;
   return (
     <>
       <Button className={classes.btn} style={{ paddingLeft: 0 }}>
         <Link
-          to={`/room/${room.title}`}
+          to={`/room/${room.title}/${isNews ? 'news' : ''}`}
           replace
           style={{ textDecoration: 'none', textTransform: 'none' }}
         >
@@ -89,16 +90,41 @@ const CardItem = props => {
   );
 };
 
-const SideBar = props => {
-  const { classes } = props;
-  return (
-    <Box>
-      <h3 className={classes.title}>Our Community</h3>
-      {rooms.map(room => (
-        <CardItem key={room.id} room={room} classes={classes} />
-      ))}
-    </Box>
-  );
-};
+class SideBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isNews: false,
+    };
+  }
+
+  componentDidMount() {
+    const { pathname } = history.location;
+    if (pathname.endsWith('/news')) {
+      this.setState({
+        isNews: true,
+      });
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { isNews } = this.state;
+
+    return (
+      <Box>
+        <h3 className={classes.title}>Our Community</h3>
+        {rooms.map(room => (
+          <CardItem
+            key={room.id}
+            room={room}
+            classes={classes}
+            isNews={isNews}
+          />
+        ))}
+      </Box>
+    );
+  }
+}
 
 export default withStyles(recentNewsStyles)(SideBar);

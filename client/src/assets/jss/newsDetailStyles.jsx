@@ -1,7 +1,15 @@
-import { primaryColor, secondaryColor, textColor, lightBlueColor, green } from './main';
+import { primaryColor, secondaryColor, textColor } from './main';
 import roomStyles from './roomStyles';
 
-const { avatarLg, text, secondaryText, userName, timeText, headerIcon } = roomStyles;
+const {
+  avatarLg,
+  text,
+  secondaryText,
+  userName,
+  timeText,
+  headerIcon,
+} = roomStyles;
+
 const newsDetailStyles = {
   // IMPORTED STYLES
   text,
@@ -15,7 +23,7 @@ const newsDetailStyles = {
   },
   avatarLg: {
     ...avatarLg,
-    border: '2px solid #2E83F2'
+    border: '2px solid #2E83F2',
   },
   pageWrapper: {
     backgroundColor: secondaryColor,
@@ -25,14 +33,14 @@ const newsDetailStyles = {
     backgroundColor: primaryColor,
     color: textColor,
     padding: '1.2em',
-    marginBottom: '0.6em'
+    marginBottom: '0.6em',
   },
   rightWrapper: {
     backgroundColor: primaryColor,
     color: textColor,
     paddingLeft: '1.2em',
     paddingBottom: '0.6em',
-    marginBottom: '1em'
+    marginBottom: '1em',
   },
   // News styles
   newsHeader: {
@@ -47,8 +55,8 @@ const newsDetailStyles = {
     '&:not(:first-child):before': {
       content: '"•"',
       fontSize: '0.7rem',
-      margin: '0 0.6em'
-    }
+      margin: '0 0.6em',
+    },
   },
   newsThumbnail: {
     width: '100%',
@@ -56,8 +64,8 @@ const newsDetailStyles = {
     border: '1px solid #696969',
     borderRadius: '2px',
     '&:hover': {
-      boxShadow: '0 0 2px 2px rgba(0, 140, 186, 0.5)'
-    }
+      boxShadow: '0 0 2px 2px rgba(0, 140, 186, 0.5)',
+    },
   },
   newsContent: {
     // border: '2px solid green',
@@ -74,8 +82,8 @@ const newsDetailStyles = {
       textAlign: 'center',
     },
     '& img': {
-      borderRadius: '4px'
-    }
+      borderRadius: '4px',
+    },
   },
   btnComments: {
     textTransform: 'none',
@@ -85,8 +93,8 @@ const newsDetailStyles = {
   },
   commentBoxWrapper: {
     padding: '8px 0',
-    marginTop: '6px'
-  }
+    marginTop: '6px',
+  },
 };
 
 export default newsDetailStyles;

@@ -125,7 +125,7 @@ class NavBar extends Component {
                   </NavLink>
                 </Button>
                 <Button className={classes.btn}>
-                  <NavLink className={classes.link} to='/news/5e7b290e292573070b0435c1'>
+                  <NavLink className={classes.link} to='/news'>
                     News
                   </NavLink>
                 </Button>

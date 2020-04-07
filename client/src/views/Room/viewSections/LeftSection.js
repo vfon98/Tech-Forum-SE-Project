@@ -8,6 +8,7 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  Box,
   Typography,
 } from '@material-ui/core';
 import { Forum, MenuBookTwoTone } from '@material-ui/icons';
@@ -51,7 +52,7 @@ class LeftSection extends Component {
     const { roomName } = this.state;
 
     return (
-      <>
+      <Box className={classes.leftSliderWrapper}>
         <Card variant='outlined' className={classes.bgPrimary}>
           <List style={{ padding: 0 }}>
             <ListSubheader className={classes.leftHeader}>
@@ -105,7 +106,7 @@ class LeftSection extends Component {
         </Card>
         {/* SIDEBAR */}
         <RoomSidebar />
-      </>
+      </Box>
     );
   }
 }

@@ -1,4 +1,5 @@
 const News = require('../models/News');
+const Room = require('../models/Room');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
@@ -12,20 +13,39 @@ module.exports = {
   getRecentNews(req, res) {},
   getNewsByRoom(req, res) {
     const { name } = req.params;
-    News.find({})
-      .select('-likes -comments')
-      .then(news => {
-        res.json({ news });
+    Room.findOne({ name })
+      .then(room => {
+        News.find({ room_id: room._id })
+          .select('-likes -comments')
+          .then(news => {
+            res.json({ total: news.length, news });
+          });
       })
-      .catch(err => res.status(400).json({ err: err.toString() }));
+      .catch(err => res.status(400).json({ err: 'Not a valid room name!' }));
   },
   randomNews(req, res) {
-    // News.aggregate()
-    // .sample(5)
-    News.find({})
-      .limit(6)
-      .then(news => res.json({ news }))
+    const size = req.query.size || 10;
+    News.aggregate()
+      .sample(size)
+      .project('-likes -comments -__v -updated_at')
+      .then(news => {
+        News.populate(news, {
+          path: 'user',
+          select: 'avatar display_name',
+        }).then(news => {
+          res.json({ total: news.length, news });
+        });
+      })
       .catch(err => res.status(400).json({ err }));
+  },
+  getRelateNews(req, res) {
+    const keyword = req.body.keyword || '';
+    News.find({ $text: { $search: keyword } })
+      .limit(10)
+      .then(news => {
+        res.json({ total: news.length, news });
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
   },
   getNews(req, res) {
     const id = ObjectId(req.params.id);
@@ -41,5 +61,27 @@ module.exports = {
         res.json({ news });
       })
       .catch(err => res.status(400).json({ err }));
+  },
+  async testRoute(req, res) {
+    const page = parseInt(req.body.page) || 1;
+    const size = parseInt(req.body.size) || 10;
+
+    const total_docs = await News.find({}).estimatedDocumentCount();
+    const total_pages = Math.ceil(total_docs / size);
+
+    News.find({})
+      .skip(size * (page - 1))
+      .limit(size)
+      .then(news => {
+        res.json({
+          page,
+          size,
+          count: news.length,
+          total_pages,
+          hasNextPage: page < total_pages,
+          news,
+        });
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
   },
 };
