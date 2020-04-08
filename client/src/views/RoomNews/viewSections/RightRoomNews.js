@@ -54,7 +54,9 @@ class RightRoomNews extends Component {
       <Paper className={classes.cardBg}>
         <Grid className={classes.titleWrapper}>
           <h3 className={classes.cardTitle}>Recent News</h3>
-          {/* <p className={classes.cardTag}>{parseTagFrom(roomName)}</p> */}
+          <p className={classes.cardTag}>
+            {roomName ? parseTagFrom(roomName) : ''}
+          </p>
         </Grid>
         {isLoading ? (
           <Loading />
@@ -69,7 +71,11 @@ class RightRoomNews extends Component {
             {newsItems.map(news => (
               <NewsItem key={news.id} news={news} />
             ))}
-            {!hasNextPage ? <Typography textAlign='center'>No more to show</Typography> : ''}
+            {!hasNextPage ? (
+              <Typography textAlign='center'>No more to show</Typography>
+            ) : (
+              ''
+            )}
           </InfiniteScroll>
         )}
       </Paper>

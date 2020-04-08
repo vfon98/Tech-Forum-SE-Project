@@ -11,6 +11,16 @@ module.exports = {
       .catch(err => res.status(400).json({ err }));
   },
   getRecentNews(req, res) {},
+  getTrendingNews(req, res) {
+    News.find({})
+      .sort({ views: -1, created_at: -1 })
+      .select('-likes -comments')
+      .limit(10)
+      .then(news => {
+        res.json({ news });
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
+  },
   getNewsByRoom(req, res) {
     const { name } = req.params;
     Room.findOne({ name })

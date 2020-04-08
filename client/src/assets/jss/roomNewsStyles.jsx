@@ -3,11 +3,11 @@ import {
   secondaryColor,
   textColor,
   textSecondaryColor,
-  title,
   dyan,
   darkGreen,
   orangeColor,
-  limitLine
+  limitLine,
+  lightBlueColor
 } from './main';
 import newsStyles from './recentNewsStyles';
 
@@ -70,13 +70,14 @@ const roomNewsStyles = {
     justifyContent: 'space-between',
   },
   cardTitle: {
-    ...title,
-    paddingLeft: '6px',
+    color : textColor,
+    fontSize: '1.4rem',
+    fontWeight: "700",
     marginTop: 0,
-    marginBottom: '0.4em',
-    // marginLeft: '8px',
-    // paddingLeft: '8px',
-    // borderLeft: `4px solid ${lightBlueColor}`
+    marginBottom: '0.2em',
+    marginLeft: '8px',
+    paddingLeft: '8px',
+    borderLeft: `4px solid ${lightBlueColor}`
   },
   cardTag: {
     fontSize: '1.1rem',

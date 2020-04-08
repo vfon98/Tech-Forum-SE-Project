@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Typography, Grid, Box } from '@material-ui/core';
+import axios from '../../../axios/instance';
 
 import { withStyles } from '@material-ui/styles';
 import newsStyles from '../../../assets/jss/newsStyles';
 
+import TrendingSlider from './Trending/TrendingSlider';
+
 class RightMainNews extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      trendingNews: [],
+    };
+  }
+
+  componentDidMount() {
+    axios.get('/news/trending').then(res => {
+      this.setState({
+        trendingNews: res.data.news,
+      });
+    });
+  }
+
   render() {
     const { classes } = this.props;
+    const { trendingNews } = this.state;
+
     return (
-      <Paper className={classes.bannerWrapper}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aut culpa in
-        consequatur, cupiditate sunt corrupti unde natus dolorem deleniti quam
-        officia quaerat ullam ab odio. Soluta officiis esse commodi?
+      <Paper className={classes.trendingNewsWrapper}>
+        <Typography className={classes.cardTitle}>Trending</Typography>
+        <TrendingSlider news={trendingNews} />
       </Paper>
     );
   }

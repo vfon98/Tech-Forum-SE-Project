@@ -30,9 +30,9 @@ class News extends Component {
             <Grid>
               <BannerNews />
             </Grid>
-            <Grid container style={{marginTop: '1.2em'}} spacing={2} >
+            <Grid container style={{ marginTop: '1.2em' }} spacing={2}>
               <Grid item sm={9}>
-                <RightRoomNews/>
+                <RightRoomNews />
               </Grid>
               <Grid item sm={3}>
                 <RightMainNews />

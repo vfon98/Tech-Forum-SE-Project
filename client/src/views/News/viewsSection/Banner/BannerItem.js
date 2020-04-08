@@ -9,6 +9,7 @@ import {
   Typography,
   // Avatar,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { parseDateFrom, parseStringFrom } from '../../../../utils/converter';
 
 import { withStyles } from '@material-ui/styles';
@@ -61,6 +62,7 @@ const bannerItemStyles = {
       marginRight: '2px',
       fontWeight: '700',
       color: orangeColor,
+      // color:dyan
     },
   },
   bgDark: {
@@ -86,7 +88,7 @@ class BannerItem extends Component {
     const { news } = this.props;
 
     return (
-      <ButtonBase>
+      <ButtonBase component={Link} to={`/news/${news._id}`}>
         <Card
           className={classes.wrapper}
           title={news ? news.header : 'News title'}

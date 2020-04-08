@@ -31,7 +31,7 @@ const OneItem = props => {
     <ButtonBase
       className={classes.slideWrapper}
       component={Link}
-      to={`/news/${news.id}`}
+      to={`/news/${news._id}`}
     >
       <Card title={news.header} className={classes.slideBg}>
         <CardActionArea>
