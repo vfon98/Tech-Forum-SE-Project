@@ -1,0 +1,15 @@
+.editor-area{
+	width: 1000px;
+	margin: 0 auto;
+}
+.wrapper{
+	margin: 0 auto;
+	width: 80%;
+	background-color: white;
+}
+.input{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	width:  980px !important;
+	font-size: 30px;
+}
