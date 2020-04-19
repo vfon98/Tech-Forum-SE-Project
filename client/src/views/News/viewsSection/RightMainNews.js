@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Typography, Grid, Box } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import axios from '../../../axios/instance';
 
 import { withStyles } from '@material-ui/styles';

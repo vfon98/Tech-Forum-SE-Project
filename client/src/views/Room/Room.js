@@ -26,11 +26,7 @@ class Room extends Component {
     const { classes } = this.props;
     return (
       <>
-        <NavBar
-          brand='Covid'
-          brandHighlight='Forum'
-          isLogin={this.handleAuthChanged}
-        />
+        <NavBar isLogin={this.handleAuthChanged} />
         <Box className={classes.roomWrapper}>
           <Container>
             <Grid container spacing={2}>

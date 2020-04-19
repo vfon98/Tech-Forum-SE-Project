@@ -3,10 +3,10 @@ import { Grid, Container } from '@material-ui/core';
 
 import NavBar from '../../components/NavBar';
 import BannerNews from './viewsSection/BannerNews';
-import RightRoomNews from '../RoomNews/viewSections/RightRoomNews';
 
 import { withStyles } from '@material-ui/styles';
 import newsStyles from '../../assets/jss/newsStyles';
+import LeftMainNews from './viewsSection/LeftMainNews';
 import RightMainNews from './viewsSection/RightMainNews';
 
 class News extends Component {
@@ -20,11 +20,7 @@ class News extends Component {
     const { classes } = this.props;
     return (
       <>
-        <NavBar
-          brand='Covid'
-          brandHighlight='Forum'
-          isLogin={this.handleAuthChanged}
-        />
+        <NavBar isLogin={this.handleAuthChanged} />
         <Grid className={classes.pageWrapper}>
           <Container>
             <Grid>
@@ -32,7 +28,7 @@ class News extends Component {
             </Grid>
             <Grid container style={{ marginTop: '1.2em' }} spacing={2}>
               <Grid item sm={9}>
-                <RightRoomNews />
+                <LeftMainNews />
               </Grid>
               <Grid item sm={3}>
                 <RightMainNews />

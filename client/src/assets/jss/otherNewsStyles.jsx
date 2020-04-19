@@ -30,6 +30,10 @@ const otherNewsStyles = {
     lineClamp: '3',
     boxOrient: 'vertical',
   },
+  authorWrapper: {
+    paddingTop: '4px',
+    paddingBottom: '5px'
+  },
   avatarSm: {
     width: '1.2em',
     height: '1.2em',
@@ -38,7 +42,7 @@ const otherNewsStyles = {
   displayName: {
     fontWeight: '600',
     color: blue,
-    fontSize: '0.75rem'
+    fontSize: '0.7rem'
   },
   actionWrapper: {
     display: 'flex',

@@ -78,6 +78,8 @@ class NewsActions extends Component {
             <ReportPopup
               isOpen={this.state.isOpenReport}
               onClose={this.toggleReportPopup}
+              newsId={this.props.newsId}
+              type='news'
             />
           </Grid>
         </Grid>

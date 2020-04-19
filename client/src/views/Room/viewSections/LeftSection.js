@@ -17,7 +17,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import roomStyles from '../../../assets/jss/roomStyles';
 
-import RoomSidebar from './RoomSidebar';
+import RoomList from '../../../components/RoomList.js/RoomList';
 
 const activeLink = {
   background: 'rgb(0,0,0,0.3)',
@@ -105,7 +105,7 @@ class LeftSection extends Component {
           </List>
         </Card>
         {/* SIDEBAR */}
-        <RoomSidebar />
+        <RoomList />
       </Box>
     );
   }

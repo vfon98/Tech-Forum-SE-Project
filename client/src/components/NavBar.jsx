@@ -111,11 +111,8 @@ class NavBar extends Component {
             <Grid container justify='space-between'>
               <Grid item sm={2}>
                 <Link to='/' className={classes.link}>
-                  {this.props.brand ? this.props.brand : 'BRAND'}
-                  <span className={classes.brandHighlight}>
-                    {' '}
-                    {this.props.brandHighlight ? this.props.brandHighlight : ''}
-                  </span>
+                  Covid{' '}
+                  <span className={classes.brandHighlight}>Forum</span>
                 </Link>
               </Grid>
               <Grid container sm={6} justify='center'>
@@ -153,9 +150,7 @@ class NavBar extends Component {
                 <Button>
                   <Search className={classes.accountBtn} />
                 </Button>
-                <Button
-                  onClick={this.handleClickUserBtn}
-                >
+                <Button onClick={this.handleClickUserBtn}>
                   <Avatar className={classes.avatar} src={this.state.avatar} />
                   <span className={classes.displayName}>
                     {this.state.displayName}

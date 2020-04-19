@@ -74,7 +74,7 @@ class ReportPopup extends Component {
     super(props);
     this.state = {
       items: reportReasons,
-      info: '',
+      content: '',
     };
   }
 
@@ -94,20 +94,25 @@ class ReportPopup extends Component {
   };
 
   handleSendReport = () => {
-    const { items, info } = this.state;
-    const selectedLabels = this.getSelectedLabelsFrom(items);
-    if (selectedLabels.length <= 0) {
-      alert('Please choose at least one reasons');
+    const { items } = this.state;
+    const reasons = this.getSelectedLabelsFrom(items);
+
+    if (reasons.length <= 0) {
+      return alert('Please choose at least one reasons');
     }
-    console.log('selectedItems', selectedLabels, info);
     // Post to API
     axios
       .post('/reports', {
-        types: selectedLabels,
-        content: info,
+        type: this.props.type,
+        reasons: reasons,
+        content: this.state.content,
+        postId: this.props.postId || null,
+        newsId: this.props.newsId || null,
+        commentId: this.props.commentId || null,
       })
       .then(res => {
-        console.log(res);
+        console.log('success', res.data);
+        this.props.onClose();
       })
       .catch(err => console.log(err));
   };
@@ -126,6 +131,7 @@ class ReportPopup extends Component {
 
   render() {
     const { classes } = this.props;
+
     return (
       <Dialog
         open={this.props.isOpen}
@@ -160,8 +166,8 @@ class ReportPopup extends Component {
               size='small'
               placeholder='Write something...'
               multiline
-              value={this.state.info}
-              onChange={e => this.setState({ info: e.target.value })}
+              value={this.state.content}
+              onChange={e => this.setState({ content: e.target.value })}
             />
           </FormGroup>
         </DialogContent>

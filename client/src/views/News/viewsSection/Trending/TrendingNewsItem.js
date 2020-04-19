@@ -24,7 +24,7 @@ import { VisibilityTwoTone } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   wrapper: {
-    margin: '0.5em 0.8em',
+    margin: '0.5em 0.8em 0.6em',
     textAlign: 'left',
     '&:hover img:first-child': {
       boxShadow: '0 0 3px 4px rgba(0, 140, 186, 0.2)',
@@ -129,7 +129,7 @@ const TrendingNewsItem = props => {
           </Grid>
         </Grid>
       </ButtonBase>
-      <Divider />
+      <Divider variant='middle' />
     </>
   );
 };

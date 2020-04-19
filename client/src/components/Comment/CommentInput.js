@@ -11,10 +11,10 @@ import {
 import { Telegram, Close } from '@material-ui/icons';
 
 import { withStyles } from '@material-ui/styles';
-import roomStyles from '../../../../assets/jss/roomStyles';
+import roomStyles from 'assets/jss/roomStyles';
 
-import { getUser, isLogin } from '../../../../utils/session';
-import axios from '../../../../axios/instance';
+import { getUser, isLogin } from 'utils/session';
+import axios from 'axios/instance';
 
 class CommentInput extends Component {
   constructor(props) {

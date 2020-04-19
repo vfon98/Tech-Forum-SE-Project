@@ -2,9 +2,7 @@ import React from 'react'
 
 import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/styles'
-
-import Card from './view components/CustomCard'
-import NavBar from '../../components/NavBar'
+import axios from '../../axios/instance'
 
 import discussionViewStyles from '../../assets/jss/discussionViewStyles'
 
@@ -16,6 +14,9 @@ import linux from '../../assets/img/title/linux.jpg'
 import smartphone from '../../assets/img/title/smartphone.jpg'
 import laptop_desktop from '../../assets/img/title/laptop_desktop.jpg'
 import programing from '../../assets/img/title/programing.jpg'
+
+import Card from './view components/CustomCard'
+import NavBar from '../../components/NavBar'
 
 const rooms = [
   {
@@ -69,6 +70,21 @@ const rooms = [
 ]
 
 class Discussion extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rooms: []
+    }
+  }
+  
+  componentDidMount() {
+    axios.get('/rooms').then(res => {
+      this.setState({
+        rooms: res.data.rooms
+      })
+    })
+  }
+  
   handleClick = value => {
     console.log(value)
     this.props.history.push(`/room/${value}`)
@@ -84,24 +100,20 @@ class Discussion extends React.Component {
     const { classes } = this.props
     return (
       <>
-        <NavBar
-          brand="Covid"
-          brandHighlight="Forum"
-          isLogin={this.handleAuthChanged}
-        />
+        <NavBar isLogin={this.handleAuthChanged} />
         <div
           className={classes.background}
         >
           <Grid container className={classes.container} spacing={2}>
             {
-              rooms.map(room => (
+              this.state.rooms.map(room => (
                 <Grid sm={4} item key={room.id}>
                   <Card
-                    image={room.img}
+                    image={room.image}
                     handleClick={this.handleClick}
                     id={room.id}
-                    title={room.title}
-                    newPost={room.newPost}
+                    title={room.name}
+                    newPost={room.total_news}
                   />
                 </Grid>
               ))

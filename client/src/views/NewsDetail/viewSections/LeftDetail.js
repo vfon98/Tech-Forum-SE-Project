@@ -10,6 +10,7 @@ import {
   Button,
   Collapse,
 } from '@material-ui/core';
+import { ExpandMoreRounded, ExpandLessRounded } from '@material-ui/icons';
 import newsPlaceholder from 'assets/img/news-placeholder.jpg';
 import axios from '../../../axios/instance';
 import history from '../../../utils/history';
@@ -20,11 +21,11 @@ import { withStyles } from '@material-ui/styles';
 import NewsBreadcrumbs from './Left/NewsBreadcrumbs';
 import NewsHeader from './Left/NewsHeader';
 import NewsActions from './Left/NewsActions';
-import UserComment from '../../Room/viewSections/Main/UserComment';
-import CommentInput from '../../Room/viewSections/Main/CommentInput';
-import OtherNews from './Left/OtherNews';
 import Loading from '../../../components/Loading';
-import { ExpandMoreRounded, ExpandLessRounded } from '@material-ui/icons';
+import OtherNews from './Left/OtherNews';
+
+import CommentInput from '../../../components/Comment/CommentInput';
+import UserComment from '../../../components/Comment/UserComment';
 
 class LeftDetail extends Component {
   constructor(props) {
@@ -152,6 +153,7 @@ class LeftDetail extends Component {
             <NewsActions
               likesNum={likesNum}
               toggleLike={this.handleToggleLike}
+              newsId={news.id}
             />
           </Paper>
         </Card>

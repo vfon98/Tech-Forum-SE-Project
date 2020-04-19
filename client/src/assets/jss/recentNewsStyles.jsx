@@ -1,4 +1,5 @@
 import { primaryColor, secondaryColor, container, title, textColor, dyan } from "./main";
+import { darkGreen } from './main';
 
 const recentNewsStyles = {
   background: {
@@ -23,7 +24,6 @@ const recentNewsStyles = {
     overflow: 'hidden',
     objectFit: 'cover',
     objectPosition: 'center',
-    height: 'auto',
     borderRadius: '1rem'
   },
   newsImg: {
@@ -34,12 +34,14 @@ const recentNewsStyles = {
     overflow: 'hidden',
     objectFit: 'cover',
     objectPosition: 'center',
-    height: 'auto'
   },
   cardBg: {
     background: 'rgba(255,255,255,.9)',
     margin: '1rem',
-    padding: '1rem'
+    marginBottom: '3rem',
+    // padding: '1rem',
+    position: 'relative',
+    overflow: 'visible'
   },
   linkText: {
     color: textColor,
@@ -76,11 +78,17 @@ const recentNewsStyles = {
     margin: 0
   },
   newsAuthorText: {
-    color: dyan ,
+    color: dyan,
     fontWeight: 'black',
     margin: '.5rem',
+  },
+  readMoreBtn: {
+    position: 'absolute',
+    bottom: 0,
+    left: '50%',
+    transform: 'translate(-50%, 50%)',
+    padding: '0.6em 2em',
   }
-
 }
 
 export default recentNewsStyles;

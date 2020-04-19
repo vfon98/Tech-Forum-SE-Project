@@ -4,8 +4,8 @@ import { Paper, Grid } from '@material-ui/core';
 import newsDetailStyles from '../../../assets/jss/newsDetailStyles';
 import { withStyles } from '@material-ui/styles';
 
-import RoomSidebar from '../../Room/viewSections/RoomSidebar';
-import RightSection from '../../Room/viewSections/RightSection';
+import RoomList from '../../../components/RoomList.js/RoomList';
+import UserPanel from 'components/UserPanel/UserPanel';
 
 class RightDetail extends Component {
   render() {
@@ -15,12 +15,12 @@ class RightDetail extends Component {
         <Paper elevation={3} className={classes.rightWrapper}>
           <Grid container>
             <Grid container item>
-              <RoomSidebar />
+              <RoomList />
             </Grid>
           </Grid>
         </Paper>
 
-        <RightSection />
+        <UserPanel />
       </>
     );
   }

@@ -46,4 +46,12 @@ module.exports = {
       isAuthenticated: req.isAuthenticated(),
     });
   },
+  test(req, res) {
+    console.log(req.file)
+    return res.status(200).json({
+      uploaded: 1,
+      fileName: 'foo.jpg',
+      url: req.file.path,
+    });
+  },
 };

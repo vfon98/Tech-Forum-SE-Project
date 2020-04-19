@@ -187,6 +187,12 @@ const roomStyles = {
   commentAdminIcon: {
     margin: '0 0.15em 0 -0.1em',
   },
+  commentReportBtn: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    transform: ' translateX(10%)'
+  },
   // Right section
   rightWrapper: {
     position: 'sticky',

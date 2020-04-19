@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Grid, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import history from '../../../utils/history';
+import history from 'utils/history';
 
-import recentNewsStyles from '../../../assets/jss/recentNewsStyles';
+import recentNewsStyles from 'assets/jss/recentNewsStyles';
 import { withStyles } from '@material-ui/styles';
 
 import windows from 'assets/img/title/windows.jpg';
@@ -78,7 +78,7 @@ const CardItem = props => {
         >
           <Grid container spacing={2}>
             <Grid item sm={4}>
-              <img className={classes.img} src={props.room.img} />
+              <img className={classes.img} src={props.room.img} alt='' />
             </Grid>
             <Grid item sm={8}>
               <h4 className={classes.linkText}>{props.room.title}</h4>
@@ -90,7 +90,7 @@ const CardItem = props => {
   );
 };
 
-class SideBar extends Component {
+class RoomList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,4 +127,4 @@ class SideBar extends Component {
   }
 }
 
-export default withStyles(recentNewsStyles)(SideBar);
+export default withStyles(recentNewsStyles)(RoomList);

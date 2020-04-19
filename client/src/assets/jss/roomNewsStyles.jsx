@@ -7,9 +7,10 @@ import {
   darkGreen,
   orangeColor,
   limitLine,
-  lightBlueColor
+  lightBlueColor,
 } from './main';
 import newsStyles from './recentNewsStyles';
+import { lightBg } from './main';
 
 const { newsItem, newsTitle, newsBodyText } = newsStyles;
 const roomNewsStyles = {
@@ -20,8 +21,8 @@ const roomNewsStyles = {
     padding: '1em 8px',
     boxSizing: 'border-box',
     '&:hover img:first-child': {
-      boxShadow: '0 0 2px 2px rgba(0, 140, 186, 0.2)'
-    }
+      boxShadow: '0 0 2px 2px rgba(0, 140, 186, 0.2)',
+    },
   },
   imgWrapper: {
     display: 'flex',
@@ -35,7 +36,7 @@ const roomNewsStyles = {
   newsTitle: {
     ...newsTitle,
     ...limitLine(2),
-    color: textColor,
+    color: ({theme}) => theme === 'light' ? primaryColor : textColor,
     '&:hover': {
       color: dyan,
     },
@@ -43,10 +44,12 @@ const roomNewsStyles = {
   newsBodyText: {
     ...newsBodyText,
     ...limitLine(2),
-    color: textSecondaryColor,
+    // color: textSecondaryColor,
+    color: ({theme}) => theme === 'light' ? primaryColor : textSecondaryColor,
   },
   newsRoomName: {
     color: 'orange',
+    // color: ({theme}) => theme === 'light' ? orangeColor : 'orange',
     fontSize: '0.8rem',
     fontWeight: '500',
   },
@@ -56,28 +59,42 @@ const roomNewsStyles = {
     fontWeight: '600',
     margin: 0,
   },
+  newsInfoText: {
+    fontSize: '0.8rem',
+    color: ({theme}) => theme === 'light' ? textSecondaryColor : textColor,
+    fontWeight: '700',
+    '&:before': {
+      content: '"•"',
+      margin: '0 0.4em',
+      fontSize: '0.6rem',
+    },
+  },
   roomWrapper: {
-    backgroundColor: secondaryColor,
     paddingTop: '24px',
+    backgroundColor: secondaryColor,
+    color: 'inherit'
   },
   cardBg: {
     padding: '1.2rem',
-    backgroundColor: primaryColor,
-    color: textColor,
+    backgroundColor: ({theme}) => theme === 'light' ? lightBg : primaryColor,
+    color: ({theme}) => theme === 'light' ? primaryColor : textColor,
+    '& hr:last-child': {
+      display: 'none'
+    }
   },
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
   cardTitle: {
-    color : textColor,
+    color: 'inherit',
     fontSize: '1.4rem',
-    fontWeight: "700",
+    fontWeight: '700',
     marginTop: 0,
     marginBottom: '0.2em',
     marginLeft: '8px',
     paddingLeft: '8px',
-    borderLeft: `4px solid ${lightBlueColor}`
+    borderLeft: `4px solid ${lightBlueColor}`,
   },
   cardTag: {
     fontSize: '1.1rem',
@@ -89,7 +106,7 @@ const roomNewsStyles = {
   newsAvatarWrapper: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '0.4em',
+    marginTop: '0.2em',
     color: textColor,
   },
   avatarSm: {
@@ -100,14 +117,11 @@ const roomNewsStyles = {
     border: `1px solid lightblue`,
     backgroundColor: darkGreen,
   },
-  newsInfoText: {
-    fontSize: '0.8rem',
-    fontWeight: '700',
-    '&:before': {
-      content: '"•"',
-      margin: '0 0.4em',
-      fontSize: '0.6rem',
-    },
+  noMoreWrapper: {
+    margin: '0 8px',
+  },
+  noMoreButton: {
+    color: darkGreen,
   },
 };
 

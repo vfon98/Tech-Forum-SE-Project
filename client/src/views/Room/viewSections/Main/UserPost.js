@@ -21,10 +21,10 @@ import axios from '../../../../axios/instance';
 import { withStyles } from '@material-ui/styles';
 import roomStyles from 'assets/jss/roomStyles';
 
-import UserComment from './UserComment';
 import PostHeader from './PostHeader';
 import ReportPopup from '../../../../components/ReportPopup';
-import CommentInput from './CommentInput';
+import UserComment from '../../../../components/Comment/UserComment';
+import CommentInput from '../../../../components/Comment/CommentInput';
 
 class UserPost extends Component {
   constructor(props) {
@@ -88,7 +88,6 @@ class UserPost extends Component {
   };
 
   handleRefreshComments = comments => {
-    console.log('refresh', comments)
     const { post } = this.state;
     post.comments = comments;
     this.setState({ post });
@@ -192,6 +191,8 @@ class UserPost extends Component {
                 <ReportPopup
                   isOpen={this.state.isOpenReport}
                   onClose={this.toggleReportPopup}
+                  postId={post.id}
+                  type='post'
                 />
               </Grid>
             </Grid>

@@ -27,11 +27,7 @@ class NewsDetail extends Component {
 
     return (
       <>
-        <NavBar
-          brand='Covid'
-          brandHighlight='Forum'
-          isLogin={this.handleAuthChanged}
-        />
+        <NavBar isLogin={this.handleAuthChanged} />
         <Box className={classes.pageWrapper}>
           <Container>
             <Grid container spacing={4}>

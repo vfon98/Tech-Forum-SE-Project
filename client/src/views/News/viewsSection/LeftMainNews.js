@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RecentNews from '../../../components/RecentNews/RecentNews';
 
-class RightRoomNews extends Component {
+class LeftMainNews extends Component {
   render() {
     return (
       <RecentNews />
@@ -9,4 +9,4 @@ class RightRoomNews extends Component {
   }
 }
 
-export default RightRoomNews;
+export default LeftMainNews;

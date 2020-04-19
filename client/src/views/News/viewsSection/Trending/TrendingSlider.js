@@ -14,6 +14,7 @@ class VerticalCarousel extends Component {
       slidesToShow: 4,
       slidesToScroll: 1,
       verticalSwiping: true,
+      swipeToSlide: true,
     };
     const { news } = this.props;
 

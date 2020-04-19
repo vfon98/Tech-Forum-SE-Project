@@ -40,12 +40,13 @@ const OneItem = props => {
             component='img'
             image={news.thumbnail}
           />
+          <Divider />
           <CardContent className={classes.textWrapper}>
             <Typography className={classes.slideTitle}>
               {news.header}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions className={classes.authorWrapper}>
             <Avatar src={news.user.avatar} className={classes.avatarSm} />
             <small>
               by{' '}

@@ -9,9 +9,9 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core';
-import { getIdentifier } from '../../../../utils/userIdentifier';
-import { timeFrom } from '../../../../utils/converter';
-import { getUser } from '../../../../utils/session';
+import { getIdentifier } from '../../utils/userIdentifier';
+import { timeFrom } from '../../utils/converter';
+import { getUser } from '../../utils/session';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from 'assets/jss/roomStyles';
@@ -21,8 +21,11 @@ import {
   MoreVert,
   Edit,
   DeleteForever,
+  ReportTwoTone,
 } from '@material-ui/icons';
-import ConfirmPopup from '../../../../components/ConfirmPopup';
+
+import ConfirmPopup from '../ConfirmPopup';
+import ReportPopup from 'components/ReportPopup';
 
 const OwnerIcon = props => {
   const { classes } = props;
@@ -117,6 +120,8 @@ class UserComment extends Component {
     super(props);
     this.state = {
       isOpenOption: false,
+      isOpenReport: false,
+      shownReportBtn: false,
     };
   }
 
@@ -125,6 +130,10 @@ class UserComment extends Component {
     const user = getUser();
     return user && comment.user_id === user._id;
   };
+
+  toggleReportPopup = () => {
+    this.setState({isOpenReport: !this.state.isOpenReport})
+  }
 
   render() {
     const { classes } = this.props;
@@ -139,7 +148,11 @@ class UserComment extends Component {
           />
         </Grid>
         <Grid item sm={11}>
-          <Box className={classes.comment}>
+          <Box
+            className={classes.comment}
+            onMouseEnter={() => this.setState({ shownReportBtn: true })}
+            onMouseLeave={() => this.setState({ shownReportBtn: false })}
+          >
             <Typography>
               <strong className={classes.userName}>
                 {comment ? comment.user.display_name : 'Display name'}
@@ -148,13 +161,36 @@ class UserComment extends Component {
                 {comment ? getIdentifier(comment.user.email) : '@example'}
               </small>
               {/* Show comment options unless the owner */}
-              {this.isOwnComment() && (
+              {this.isOwnComment() ? (
                 <OptionPanel
                   classes={classes}
                   // Pass to parent
-                  handleUpdateComment={() => this.props.onUpdateComment(comment)}
-                  handleDeleteComment={() => this.props.onDeleteComment(comment.id)}
+                  handleUpdateComment={() =>
+                    this.props.onUpdateComment(comment)
+                  }
+                  handleDeleteComment={() =>
+                    this.props.onDeleteComment(comment.id)
+                  }
                 />
+              ) : (
+                // Show report button on hover
+                this.state.shownReportBtn && (
+                  <>
+                    <IconButton
+                      color='inherit'
+                      className={classes.commentReportBtn}
+                      onClick={this.toggleReportPopup}
+                    >
+                      <ReportTwoTone fontSize='small' />
+                    </IconButton>
+                    <ReportPopup
+                      isOpen={this.state.isOpenReport}
+                      onClose={this.toggleReportPopup}
+                      commentId={comment.id}
+                      type='comment'
+                    />
+                  </>
+                )
               )}
               {/*  */}
               <Box
