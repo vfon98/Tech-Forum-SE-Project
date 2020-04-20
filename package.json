@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/vfon98/Tech-Forum-SE-Project/issues"
   },
-  "homepage": "https://github.com/vfon98/Tech-Forum-SE-Project#readme"
+  "homepage": "https://github.com/vfon98/Tech-Forum-SE-Project#readme",
+  "dependencies": {
+    "react-ckeditor-component": "^1.1.0"
+  }
 }
