@@ -15,7 +15,7 @@ class Room extends Component {
       isLogin: null,
     };
   }
-
+  
   handleAuthChanged = state => {
     this.setState({
       isLogin: state

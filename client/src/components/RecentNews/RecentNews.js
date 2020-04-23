@@ -4,39 +4,45 @@ import axios from 'axios/instance';
 import history from 'utils/history';
 
 import InfiniteScroll from 'react-infinite-scroller';
-import { parseTagFrom } from 'utils/converter';
 
 import { withStyles } from '@material-ui/styles';
 import roomNewsStyles from 'assets/jss/roomNewsStyles.jsx';
 
 import Loading from 'components/Loading';
 import RecentNewsItem from './RecentNewsItem';
+import ComposeButton from './ComposeButton';
+import { withRouter } from 'react-router-dom';
 
 class RecentNews extends Component {
   constructor(props) {
     super(props);
+    const { params } = this.props.match;
     this.state = {
       newsItems: [],
       isLoading: true,
-      roomName: '',
+      // pathname format /room/:name/news
+      roomName: params.name,
       hasNextPage: false,
     };
   }
 
   componentDidMount() {
-    const { pathname } = history.location;
     this.loadMorePage(1);
-    this.setState({
-      // pathname format /room/:name/news
-      roomName: pathname.split('/')[2],
+    history.listen(() => {
+      console.log('changed');
+      this.setState({ newsItems: [], isLoading: true }, () => {
+        this.loadMorePage(1);
+      });
     });
   }
 
   loadMorePage = pageNumber => {
-    // Old news
     const { newsItems } = this.state;
+    const { params } = this.props.match;
+    // Get all lastest news if roomName doesn't exists
+    const endpoint = params.name ? `/news/room/${params.name}` : `/news/recent`;
     axios
-      .post('/news/test', { page: pageNumber })
+      .post(endpoint, { page: pageNumber })
       .then(res => {
         this.setState({
           newsItems: newsItems.concat(res.data.news),
@@ -55,10 +61,11 @@ class RecentNews extends Component {
       <Paper className={classes.cardBg}>
         <Grid className={classes.titleWrapper}>
           <h3 className={classes.cardTitle}>Recent News</h3>
-          <p className={classes.cardTag}>
-            {roomName ? parseTagFrom(roomName) : ''}
-          </p>
         </Grid>
+        <div className={classes.composeBtn}>
+          {/* {roomName ? parseTagFrom(roomName) : ''} */}
+          {roomName && <ComposeButton />}
+        </div>
         {isLoading ? (
           <Loading />
         ) : (
@@ -69,7 +76,11 @@ class RecentNews extends Component {
             loader={<Loading />}
           >
             {newsItems.map(news => (
-              <RecentNewsItem key={news.id} news={news} theme={this.props.theme} />
+              <RecentNewsItem
+                key={news.id}
+                news={news}
+                theme={this.props.theme}
+              />
             ))}
             {!hasNextPage && (
               <Grid className={classes.noMoreWrapper}>
@@ -91,4 +102,4 @@ class RecentNews extends Component {
   }
 }
 
-export default withStyles(roomNewsStyles)(RecentNews);
+export default withStyles(roomNewsStyles)(withRouter(RecentNews));

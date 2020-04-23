@@ -60,7 +60,7 @@ const rooms = [
   },
   {
     id: '5e5e77340df4c97fa160c19a',
-    title: 'Programing',
+    title: 'Programming',
     img: programing,
     newPost: 1,
   },

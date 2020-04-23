@@ -38,29 +38,38 @@ class UserPost extends Component {
       // Post number of likes and comments
       likesNum: post.likes.length,
       commentsNum: post.comments.length,
-      // Report poup
+      // Report popup
       isOpenReport: false,
       // Comment pass to CommentInput that need to update
       needUpdateComment: null,
       // Display shadow on hover post
       isShadow: false,
       post: post,
+      isLogin: false,
     };
   }
 
   componentDidMount() {
     this.setState({
-      liked: this.checkLiked(this.state.post),
+      // liked: this.checkLiked(this.state.post),
     });
   }
 
-  // Check likes and comments when user login on Post page
   componentDidUpdate(prevProps, prevState) {
     const { comments } = this.state.post;
+    // Adjust comment numbers when state changed
     if (prevState.commentsNum !== comments.length) {
       this.setState({
         commentsNum: comments.length,
       });
+    }
+    // Check like status when logout
+    if (!isLogin() && this.state.liked === true) {
+      this.setState({ liked: false, isLogin: false });
+    }
+    // Check like status when login
+    if (isLogin() && isLogin() !== this.state.isLogin) {
+      this.setState({ isLogin: true, liked: this.checkLiked(this.state.post) });
     }
   }
 
@@ -103,7 +112,7 @@ class UserPost extends Component {
     axios
       .delete(`/comments/${id}`)
       .then(res => {
-        this.handleRefreshComments(res.data.comments)
+        this.handleRefreshComments(res.data.comments);
       })
       .catch(err => console.log(err));
   };
@@ -137,7 +146,7 @@ class UserPost extends Component {
           <Divider />
           {/* CONTENT SECTION */}
           <CardContent>
-            <CardMedia component='img' image='https://placehold.it/400x200' />
+            {/* <CardMedia component='img' image='https://placehold.it/400x200' /> */}
             <Typography
               className={classes.postContent}
               dangerouslySetInnerHTML={{ __html: post.content }}

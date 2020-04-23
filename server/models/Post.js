@@ -18,14 +18,19 @@ const PostSchema = new Schema(
     type: {
       type: String,
       enum: ['post', 'news'],
-      default: 'post'
+      default: 'post',
     },
-    likes: [{
+    likes: [
+      {
         type: Schema.Types.ObjectId,
         ref: 'Like',
-        unique: true
-    }],
-    comments: [{
+        // unique: true,
+        // sparse: true,
+        // default: null
+      },
+    ],
+    comments: [
+      {
         type: Schema.Types.ObjectId,
         ref: 'Comment',
       },
@@ -39,6 +44,8 @@ const PostSchema = new Schema(
     toJSON: { virtuals: true },
   }
 );
+
+// PostSchema.path('likes').index({ sparse: true });
 
 PostSchema.virtual('room', {
   ref: 'Room',
@@ -55,7 +62,8 @@ PostSchema.virtual('user', {
 });
 
 function populatePost(next) {
-  this.populate('user', 'email display_name avatar')
+  this.sort({ created_at: -1 })
+    .populate('user', 'email display_name avatar')
     .populate('room', 'name')
     .populate('likes', 'user_id')
     .populate({
@@ -67,8 +75,8 @@ function populatePost(next) {
       },
       options: {
         sort: {
-          created_at: -1
-        }
+          created_at: -1,
+        },
       },
     });
   next();

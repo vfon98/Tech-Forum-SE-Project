@@ -8,12 +8,12 @@ cloudinary.config({
 });
 
 module.exports = {
-  uploadImage(file) {
-    if (!file) return;
+  uploadImage(file, folder = 'avatars') {
+    if (!file) return null;
     return new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload(file, {
-          folder: 'avatars/',
+          folder: `${folder}/`,
         })
         .then(res => {
           // Remove file from local

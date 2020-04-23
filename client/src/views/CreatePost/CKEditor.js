@@ -11,6 +11,7 @@ class CKEditor extends React.Component {
 
     //Bindings
     this.onLoad = this.onLoad.bind(this);
+    this.passData = this.passData.bind(this);
 
     //State initialization
     this.state = {
@@ -38,11 +39,19 @@ class CKEditor extends React.Component {
     this.unmounting = true;
   }
 
+  passData(editor) {
+    editor.on('change', e => {
+      this.props.getData(e.editor.getData());
+    })
+  }
+
   onLoad() {
-    window.CKEDITOR.replace( 'editor');
+    const { height } = this.props;
+    let editor = window.CKEDITOR.replace('editor');
+    this.passData(editor);
     window.CKEDITOR.config.uiColor = '#9AB8F3';
-    window.CKEDITOR.config.width = '1000px';
-    window.CKEDITOR.config.height = '400px';
+    // window.CKEDITOR.config.width = '1000px';
+    window.CKEDITOR.config.height = height || '400px';
     if (this.unmounting) return;
     this.setState({
       isScriptLoaded: true
@@ -71,7 +80,7 @@ class CKEditor extends React.Component {
   render() {
     return (
       <div> 
-        <textarea name="editor" id="editor" rows="10" cols="80">
+        <textarea name="editor" id="editor" rows="10" cols="80" required>
         </textarea>
       </div>
     );

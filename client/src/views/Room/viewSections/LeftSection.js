@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { Forum, MenuBookTwoTone } from '@material-ui/icons';
 import { NavLink, withRouter } from 'react-router-dom';
+import axios from 'axios/instance';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from '../../../assets/jss/roomStyles';
@@ -26,33 +27,42 @@ const activeLink = {
 class LeftSection extends Component {
   constructor(props) {
     super(props);
+    const { params } = this.props.match;
     this.state = {
-      roomName: '',
+      roomName: params.name,
+      roomInfo: {}
     };
   }
-
+  
   componentDidMount() {
-    const { params } = this.props.match;
-    this.setState({
-      roomName: params.name,
-    });
+    this.fetchRoomInfo();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { params } = this.props.match;
     if (prevState.roomName !== params.name) {
+      this.fetchRoomInfo();
       this.setState({
         roomName: params.name,
       });
     }
   }
 
+  fetchRoomInfo = () => {
+    const { params } = this.props.match;
+    axios.get(`/rooms/${params.name}`).then(res => {
+      this.setState({
+        roomInfo: res.data.room
+      })
+    })
+  }
+
   render() {
     const { classes } = this.props;
-    const { roomName } = this.state;
+    const { roomName, roomInfo } = this.state;
 
     return (
-      <Box className={classes.leftSliderWrapper}>
+      <Box>
         <Card variant='outlined' className={classes.bgPrimary}>
           <List style={{ padding: 0 }}>
             <ListSubheader className={classes.leftHeader}>
@@ -75,7 +85,7 @@ class LeftSection extends Component {
                 primary='News'
                 secondary={
                   <Typography className={classes.leftSecondary}>
-                    +2 new posts
+                    +{roomInfo ? roomInfo.total_news : 0} new posts
                   </Typography>
                 }
               />
@@ -97,7 +107,7 @@ class LeftSection extends Component {
                 primary='Discussion'
                 secondary={
                   <Typography className={classes.leftSecondary}>
-                    +10 new posts
+                    +{roomInfo ? roomInfo.total_posts : 0} new posts
                   </Typography>
                 }
               />

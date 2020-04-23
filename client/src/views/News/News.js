@@ -10,6 +10,10 @@ import LeftMainNews from './viewsSection/LeftMainNews';
 import RightMainNews from './viewsSection/RightMainNews';
 
 class News extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+  
   handleAuthChanged = state => {
     this.setState({
       isLogin: state,

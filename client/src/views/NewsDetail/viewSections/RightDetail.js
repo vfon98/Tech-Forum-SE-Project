@@ -5,7 +5,7 @@ import newsDetailStyles from '../../../assets/jss/newsDetailStyles';
 import { withStyles } from '@material-ui/styles';
 
 import RoomList from '../../../components/RoomList.js/RoomList';
-import UserPanel from 'components/UserPanel/UserPanel';
+import UserSidePanel from 'components/UserSidePanel/UserSidePanel';
 
 class RightDetail extends Component {
   render() {
@@ -20,7 +20,7 @@ class RightDetail extends Component {
           </Grid>
         </Paper>
 
-        <UserPanel />
+        <UserSidePanel />
       </>
     );
   }

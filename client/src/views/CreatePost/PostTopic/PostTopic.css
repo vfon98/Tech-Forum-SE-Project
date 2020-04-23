@@ -8,3 +8,18 @@
 	margin: 20px;
 	cursor: pointer;
 }
+
+.darker {
+	background-color: #f57c00;
+}
+
+.post-wrapper {
+	box-sizing: border-box;
+	border: 1px solid darkslategrey;
+	display: flex;
+	justify-content: center;
+	margin-top: 2em;
+	padding: 1em;
+	width: 100%;
+	border-radius: 3px;
+}

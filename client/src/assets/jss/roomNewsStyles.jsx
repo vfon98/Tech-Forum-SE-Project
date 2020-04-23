@@ -76,6 +76,7 @@ const roomNewsStyles = {
   },
   cardBg: {
     padding: '1.2rem',
+    position: 'relative',
     backgroundColor: ({theme}) => theme === 'light' ? lightBg : primaryColor,
     color: ({theme}) => theme === 'light' ? primaryColor : textColor,
     '& hr:last-child': {
@@ -96,7 +97,10 @@ const roomNewsStyles = {
     paddingLeft: '8px',
     borderLeft: `4px solid ${lightBlueColor}`,
   },
-  cardTag: {
+  composeBtn: {
+    position: 'absolute',
+    top: '0.5em',
+    right: 0,
     fontSize: '1.1rem',
     color: orangeColor,
     fontWeight: '600',

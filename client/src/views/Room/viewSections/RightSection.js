@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import UserPanel from 'components/UserPanel/UserPanel';
+import UserSidePanel from 'components/UserSidePanel/UserSidePanel';
 
 class RightSection extends Component {
   render() {
-    return <UserPanel />;
+    return <UserSidePanel />;
   }
 }
 

@@ -19,9 +19,16 @@ const isLogin = () => {
   return sessionStorage.user !== undefined;
 };
 
+const isAuthenticated = () => {
+  if (isLogin()) return true;
+  window.handlePopup('login');
+  return false;
+}
+
 export {
   getUser,
   setUser,
   logoutUser,
-  isLogin
+  isLogin,
+  isAuthenticated
 }
