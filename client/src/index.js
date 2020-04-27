@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // import Router
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route, Router, Redirect } from 'react-router-dom';
 import history from './utils/history';
 
 //Import view of this product
@@ -15,6 +15,7 @@ import NewsDetail from './views/NewsDetail/NewsDetail';
 import RoomNews from './views/RoomNews/RoomNews';
 import News from './views/News/News';
 import CreatePost from './views/CreatePost/CreatePost';
+import Admin from 'views/Admin/Admin';
 
 ReactDOM.render(
   <Router history={history}>
@@ -27,6 +28,9 @@ ReactDOM.render(
       <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
       <Route path='/profile' exact component={Profile} />
+
+      <Redirect from='/admin' to='/admin/dashboard' exact />
+      <Route path='/admin/dashboard' exact component={Admin} />
     </Switch>
   </Router>,
   document.getElementById('root')
