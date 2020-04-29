@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Drawer,
-  Button,
   Box,
   Typography,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  ButtonBase,
   withStyles,
   makeStyles,
   ListItemAvatar,
@@ -21,7 +18,7 @@ import sidebarStyles from 'assets/jss/admin/sidebarStyles';
 
 const useStyles = makeStyles(sidebarStyles);
 
-const SidebarLink = (props) => {
+const SidebarLink = props => {
   const classes = useStyles();
   return (
     <ListItem
@@ -55,13 +52,17 @@ class Sidebar extends Component {
               </Typography>
             </ListItemText>
           </ListItem>
-          <Divider className={classes.divider}/>
+          <Divider className={classes.divider} />
           <SidebarLink
             icon={<Dashboard />}
             text='Dashboard'
             to='/admin/dashboard'
           />
-          <SidebarLink icon={<People />} text='Users' to='/' />
+          <SidebarLink
+            icon={<People />}
+            text='Users'
+            to='/admin/users-manager'
+          />
           <SidebarLink icon={<Report />} text='Reports' to='/' />
           <SidebarLink icon={<Inbox />} text='Others' to='/' />
         </List>

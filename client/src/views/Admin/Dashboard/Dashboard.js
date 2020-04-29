@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import Layout from '../Layout/Layout';
-import { Grid, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
-import dashboardStyles from 'assets/jss/admin/dashboardStyles';
 import axios from 'axios/instance';
 
 import PostChart from './PostChart';
 import NewsChart from './NewsChart';
-import Statistic from './Statistic';
+
+const dashboardStyles = {
+  chartWrapper: {
+    background: '#27293D',
+    margin: '0 16px',
+    marginBottom: '32px',
+    padding: '24px'
+  }
+};
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,17 +29,17 @@ class Dashboard extends Component {
   componentDidMount() {
     axios
       .get('/rooms')
-      .then((res) => {
+      .then(res => {
         this.setState({
           rooms: res.data.rooms,
           roomsName: this.getDataField(res.data.rooms, 'name'),
         });
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }
 
   getDataField = (arr, field) => {
-    return arr.map((item) => item[field]);
+    return arr.map(item => item[field]);
   };
 
   render() {
@@ -41,13 +48,6 @@ class Dashboard extends Component {
 
     return (
       <Layout>
-        <Grid
-          container
-          justify='space-around'
-          className={classes.statisticWrapper}
-        >
-          <Statistic />
-        </Grid>
         <Paper className={classes.chartWrapper}>
           <PostChart
             roomsName={roomsName}

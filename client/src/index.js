@@ -16,6 +16,7 @@ import RoomNews from './views/RoomNews/RoomNews';
 import News from './views/News/News';
 import CreatePost from './views/CreatePost/CreatePost';
 import Admin from 'views/Admin/Admin';
+import UsersManager from 'views/Admin/UsersManager/UsersManager';
 
 ReactDOM.render(
   <Router history={history}>
@@ -31,6 +32,7 @@ ReactDOM.render(
 
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />
+      <Route path='/admin/users-manager' exact component={UsersManager} />
     </Switch>
   </Router>,
   document.getElementById('root')

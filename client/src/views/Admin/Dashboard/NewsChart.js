@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Typography } from '@material-ui/core';
-import { purple, green, blue } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 
 let data = {
   labels: [

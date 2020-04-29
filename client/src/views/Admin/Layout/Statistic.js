@@ -9,6 +9,15 @@ import { purple, green, red, blue } from '@material-ui/core/colors';
 import axios from 'axios/instance';
 
 import StatisticItem from './StatisticItem';
+import { withStyles } from '@material-ui/styles';
+import { Grid } from '@material-ui/core';
+
+const statisticStyles = {
+  statisticWrapper: {
+    display: 'flex',
+    marginTop: '8px',
+  },
+};
 
 class Statistic extends Component {
   constructor(props) {
@@ -37,8 +46,14 @@ class Statistic extends Component {
 
   render() {
     const { totalPosts, totalNews, totalUsers, totalReports } = this.state;
+    const { classes } = this.props;
+
     return (
-      <>
+      <Grid
+        container
+        justify='space-around'
+        className={classes.statisticWrapper}
+      >
         <StatisticItem
           icon={<ForumRounded />}
           color={purple}
@@ -67,9 +82,9 @@ class Statistic extends Component {
           data={totalReports}
           description='Reports by users'
         />
-      </>
+      </Grid>
     );
   }
 }
 
-export default Statistic;
+export default withStyles(statisticStyles)(Statistic);

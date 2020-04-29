@@ -6,6 +6,7 @@ import NavBar from 'components/NavBar';
 import Sidebar from './Sidebar';
 import { secondaryColor } from 'assets/jss/main';
 import { primaryColor } from 'assets/jss/main';
+import Statistic from './Statistic';
 
 const layoutStyles = {
   container: {
@@ -16,7 +17,7 @@ const layoutStyles = {
     height: '100vh',
     background: `linear-gradient(${primaryColor}, #000 85%)`,
     position: 'sticky',
-    top: 0
+    top: 0,
   },
   main: {
     backgroundColor: secondaryColor,
@@ -36,12 +37,15 @@ class Layout extends Component {
     const { classes } = this.props;
     return (
       <>
-        <NavBar isLogin={(isLogin) => this.setState({ isLogin })} />
+        <NavBar isLogin={isLogin => this.setState({ isLogin })} />
         <Grid container className={classes.container}>
           <Grid className={classes.sidebar} item sm={3} md={2}>
             <Sidebar />
           </Grid>
-          <Grid className={classes.main} item sm={9} md={10}>{this.props.children}</Grid>
+          <Grid className={classes.main} item sm={9} md={10}>
+            <Statistic />
+            {this.props.children}
+          </Grid>
         </Grid>
       </>
     );

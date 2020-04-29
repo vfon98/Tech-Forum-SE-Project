@@ -39,7 +39,8 @@ passport.use(
           fbUser.fbID = id;
           fbUser.email = email;
           fbUser.display_name = name;
-          fbUser.avatar = picture.data.url;
+          // fbUser.avatar = picture.data.url;
+          fbUser.avatar = `https://graph.facebook.com/${id}/picture?width=9999&height=9999`;
           fbUser.gender = gender;
           // If user deny location access
           fbUser.address = location ? location.name : '';
