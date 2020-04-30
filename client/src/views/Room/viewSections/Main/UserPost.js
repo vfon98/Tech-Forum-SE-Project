@@ -230,6 +230,7 @@ class UserPost extends Component {
                 <UserComment
                   key={comment.id}
                   comment={comment}
+                  postId={post.id}
                   isOwner={post.user_id === comment.user_id}
                   onUpdateComment={this.handleUpdateComment}
                   onDeleteComment={this.handleDeleteComment}

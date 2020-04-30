@@ -137,7 +137,7 @@ class UserComment extends Component {
 
   render() {
     const { classes } = this.props;
-    const { comment, isOwner, isAdmin } = this.props;
+    const { comment, isOwner, isAdmin, postId } = this.props;
 
     return (
       <Grid container className={classes.commentContainer}>
@@ -187,6 +187,7 @@ class UserComment extends Component {
                       isOpen={this.state.isOpenReport}
                       onClose={this.toggleReportPopup}
                       commentId={comment.id}
+                      postId={postId}
                       type='comment'
                     />
                   </>

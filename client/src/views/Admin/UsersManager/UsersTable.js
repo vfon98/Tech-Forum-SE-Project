@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   Table,
   TableHead,
@@ -17,11 +17,13 @@ import {
 } from '@material-ui/core';
 import { parseLongDateFrom } from 'utils/converter';
 import { LockTwoTone, DirectionsTwoTone, Search } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import axios from 'axios/instance';
 
 import { withStyles } from '@material-ui/styles';
 import { textColor } from 'assets/jss/main';
 import usersTableStyles from 'assets/jss/admin/usersTableStyles';
+import BanUserPopup from './BanUserPopup';
 
 const StyledCell = withStyles({
   root: {
@@ -34,40 +36,55 @@ const StyledCell = withStyles({
 })(TableCell);
 
 const UserRow = props => {
-  const { classes } = props;
+  const { classes, user } = props;
+  const [openPopup, setOpenPopup] = useState(false);
+  const togglePopup = () => {
+    setOpenPopup(!openPopup);
+  };
+
   return (
     <TableRow>
       {/* <StyledCell padding='checkbox'>{props.no + 1}</StyledCell> */}
       <StyledCell>
-        <Box className={classes.username} display='flex' alignItems='center'>
-          <Avatar className={classes.avatar} src={props.avatar} alt={props.name} />
-          {props.name}
+        <Box className={classes.username}>
+          <Avatar
+            className={classes.avatar}
+            src={user.avatar}
+            alt={user.display_name}
+          />
+          {user.display_name}
         </Box>
       </StyledCell>
-      <StyledCell padding='none'>{props.email || 'unknown'}</StyledCell>
+      <StyledCell padding='none'>{user.email || 'unknown'}</StyledCell>
       <StyledCell>
-        {props.loginMethod === 'fb' ? 'Facebook' : 'Email'}
+        {user.login_method === 'fb' ? 'Facebook' : 'Email'}
       </StyledCell>
       <StyledCell padding='none'>
-        {parseLongDateFrom(props.createdAt)}
+        {parseLongDateFrom(user.created_at)}
       </StyledCell>
       <StyledCell padding='none' align='center'>
         <Box>
-          <IconButton color='inherit' size='small'>
-            <Tooltip title='Ban this account' placement='top' arrow>
+          <Tooltip title='Ban this account' placement='top' arrow>
+            <IconButton color='inherit' size='small' onClick={togglePopup}>
               <LockTwoTone fontSize='small' color='error' />
-            </Tooltip>
-          </IconButton>
-          <IconButton color='inherit' size='small'>
-            <Tooltip title='View profile' placement='top' arrow>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title='View profile' placement='top' arrow>
+            <IconButton
+              color='inherit'
+              size='small'
+              component={Link}
+              to={`/profile/${user._id}`}
+            >
               <DirectionsTwoTone
                 fontSize='small'
                 className={classes.viewIcon}
               />
-            </Tooltip>
-          </IconButton>
+            </IconButton>
+          </Tooltip>
         </Box>
       </StyledCell>
+      <BanUserPopup isOpen={openPopup} onClose={togglePopup} user={user} />
     </TableRow>
   );
 };
@@ -79,9 +96,14 @@ class UsersTable extends Component {
       users: [],
       originalArray: [],
     };
+    window.fetchUsers = this.fetchUsers.bind(this);
   }
 
   componentDidMount() {
+    this.fetchUsers();
+  }
+
+  fetchUsers = () => {
     axios
       .get('/admin/users')
       .then(res => {
@@ -114,10 +136,10 @@ class UsersTable extends Component {
     const { classes } = this.props;
 
     return (
-      <Box mx={2}>
+      <Box className={classes.tableWrapper}>
         <Paper className={classes.table}>
           <TableContainer>
-            <Box className={classes.tableWrapper} >
+            <Box className={classes.titleWrapper}>
               <Typography className={classes.tableTitle}>
                 Current active users
               </Typography>
@@ -154,11 +176,8 @@ class UsersTable extends Component {
                       key={user._id}
                       classes={classes}
                       no={index}
-                      name={user.display_name}
-                      avatar={user.avatar}
-                      email={user.email}
-                      loginMethod={user.login_method}
-                      createdAt={user.created_at}
+                      user={user}
+                      openPopup={this.togglePopup}
                     />
                   ))
                 ) : (

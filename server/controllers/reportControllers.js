@@ -14,10 +14,12 @@ module.exports = {
     report.type = req.body.type || 'unknown';
     report.content = req.body.content || '';
     report.reasons = req.body.reasons || [];
-    report.post_id = req.body.postId ? ObjectId(req.body.postId) : undefined;
-    report.news_id = req.body.newsId ? ObjectId(req.body.newsId) : undefined;
-    report.comment_id = req.body.commentId ? ObjectId(req.body.commentId) : undefined;
-    report.user_id = req.user ? ObjectId(req.user._id) : undefined;
+    report.post_id = req.body.postId ? ObjectId(req.body.postId) : null;
+    report.news_id = req.body.newsId ? ObjectId(req.body.newsId) : null;
+    report.comment_id = req.body.commentId
+      ? ObjectId(req.body.commentId)
+      : null;
+    report.user_id = req.user ? ObjectId(req.user._id) : null;
 
     report
       .save()
@@ -26,5 +28,12 @@ module.exports = {
       })
       .catch(err => res.status(400).json({ err }));
   },
-  deleteReport(req, res) {},
+  deleteReport(req, res) {
+    const report_id = req.params.id;
+    Report.findByIdAndDelete(report_id)
+      .then(report => {
+        res.json({ report });
+      })
+      .catch(err => res.status(400).json({ err }));
+  },
 };

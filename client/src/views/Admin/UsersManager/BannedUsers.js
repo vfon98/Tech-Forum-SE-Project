@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
   Paper,
   List,
@@ -23,13 +23,13 @@ import {
   darkGreen,
   orangeColor,
 } from 'assets/jss/main';
-import { red } from '@material-ui/core/colors';
+import ConfirmPopup from 'components/ConfirmPopup';
 
 const listStyles = {
   wrapper: {
     margin: '0 16px',
     position: 'sticky',
-    top: '1em'
+    top: '1em',
   },
   darkBg: {
     background: '#27293D',
@@ -42,7 +42,7 @@ const listStyles = {
     color: darkGreen,
   },
   avatar: {
-    background: red[400],
+    // background: red[400],
   },
   empty: {
     color: orangeColor,
@@ -56,7 +56,27 @@ const listStyles = {
 
 const BannedUser = props => {
   const { classes, user } = props;
-  console.log('user', user);
+  const [openPopup, setOpenPopup] = useState(false);
+
+  const togglePopup = () => setOpenPopup(!openPopup);
+
+  const handleClose = option => {
+    togglePopup();
+    if (option === 'yes') {
+      unbanUser();
+    }
+  };
+
+  const unbanUser = () => {
+    axios
+      .post('/admin/unban/user', { userId: user._id })
+      .then(() => {
+        window.fetchUsers();
+        window.fetchBanned();
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <ListItem button>
       <ListItemAvatar>
@@ -64,12 +84,13 @@ const BannedUser = props => {
       </ListItemAvatar>
       <ListItemText>{user ? user.display_name : 'Display name'}</ListItemText>
       <ListItemSecondaryAction>
-        <IconButton edge='end'>
+        <IconButton edge='end' onClick={togglePopup}>
           <Tooltip title='Unlock this account' placement='top' arrow>
             <LockOpenTwoTone className={classes.unlockIcon} />
           </Tooltip>
         </IconButton>
       </ListItemSecondaryAction>
+      <ConfirmPopup isOpen={openPopup} handleClose={handleClose} />
     </ListItem>
   );
 };
@@ -80,9 +101,14 @@ class BannedUsers extends Component {
     this.state = {
       bannedUser: [],
     };
+    window.fetchBanned = this.fetchBanned.bind(this);
   }
 
   componentDidMount() {
+    this.fetchBanned();
+  }
+
+  fetchBanned = () => {
     axios
       .get('/admin/users/banned')
       .then(res => {
@@ -91,7 +117,7 @@ class BannedUsers extends Component {
         });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   render() {
     const { classes } = this.props;

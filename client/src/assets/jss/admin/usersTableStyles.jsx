@@ -1,26 +1,31 @@
 import { blue, green } from '@material-ui/core/colors';
 import { textColor, textSecondaryColor, orangeColor } from '../main';
-import { secondaryColor } from '../main';
+import { limitLine } from '../main';
+import { dyan } from '../main';
 
 const usersTableStyles = {
+  tableWrapper: {
+    marginLeft: '16px',
+    marginRight: '16px'
+  },
   table: {
     background: '#27293D',
     color: textColor,
-    marginBottom: '2em'
+    marginBottom: '2em',
   },
-  tableWrapper: {
+  titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '8px',
-    paddingLeft: '16px'
+    paddingLeft: '16px',
   },
   tableRow: {
     '&:hover': {
       backgroundColor: 'red !important',
       border: '1px solid red',
       marginLeft: '2px',
-      color: 'green'
+      color: 'green',
     },
   },
   tableTitle: {
@@ -30,10 +35,12 @@ const usersTableStyles = {
   },
   username: {
     fontWeight: 500,
+    display: 'flex',
+    alignItems: 'center',
   },
   avatar: {
     boxSizing: 'border-box',
-    // border: `2px solid ${secondaryColor}`,
+    // border: `1px solid blue`,
     marginRight: '8px',
     // background: green[500],
   },
@@ -56,7 +63,29 @@ const usersTableStyles = {
     fontWeight: 500,
     textAlign: 'center',
     fontStyle: 'italic',
-    borderBottom: 'none'
+    borderBottom: 'none',
+  },
+  nowrap: {
+    whiteSpace: 'nowrap'
+  },
+  nameCell: {
+    paddingRight: 0,
+    paddingLeft: 0,
+    fontWeight: '600',
+  },
+  nameLink: {
+    color: textColor
+  },
+  reasonsCell: {
+    maxWidth: '16em'
+  },
+  contentCell: {
+    maxWidth: '8em',
+    maxHeight: '4rem',
+  },
+  content: {
+    ...limitLine(3),
+    fontSize: '14px'
   }
 };
 

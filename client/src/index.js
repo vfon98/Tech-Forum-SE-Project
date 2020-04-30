@@ -17,6 +17,7 @@ import News from './views/News/News';
 import CreatePost from './views/CreatePost/CreatePost';
 import Admin from 'views/Admin/Admin';
 import UsersManager from 'views/Admin/UsersManager/UsersManager';
+import ReportsManager from 'views/Admin/ReportsManager/ReportsManager';
 
 ReactDOM.render(
   <Router history={history}>
@@ -33,6 +34,7 @@ ReactDOM.render(
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />
       <Route path='/admin/users-manager' exact component={UsersManager} />
+      <Route path='/admin/reports-manager' exact component={ReportsManager} />
     </Switch>
   </Router>,
   document.getElementById('root')

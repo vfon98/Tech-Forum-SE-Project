@@ -63,7 +63,11 @@ class Sidebar extends Component {
             text='Users'
             to='/admin/users-manager'
           />
-          <SidebarLink icon={<Report />} text='Reports' to='/' />
+          <SidebarLink
+            icon={<Report />}
+            text='Reports'
+            to='/admin/reports-manager'
+          />
           <SidebarLink icon={<Inbox />} text='Others' to='/' />
         </List>
       </Box>
