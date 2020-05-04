@@ -33,7 +33,7 @@ module.exports = {
     const id = ObjectId(req.params.id);
     Post.findById(id)
       .then(post => {
-        res.status(200).json({ post });
+        res.json({ post });
       })
       .catch(err => {
         res.status(400).json({ err });
@@ -55,7 +55,21 @@ module.exports = {
       })
       .catch(err => res.json(400).json({ err }));
   },
-  updatePost(req, res) {},
+  updatePost(req, res) {
+    const id = ObjectId(req.params.id);
+
+    Post.findByIdAndUpdate(
+      id,
+      {
+        content: req.body.content,
+      },
+      { new: true }
+    )
+      .then(post => {
+        res.json({ post });
+      })
+      .catch(err => res.status(400).json({ err }));
+  },
   deletePost(req, res) {
     const id = ObjectId(req.params.id);
     Post.findByIdAndRemove(id)

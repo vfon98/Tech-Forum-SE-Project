@@ -2,6 +2,7 @@ const Post = require('../models/Post');
 const News = require('../models/News');
 const User = require('../models/User');
 const Report = require('../models/Report');
+const Room = require('../models/Room');
 
 module.exports = {
   async getDashboard(req, res) {
@@ -59,5 +60,14 @@ module.exports = {
         res.json({ user });
       })
       .catch(err => console.log(err));
+  },
+  getAllRoooms(req, res) {
+    Room.find({})
+      .populate('total_posts')
+      .populate('total_news')
+      .then(rooms => {
+        res.json({ rooms });
+      })
+      .catch(err => res.status(400).json({ err }));
   },
 };

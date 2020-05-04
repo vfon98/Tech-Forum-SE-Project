@@ -8,4 +8,6 @@ router.get('/users/banned', adminControllers.getBannedUsers);
 router.post('/ban/user', adminControllers.banUser);
 router.post('/unban/user', adminControllers.unbanUser);
 
+router.get('/rooms', adminControllers.getAllRoooms);
+
 module.exports = router;

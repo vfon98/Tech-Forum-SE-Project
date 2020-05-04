@@ -1,4 +1,5 @@
 const Profile = require('../models/Profile');
+const User = require('../models/User');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
@@ -51,5 +52,17 @@ module.exports = {
       .catch(err =>
         res.status(400).json({ message: 'Update profile failed', err })
       );
+  },
+  getProfileById(req, res) {
+    const user_id = req.params.id;
+    User.findById(user_id)
+      .populate({
+        path: 'profile',
+      })
+      // .populate({ path: 'news posts', select: '-comments' })
+      .then(user => {
+        res.json({ user });
+      })
+      .catch(err => console.log({ err }));
   },
 };

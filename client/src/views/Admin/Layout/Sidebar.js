@@ -12,7 +12,7 @@ import {
   Avatar,
   Divider,
 } from '@material-ui/core';
-import { Inbox, Dashboard, People, Report } from '@material-ui/icons';
+import { Inbox, Dashboard, People, Report, Airplay } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
 import sidebarStyles from 'assets/jss/admin/sidebarStyles';
 
@@ -59,6 +59,11 @@ class Sidebar extends Component {
             to='/admin/dashboard'
           />
           <SidebarLink
+            icon={<Airplay />}
+            text='Rooms'
+            to='/admin/rooms-manager'
+          />
+          <SidebarLink
             icon={<People />}
             text='Users'
             to='/admin/users-manager'
@@ -68,7 +73,6 @@ class Sidebar extends Component {
             text='Reports'
             to='/admin/reports-manager'
           />
-          <SidebarLink icon={<Inbox />} text='Others' to='/' />
         </List>
       </Box>
     );

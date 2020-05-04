@@ -1,12 +1,12 @@
-import { blue, green } from '@material-ui/core/colors';
+import { blue, green, red } from '@material-ui/core/colors';
 import { textColor, textSecondaryColor, orangeColor } from '../main';
 import { limitLine } from '../main';
-import { dyan } from '../main';
+import { darkGreen } from '../main';
 
 const usersTableStyles = {
   tableWrapper: {
     marginLeft: '16px',
-    marginRight: '16px'
+    marginRight: '16px',
   },
   table: {
     background: '#27293D',
@@ -86,6 +86,36 @@ const usersTableStyles = {
   content: {
     ...limitLine(3),
     fontSize: '14px'
+  },
+  imageCell: {
+    maxWidth: '6em',
+    '& img': {
+      borderRadius: '2px'
+    }
+  },
+  activeText: {
+    fontWeight: '500',
+    color: darkGreen,
+    fontSize: '14px'
+  },
+  hiddenText: {
+    fontWeight: '500',
+    color: '#ef5350',
+    fontSize: '14px'
+  },
+  navigateButton: {
+    color: '#42a5f5'
+  },
+  activeButton: {
+    color: '#66bb6a'
+  },
+  addButton: {
+    backgroundColor: orangeColor,
+    textTransform: 'none',
+    borderRadius: '999px',
+    color: textColor,
+    padding: '0.3em 1.5em',
+    margin: '10px 16px'
   }
 };
 
