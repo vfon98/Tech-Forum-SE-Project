@@ -6,6 +6,7 @@ const PostController = require('../controllers/postController');
 
 router.get('/:id', PostController.getPost);
 router.get('/', PostController.allPost);
+router.get('/room/:name', PostController.getPostByRoomName);
 router.use(authenticate);
 router.post('/', PostController.createPost);
 router.put('/:id', PostController.updatePost);

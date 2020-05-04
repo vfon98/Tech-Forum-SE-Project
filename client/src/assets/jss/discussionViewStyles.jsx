@@ -11,5 +11,4 @@ const discussionViewStyles = {
 
 }
 
-console.log(discussionViewStyles.container)
 export default discussionViewStyles;

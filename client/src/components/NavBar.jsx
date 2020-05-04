@@ -5,16 +5,14 @@ import {
   Toolbar,
   Button,
   Grid,
-  TextField,
-  Typography,
   Avatar,
   Hidden,
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Search from '@material-ui/icons/Search';
 import UserPanel from './UserPanel';
+import LoginPopup from './LoginPopup';
 
 import navbarStyles from 'assets/jss/navbarStyles.jsx';
 import { getUser, logoutUser } from '../utils/session';
@@ -28,14 +26,17 @@ class NavBar extends Component {
       popoverAnchor: null,
       displayName: '',
       avatar: '',
+      popup: null,
     };
+    // Make handlePopup can call global
+    window.handlePopup = this.handlePopup.bind(this);
   }
 
   componentDidMount() {
     this.fetchUser();
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate() {
     // Check if displayName has changed
     const user = getUser();
     if (user && user.displayName !== this.state.displayName) {
@@ -50,12 +51,16 @@ class NavBar extends Component {
         if (res.data.isAuthenticated) {
           const { display_name, avatar } = res.data.user;
           // Set user info into client storage
-          setUser({ displayName: display_name });
+          setUser({ displayName: display_name, ...res.data.user });
           // Set to state
           this.setState({
             displayName: display_name,
             avatar: avatar,
           });
+          this.props.isLogin(true);
+        } else {
+          // Delete session on browser
+          logoutUser();
         }
       })
       .catch(err => console.log(err));
@@ -63,7 +68,7 @@ class NavBar extends Component {
 
   handleClickUserBtn = e => {
     if (!isLogin()) {
-      this.props.handlePopup('login');
+      this.handlePopup('login');
     } else {
       this.setState({
         popoverAnchor: e.currentTarget,
@@ -83,24 +88,31 @@ class NavBar extends Component {
         displayName: '',
         avatar: '',
       });
+      this.props.isLogin(false);
+    });
+  };
+
+  handlePopup = value => {
+    // Only show when user is not login
+    this.setState({
+      popup: value,
     });
   };
 
   render() {
     const { classes } = this.props;
-    const user = getUser();
     return (
       <>
+        {this.state.popup !== null ? (
+          <LoginPopup handlePopup={this.handlePopup} type={this.state.popup} />
+        ) : null}
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
               <Grid item sm={2}>
                 <Link to='/' className={classes.link}>
-                  {this.props.brand ? this.props.brand : 'BRAND'}
-                  <span className={classes.brandHighlight}>
-                    {' '}
-                    {this.props.brandHighlight ? this.props.brandHighlight : ''}
-                  </span>
+                  Covid{' '}
+                  <span className={classes.brandHighlight}>Forum</span>
                 </Link>
               </Grid>
               <Grid container sm={6} justify='center'>
@@ -110,7 +122,7 @@ class NavBar extends Component {
                   </NavLink>
                 </Button>
                 <Button className={classes.btn}>
-                  <NavLink className={classes.link} to='/windows'>
+                  <NavLink className={classes.link} to='/news'>
                     News
                   </NavLink>
                 </Button>
@@ -138,10 +150,7 @@ class NavBar extends Component {
                 <Button>
                   <Search className={classes.accountBtn} />
                 </Button>
-                <Button
-                  onClick={this.handleClickUserBtn}
-                  // startIcon={<AccountCircle className={classes.accountBtn} />}
-                >
+                <Button onClick={this.handleClickUserBtn}>
                   <Avatar className={classes.avatar} src={this.state.avatar} />
                   <span className={classes.displayName}>
                     {this.state.displayName}

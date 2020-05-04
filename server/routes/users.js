@@ -16,5 +16,6 @@ router.post('/logout', UserControllers.logoutUser);
 
 // Just for testing
 router.all('/check', UserControllers.checkUser);
+router.all('/test', upload.single('upload'), UserControllers.test)
 
 module.exports = router;

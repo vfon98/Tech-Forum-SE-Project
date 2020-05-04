@@ -7,11 +7,12 @@ import {
   Divider,
   ListItemIcon,
 } from '@material-ui/core';
-import { isLogin } from '../utils/session';
-import { withStyles } from '@material-ui/styles';
 import { PowerSettingsNew, Person, Assignment } from '@material-ui/icons';
-import userPanelStyles from '../assets/jss/userPanelStyles';
+import { Link } from 'react-router-dom';
+import { isLogin } from '../utils/session';
 
+import { withStyles } from '@material-ui/styles';
+import userPanelStyles from '../assets/jss/userPanelStyles';
 
 const UserPanel = props => {
   const ListItemLink = props => (
@@ -19,7 +20,7 @@ const UserPanel = props => {
   );
 
   const { classes } = props;
-  const isOpen = () => Boolean(props.popoverAnchor);
+  const isOpen = () => !!props.popoverAnchor;
 
   return (
     isLogin() && (
@@ -38,13 +39,13 @@ const UserPanel = props => {
         }}
       >
         <List component='nav' className={classes.list}>
-          <ListItemLink>
+          <ListItemLink component={Link} to='/profile'>
             <ListItemIcon className={classes.listItem}>
               <Person />
             </ListItemIcon>
             <ListItemText primary='My profile' />
           </ListItemLink>
-          <ListItemLink>
+          <ListItemLink component={Link} to='/wall'>
             <ListItemIcon className={classes.listItem}>
               <Assignment />
             </ListItemIcon>

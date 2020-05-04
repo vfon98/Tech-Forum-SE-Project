@@ -18,6 +18,8 @@ passport.use(
               message: 'Invalid email or password !',
             });
           }
+          user = user.toObject();
+          delete user.password_hash;
           return done(null, user);
         })
         .catch(err => {

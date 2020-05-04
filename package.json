@@ -5,7 +5,7 @@
   "main": "none",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"cd client && npm start\" \"cd server && nodemon index.js\""
+    "dev": "concurrently \"cd client && npm start\" \"cd server && npm run server\""
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
     "url": "https://github.com/vfon98/Tech-Forum-SE-Project/issues"
   },
   "homepage": "https://github.com/vfon98/Tech-Forum-SE-Project#readme",
-  "dependencies": {
-    "react-ckeditor-component": "^1.1.0"
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0"
   }
 }
