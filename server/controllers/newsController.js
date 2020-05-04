@@ -48,7 +48,7 @@ module.exports = {
     const { name } = req.params;
     Room.findOne({ name })
       .then(room => {
-        console.log('room.id', room.id)
+        console.log('room.id', room.id);
         paginateByRoomId(room.id, req, res);
       })
       .catch(err => res.status(400).json({ err: 'Not a valid room name!' }));
@@ -94,6 +94,21 @@ module.exports = {
   },
   testRoute(req, res) {
     paginateByRoomId(null, req, res);
+  },
+  updateNews(req, res) {
+    const id = ObjectId(req.params.id);
+    News.findByIdAndUpdate(
+      id,
+      {
+        header: req.body.header,
+        content: req.body.content,
+      },
+      { new: true }
+    )
+      .then(news => {
+        res.json({ news });
+      })
+      .catch(err => res.status(400).json({ err }));
   },
 };
 

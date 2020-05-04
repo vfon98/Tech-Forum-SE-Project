@@ -15,5 +15,6 @@ router.post('/test', newsControllers.testRoute);
 
 router.use(authenticate);
 router.post('/', upload.single('thumbnail'), newsControllers.createNews);
+router.put('/:id', newsControllers.updateNews);
 
 module.exports = router;

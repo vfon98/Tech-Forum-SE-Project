@@ -18,12 +18,12 @@ const UserSchema = new Schema(
     },
     password_hash: {
       type: String,
-      select: false
+      select: false,
     },
     display_name: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     avatar: String,
     gender: String,
@@ -43,17 +43,35 @@ const UserSchema = new Schema(
       createdAt: 'created_at',
       updatedAt: 'updated_at',
     },
+    toJSON: { virtuals: true },
   }
 );
 
-UserSchema.methods.hashPassword = function(rawPassword) {
+UserSchema.virtual('profile', {
+  ref: 'Profile',
+  localField: '_id',
+  foreignField: 'user_id',
+  justOne: true,
+});
+
+UserSchema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'user_id',
+});
+
+UserSchema.virtual('news', {
+  ref: 'News',
+  localField: '_id',
+  foreignField: 'user_id',
+});
+
+UserSchema.methods.hashPassword = function (rawPassword) {
   this.password_hash = bcrypt.hashSync(rawPassword, 10);
 };
 
-UserSchema.methods.validatePassword = function(rawPassword) {
+UserSchema.methods.validatePassword = function (rawPassword) {
   return bcrypt.compareSync(rawPassword, this.password_hash);
 };
-
-UserSchema.methods.createUser = user => {};
 
 module.exports = mongoose.model('User', UserSchema);

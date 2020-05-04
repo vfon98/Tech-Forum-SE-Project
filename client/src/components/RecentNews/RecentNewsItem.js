@@ -37,9 +37,12 @@ class RecentNewsItem extends Component {
                   <h4 className={classes.newsTitle}>
                     {news ? news.header : ''}
                   </h4>
-                  <p className={classes.newsBodyText}>
-                    {news ? parseTextFromHTML(news.content) : ''}
-                  </p>
+                  <p
+                    className={classes.newsBodyText}
+                    dangerouslySetInnerHTML={{
+                      __html: news ? parseTextFromHTML(news.content) : '',
+                    }}
+                  ></p>
                   <Typography className={classes.newsRoomName}>
                     #{news.room.name}
                   </Typography>
@@ -67,7 +70,7 @@ class RecentNewsItem extends Component {
             </Grid>
           </Link>
         </Button>
-        <Divider style={{ marginLeft: '8px'}} />
+        <Divider style={{ marginLeft: '8px' }} />
       </>
     );
   }
