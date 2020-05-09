@@ -15,6 +15,7 @@ import {
 import { Inbox, Dashboard, People, Report, Airplay } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
 import sidebarStyles from 'assets/jss/admin/sidebarStyles';
+import { getUser } from 'utils/session';
 
 const useStyles = makeStyles(sidebarStyles);
 
@@ -38,17 +39,19 @@ const SidebarLink = props => {
 class Sidebar extends Component {
   render() {
     const { classes } = this.props;
+    const user = getUser();
+
     return (
       <Box>
         {/* <Typography className={classes.title}>Dashboard</Typography> */}
         <List>
           <ListItem>
             <ListItemAvatar>
-              <Avatar />
+              <Avatar src={user ? user.avatar : ''} alt='Admin icon' />
             </ListItemAvatar>
             <ListItemText>
               <Typography className={classes.adminDisplayName}>
-                Admin
+                {user ? user.display_name : 'Loading'}
               </Typography>
             </ListItemText>
           </ListItem>

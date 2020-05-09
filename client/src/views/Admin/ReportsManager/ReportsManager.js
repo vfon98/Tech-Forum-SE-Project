@@ -34,6 +34,18 @@ const StyledCell = withStyles({
 
 const ReportRow = props => {
   const { report, classes } = props;
+  const getRedirectLink = () => {
+    switch (report.type) {
+      case 'news':
+        return `/news/${report.news_id}`
+      case 'post':
+        return `/posts/${report.post_id}`;
+      case 'comment':
+        return `/posts/${report.post_id}`;
+      default: return '/';
+    }
+  }
+
   return (
     <TableRow>
       <StyledCell>{props.index + 1}</StyledCell>
@@ -61,7 +73,7 @@ const ReportRow = props => {
       </StyledCell>
       <StyledCell align='center'>
         <Tooltip title='Visit this'>
-          <IconButton size='small' component={Link} to=''>
+          <IconButton size='small' component={Link} to={getRedirectLink}>
             <VisibilityTwoTone fontSize='small' color='primary' />
           </IconButton>
         </Tooltip>

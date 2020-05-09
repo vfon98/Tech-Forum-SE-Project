@@ -4,6 +4,5 @@ module.exports = function(req, res, next) {
       error: 'Login required'
     });
   }
-  console.log("AUTHENTICATED")
   next();
 };

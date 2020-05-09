@@ -11,5 +11,7 @@ router.use(authenticate);
 router.post('/', PostController.createPost);
 router.put('/:id', PostController.updatePost);
 router.delete('/:id', PostController.deletePost);
+router.post('/block', PostController.blockPost);
+router.post('/unblock', PostController.unblockPost);
 
 module.exports = router;

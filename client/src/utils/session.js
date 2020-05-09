@@ -25,10 +25,21 @@ const isAuthenticated = () => {
   return false;
 }
 
+const isAdmin = () => {
+  return isLogin() && getUser().role === 'admin';
+}
+
+const hasModifyPermission = userId => {
+  if (!isLogin()) return false;
+  return getUser()._id === userId || isAdmin();
+}
+
 export {
   getUser,
   setUser,
   logoutUser,
   isLogin,
-  isAuthenticated
+  isAuthenticated,
+  isAdmin,
+  hasModifyPermission
 }

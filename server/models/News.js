@@ -27,6 +27,10 @@ const NewsSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Room',
     },
+    comment_blocked: {
+      type: Boolean,
+      default: false
+    },
     likes: [
       {
         type: Schema.Types.ObjectId,

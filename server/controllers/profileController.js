@@ -32,7 +32,7 @@ module.exports = {
 
     // Remove undefined values
     Object.entries(body).forEach(([key, value], index) => {
-      if (!value) {
+      if (value === undefined) {
         delete body[key];
       }
     });
@@ -43,7 +43,6 @@ module.exports = {
     })
       .populate('user_id')
       .then(profile => {
-        console.log(profile);
         res.json({
           status: 'ok',
           profile,

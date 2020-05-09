@@ -19,6 +19,7 @@ import Admin from 'views/Admin/Admin';
 import RoomsManager from 'views/Admin/RoomsManager/RoomsManager';
 import UsersManager from 'views/Admin/UsersManager/UsersManager';
 import ReportsManager from 'views/Admin/ReportsManager/ReportsManager';
+import PostDetail from 'views/PostDetail/PostDetail';
 
 ReactDOM.render(
   <Router history={history}>
@@ -30,8 +31,9 @@ ReactDOM.render(
       <Route path='/room/:name/news/create' exact component={CreatePost} />
       <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
+      <Route path='/posts/:id' exact component={PostDetail} />
       <Route path='/profile' exact component={Profile} />
-
+      {/* Admin routes */}
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />
       <Route path='/admin/rooms-manager' exact component={RoomsManager} />

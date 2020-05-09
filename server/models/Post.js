@@ -20,6 +20,10 @@ const PostSchema = new Schema(
       enum: ['post', 'news'],
       default: 'post',
     },
+    comment_blocked: {
+      type: Boolean,
+      default: false
+    },
     likes: [
       {
         type: Schema.Types.ObjectId,

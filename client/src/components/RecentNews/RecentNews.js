@@ -29,7 +29,6 @@ class RecentNews extends Component {
   componentDidMount() {
     this.loadMorePage(1);
     history.listen(() => {
-      console.log('changed');
       this.setState({ newsItems: [], isLoading: true }, () => {
         this.loadMorePage(1);
       });

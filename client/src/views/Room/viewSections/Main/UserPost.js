@@ -7,13 +7,12 @@ import {
   Typography,
   CardActions,
   Grid,
-  CardMedia,
   Button,
   Box,
   Collapse,
   Tooltip,
 } from '@material-ui/core';
-import { ThumbUp, Share, Chat, Report } from '@material-ui/icons';
+import { ThumbUp, Share, Chat, Report, VerifiedUser } from '@material-ui/icons';
 
 import { getUser, isLogin } from '../../../../utils/session';
 import axios from '../../../../axios/instance';
@@ -212,16 +211,23 @@ class UserPost extends Component {
             <Divider />
 
             {/* COMMENT INPUT SECTION */}
-            <Box py={1} className={classes.bgPrimary}>
-              <CommentInput
-                postId={post.id}
-                refreshComments={this.handleRefreshComments}
-                needUpdateComment={this.state.needUpdateComment}
-                cancelUpdateMode={() =>
-                  this.setState({ needUpdateComment: null })
-                }
-              />
-            </Box>
+            {!post.comment_blocked ? (
+              <Box py={1} className={classes.bgPrimary}>
+                <CommentInput
+                  postId={post.id}
+                  refreshComments={this.handleRefreshComments}
+                  needUpdateComment={this.state.needUpdateComment}
+                  cancelUpdateMode={() =>
+                    this.setState({ needUpdateComment: null })
+                  }
+                />
+              </Box>
+            ) : (
+              <Typography className={classes.blockedComment}>
+                <VerifiedUser className={classes.blockedIcon} />
+                Comment blocked by Admin
+              </Typography>
+            )}
             <Divider />
 
             {/* COMMENT SECTION */}

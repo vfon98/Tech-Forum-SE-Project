@@ -7,9 +7,9 @@ import {
   Divider,
   ListItemIcon,
 } from '@material-ui/core';
-import { PowerSettingsNew, Person, Assignment } from '@material-ui/icons';
+import { PowerSettingsNew, Person, Assignment, DashboardRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import { isLogin } from '../utils/session';
+import { isLogin, isAdmin } from '../utils/session';
 
 import { withStyles } from '@material-ui/styles';
 import userPanelStyles from '../assets/jss/userPanelStyles';
@@ -39,6 +39,14 @@ const UserPanel = props => {
         }}
       >
         <List component='nav' className={classes.list}>
+          {isAdmin() && (
+            <ListItemLink component={Link} to='/admin/dashboard'>
+              <ListItemIcon className={classes.listItem}>
+                <DashboardRounded />
+              </ListItemIcon>
+              <ListItemText primary='Dashboard' />
+            </ListItemLink>
+          )}
           <ListItemLink component={Link} to='/profile'>
             <ListItemIcon className={classes.listItem}>
               <Person />
