@@ -10,6 +10,11 @@ const FeedSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'New'
   }]
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 })
 
 module.exports = mongoose.model('Feed', FeedSchema);

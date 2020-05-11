@@ -9,6 +9,7 @@ const likeRouter = require('./like');
 const commentRouter = require('./comments');
 const roomRouter = require('./rooms');
 const reportRouter = require('./reports');
+const adminRouter = require('./admin');
 
 router.use('/users', userRouter);
 router.use('/auth', authRouter);
@@ -19,5 +20,6 @@ router.use('/likes', likeRouter);
 router.use('/comments', commentRouter);
 router.use('/rooms', roomRouter);
 router.use('/reports', reportRouter);
+router.use('/admin', adminRouter);
 
 module.exports = router;

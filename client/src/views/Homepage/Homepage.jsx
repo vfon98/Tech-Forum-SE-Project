@@ -7,10 +7,17 @@ import HotTopic from './viewSections/HotTopic';
 import Footer from '../../components/Footer';
 
 export class Homepage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogin: null
+    }
+  }
+  
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar isLogin={state => this.setState({ isLogin: state })} />
         <MainThreads />
         <HomeRecentNews />
         <HotTopic />

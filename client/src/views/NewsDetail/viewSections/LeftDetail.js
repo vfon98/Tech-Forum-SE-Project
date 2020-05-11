@@ -64,7 +64,7 @@ class LeftDetail extends Component {
     window.scrollTo(0, 0);
     const { pathname } = history.location;
     axios
-      .get(pathname || '/news/5e7b290e292573070b0435c1')
+      .get(pathname)
       .then(res => {
         const { news } = res.data;
         this.setState({
@@ -128,7 +128,7 @@ class LeftDetail extends Component {
       <>
         <Card className={classes.secondaryBg}>
           <Paper elevation={3} className={classes.leftWrapper}>
-            <NewsBreadcrumbs room={news.room} />
+            <NewsBreadcrumbs room={news.room} news={news} />
 
             <NewsHeader
               news={news}

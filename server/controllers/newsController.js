@@ -110,6 +110,22 @@ module.exports = {
       })
       .catch(err => res.status(400).json({ err }));
   },
+  blockNews(req, res) {
+    const id = ObjectId(req.body.newsId);
+    News.findByIdAndUpdate(id, { comment_blocked: true }, { new: true })
+      .then(news => {
+        res.json({ news });
+      })
+      .catch(err => res.status(400).json({ err }));
+  },
+  deleteNews(req, res) {
+    const id = ObjectId(req.params.id);
+    News.findByIdAndRemove(id)
+      .then(news => {
+        res.json({ news });
+      })
+      .catch(err => res.status(400).json({ err }));
+  },
 };
 
 async function paginateByRoomId(room_id, req, res) {
