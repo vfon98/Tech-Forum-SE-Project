@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { ThumbUp, Share, Chat, Report, VerifiedUser } from '@material-ui/icons';
 
-import { getUser, isLogin } from '../../../../utils/session';
+import { getUser, isLogin, isAdmin } from '../../../../utils/session';
 import axios from '../../../../axios/instance';
 
 import { withStyles } from '@material-ui/styles';
@@ -237,14 +237,12 @@ class UserPost extends Component {
                   key={comment.id}
                   comment={comment}
                   postId={post.id}
-                  isOwner={post.user_id === comment.user_id}
+                  isFromOwner={post.user_id === comment.user_id}
+                  isFromAdmin={isAdmin() && comment.user_id === getUser()._id}
                   onUpdateComment={this.handleUpdateComment}
                   onDeleteComment={this.handleDeleteComment}
                 />
               ))}
-            {/* <UserComment isAdmin />
-          <UserComment isOwner />
-          <UserComment /> */}
           </Collapse>
         </Card>
       </Box>

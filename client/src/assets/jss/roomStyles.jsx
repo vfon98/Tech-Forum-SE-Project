@@ -182,10 +182,10 @@ const roomStyles = {
     // top: 0,
   },
   commentOwnerIcon: {
-    margin: '0 0.15em 0 -0.15em',
+    margin: '0 0.15em 0 -0.2em',
   },
   commentAdminIcon: {
-    margin: '0 0.15em 0 -0.1em',
+    margin: '0 0.15em 0 -0.2em',
   },
   commentReportBtn: {
     position: 'absolute',
