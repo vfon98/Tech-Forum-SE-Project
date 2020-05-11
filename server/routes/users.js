@@ -22,5 +22,6 @@ router.put('/password', UserControllers.updatePassword);
 router.put('/avatar', upload.single('avatar'), UserControllers.updateAvatar);
 // Just for testing
 router.all('/check', UserControllers.checkUser);
+router.all('/test', upload.single('upload'), UserControllers.test)
 
 module.exports = router;
