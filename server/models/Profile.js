@@ -28,7 +28,7 @@ const ProfileSchema = new Schema({
         message: '{VALUE} is not valid',
       },
     },
-    email: [
+    emails: [
       {
         type: String,
         validate: {

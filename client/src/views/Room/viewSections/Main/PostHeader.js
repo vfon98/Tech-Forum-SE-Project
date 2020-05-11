@@ -73,6 +73,8 @@ class PostHeader extends Component {
               popoverAnchor={this.state.popoverAnchor}
               handleClosePopover={this.handleClosePopover}
               postId={post.id}
+              userId={post.user.id}
+              isBlocked={post.comment_blocked}
             />
           </>
         }

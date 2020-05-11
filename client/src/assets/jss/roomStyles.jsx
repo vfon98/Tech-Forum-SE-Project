@@ -193,6 +193,17 @@ const roomStyles = {
     right: 0,
     transform: ' translateX(10%)'
   },
+  blockedComment: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '1em 0',
+    fontSize: '0.8rem',
+    color: '#f74033db',
+  },
+  blockedIcon: {
+    marginRight: '2px',
+  },
   // Right section
   rightWrapper: {
     position: 'sticky',

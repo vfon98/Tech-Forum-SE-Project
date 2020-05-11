@@ -8,7 +8,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 import Header from './viewSections/Header'
-import VerticalTabs from './viewSections/VerticalTabs';
+import Tabs from './viewSections/VerticalTabs'
 
 const useStyles = makeStyles({
   root: {
@@ -98,7 +98,7 @@ export class ProfilePage extends Component {
           // status={userInfo.status}
         />
         <Grid container className={classes.container}>
-          <VerticalTabs />
+           <Tabs userInfo={this.state.userInfo}/>
         </Grid>
 
       </div>

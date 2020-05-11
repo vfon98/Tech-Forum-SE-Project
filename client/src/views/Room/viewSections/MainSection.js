@@ -27,8 +27,9 @@ class MainSection extends Component {
   fetchPosts = () => {
     const { pathname } = history.location;
     axios
-      .get('/posts' + pathname)
-      .then(res => {
+    .get('/posts' + pathname)
+    .then(res => {
+        this.setState({posts: []}) // update completely
         this.setState({
           posts: res.data.posts,
           isLoading: false,

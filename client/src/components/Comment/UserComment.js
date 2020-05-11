@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { getIdentifier } from '../../utils/userIdentifier';
 import { timeFrom } from '../../utils/converter';
-import { getUser } from '../../utils/session';
+import { getUser, hasModifyPermission, isAdmin } from '../../utils/session';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from 'assets/jss/roomStyles';
@@ -84,6 +84,7 @@ const OptionPanel = props => {
               color='inherit'
               startIcon={<Edit />}
               onClick={handleClickUpdate}
+              disabled={isAdmin()}
             >
               Update
             </Button>
@@ -137,7 +138,7 @@ class UserComment extends Component {
 
   render() {
     const { classes } = this.props;
-    const { comment, isOwner, isAdmin } = this.props;
+    const { comment, isOwner, isAdmin, postId } = this.props;
 
     return (
       <Grid container className={classes.commentContainer}>
@@ -161,7 +162,8 @@ class UserComment extends Component {
                 {comment ? getIdentifier(comment.user.email) : '@example'}
               </small>
               {/* Show comment options unless the owner */}
-              {this.isOwnComment() ? (
+              {/* {this.isOwnComment() ? ( */}
+              {hasModifyPermission(comment.user_id) ? (
                 <OptionPanel
                   classes={classes}
                   // Pass to parent
@@ -187,6 +189,7 @@ class UserComment extends Component {
                       isOpen={this.state.isOpenReport}
                       onClose={this.toggleReportPopup}
                       commentId={comment.id}
+                      postId={postId}
                       type='comment'
                     />
                   </>

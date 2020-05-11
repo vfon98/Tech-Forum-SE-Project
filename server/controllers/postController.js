@@ -78,4 +78,20 @@ module.exports = {
         res.status(400).json({ err });
       });
   },
+  blockPost(req, res) {
+    const id = ObjectId(req.body.postId);
+    Post.findByIdAndUpdate(id, { comment_blocked: true }, { new: true })
+      .then(post => {
+        res.json({ post });
+      })
+      .catch(err => res.status(400).json({ err }));
+  },
+  unblockPost(req, res) {
+    const id = ObjectId(req.body.postId);
+    Post.findByIdAndUpdate(id, { comment_blocked: false }, { new: true })
+      .then(post => {
+        res.json({ post });
+      })
+      .catch(err => res.status(400).json({ err }));
+  },
 };

@@ -10,7 +10,7 @@ const itemStyles = {
     paddingLeft: ".5rem"
   },
   value: {
-    margin: '0 1rem 2rem 1rem',
+    margin: '0 1rem',
     flexGrow: '1',
     width: '100%',
     fontSize: '1rem',
@@ -22,28 +22,11 @@ const itemStyles = {
     opacity: '0'
   },
   textField: {
-    marginBottom: '0',
-    marginLeft: "1rem",
-    width: '25rem',
+    marginBottom: '1rem', 
+    width: '80%',
   },
   buttonWrap: {
-    paddingRight: '0'
-  },
-  buttonGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  },
-  row : {
-    display: 'flex',
-    marginBottom: "1rem",
-  },
-  button: {
-    width: '75%',
-    border:" 1px solid #1976D2",
-    marginLeft: '1rem',
-    marginTop: '1rem',
-    color: "#1976D2",
-    textTransform: 'none'
+    paddingRight: '30%'
   }
 }
 export default itemStyles

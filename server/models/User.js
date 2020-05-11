@@ -68,6 +68,7 @@ UserSchema.virtual('news', {
 
 UserSchema.methods.hashPassword = function (rawPassword) {
   this.password_hash = bcrypt.hashSync(rawPassword, 10);
+  return this.password_hash;
 };
 
 UserSchema.methods.validatePassword = function (rawPassword) {
