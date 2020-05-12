@@ -13,6 +13,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { ThumbUp, Share, Chat, Report, VerifiedUser } from '@material-ui/icons';
+import { FacebookShareButton } from 'react-share';
 
 import { getUser, isLogin, isAdmin } from '../../../../utils/session';
 import axios from '../../../../axios/instance';
@@ -178,13 +179,18 @@ class UserPost extends Component {
                 </Button>
               </Grid>
               <Grid item container justify='center' sm={4}>
-                <Button
-                  color='inherit'
-                  className={classes.btnLink}
-                  startIcon={<Share />}
+                <FacebookShareButton
+                  // Change it later
+                  url='google.com'
                 >
-                  Share
-                </Button>
+                  <Button
+                    color='inherit'
+                    className={classes.btnLink}
+                    startIcon={<Share />}
+                  >
+                    Share
+                  </Button>
+                </FacebookShareButton>
               </Grid>
               <Grid item container justify='flex-end' sm={1}>
                 <IconButton

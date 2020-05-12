@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CardActions, Grid, Button } from '@material-ui/core';
 import { ReportRounded, ThumbUpRounded, Facebook } from '@material-ui/icons';
+import { FacebookShareButton } from 'react-share';
 
 import { withStyles } from '@material-ui/styles';
 import ReportPopup from '../../../../components/ReportPopup';
@@ -25,8 +26,8 @@ class NewsActions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenReport: false
-    }
+      isOpenReport: false,
+    };
   }
 
   toggleReportPopup = () => {
@@ -34,7 +35,7 @@ class NewsActions extends Component {
       isOpenReport: !this.state.isOpenReport,
     });
   };
-  
+
   render() {
     const { classes, likesNum } = this.props;
 
@@ -54,14 +55,16 @@ class NewsActions extends Component {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                className={classes.btnShare}
-                color='inherit'
-                variant='outlined'
-                startIcon={<Facebook />}
-              >
-                Share this post
-              </Button>
+              <FacebookShareButton url='google.com'>
+                <Button
+                  className={classes.btnShare}
+                  color='inherit'
+                  variant='outlined'
+                  startIcon={<Facebook />}
+                >
+                  Share this post
+                </Button>
+              </FacebookShareButton>
             </Grid>
           </Grid>
           <Grid container sm justify='flex-end'>

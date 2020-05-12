@@ -54,7 +54,7 @@ module.exports = {
       .catch(err => res.status(400).json({ err: 'Not a valid room name!' }));
   },
   randomNews(req, res) {
-    const size = req.query.size || 10;
+    const size = parseInt(req.query.size) || 10;
     News.aggregate()
       .sample(size)
       .project('-likes -comments -__v -updated_at')

@@ -114,7 +114,6 @@ class RoomList extends Component {
     axios
       .get('/rooms')
       .then(res => {
-        console.log('rooms', res.data);
         this.setState({
           rooms: res.data.rooms,
         });
