@@ -4,6 +4,7 @@ import { Button, Grid } from '@material-ui/core';
 import { Facebook } from '@material-ui/icons';
 import axios from '../../axios/instance';
 import { setUser } from '../../utils/session';
+import { parseLongDateFrom } from '../../utils/converter';
 
 class Login extends Component {
   constructor(props) {
@@ -29,13 +30,26 @@ class Login extends Component {
         setUser({
           displayName: res.data.user.display_name,
           ...res.data.user,
-          loginMethod: 'email'
+          loginMethod: 'email',
         });
         this.props.handlePopup(null);
       })
       .catch(err => {
-        console.log({ err });
-        this.setState({ error: 'Email or password is not valid !' });
+        // console.log({ err });
+        const statusCode = err.response.status;
+        switch (statusCode) {
+          // Login failed
+          case 401: {
+            return this.setState({ error: 'Email or password is not valid !' });
+          }
+          // Account banned
+          case 403: {
+            const expiredDate = err.response.data.ban_expired_at;
+            return this.setState({
+              error: `You've been banned until ${parseLongDateFrom(expiredDate)}`,
+            });
+          }
+        }
       });
   };
 

@@ -46,7 +46,26 @@ module.exports = {
         if (room) {
           Post.find({ type: 'post', room_id: room.id })
             .then(posts => {
-              res.json({ posts });
+              res.json({ total: posts.length, posts });
+            })
+            .catch(err => res.json(400).json({ err }));
+        } else {
+          res.status(400).json({ err: 'Not a valid room name!' });
+        }
+      })
+      .catch(err => res.json(400).json({ err }));
+  },
+  getHotPostsByRoomName(req, res) {
+    const room_name = req.params.name;
+    const size = req.query.size || 5;
+    Room.findOne({ name: room_name })
+      .then(room => {
+        if (room) {
+          Post.find({ type: 'post', room_id: room.id })
+            .select('-comments -likes -room_id +content')
+            .limit(size)
+            .then(posts => {
+              res.json({ total: posts.length, posts });
             })
             .catch(err => res.json(400).json({ err }));
         } else {

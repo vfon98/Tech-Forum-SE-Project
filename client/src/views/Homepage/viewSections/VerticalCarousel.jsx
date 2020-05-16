@@ -99,7 +99,6 @@ class VerticalCarousel extends Component {
 
   componentDidMount() {
     axios.get('/news/trending').then(res => {
-      console.log(res.data.news);
       this.setState({
         news: res.data.news,
         isLoading: false,

@@ -9,6 +9,7 @@ router.get('/random', newsControllers.randomNews);
 router.get('/trending', newsControllers.getTrendingNews);
 router.get('/:id', newsControllers.getNews);
 router.post('/relate', newsControllers.getRelateNews);
+router.post('/search', newsControllers.searchNews);
 router.post('/recent', newsControllers.getRecentNews);
 router.post('/room/:name', newsControllers.getNewsByRoom);
 router.post('/test', newsControllers.testRoute);

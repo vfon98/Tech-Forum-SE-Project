@@ -31,16 +31,28 @@ class UserSidePanel extends Component {
   }
 
   togglePopup = () => {
+    // Check route is in /news ??
+    const { pathname } = history.location;
+    if (pathname.startsWith('/news')) {
+      return history.push('/discussion');
+    }
+    // Check Login
     if (!isLogin()) return window.handlePopup('login');
     this.setState({
       isOpenPopup: !this.state.isOpenPopup,
     });
   };
 
+  checkLogin = e => {
+    if (!isLogin()) {
+      e.preventDefault();
+      window.handlePopup('login');
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const { isOpenPopup } = this.state;
-    const { location } = history;
     const user = getUser();
 
     return (
@@ -95,6 +107,7 @@ class UserSidePanel extends Component {
               to='/profile'
               fullWidth
               color='primary'
+              onClick={this.checkLogin}
               className={classes.userBox_link}
             >
               My profile
@@ -105,6 +118,7 @@ class UserSidePanel extends Component {
               to='/wall'
               fullWidth
               color='primary'
+              onClick={this.checkLogin}
               className={classes.userBox_link}
             >
               My wall

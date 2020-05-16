@@ -58,7 +58,7 @@ module.exports = {
       .populate({
         path: 'profile',
       })
-      // .populate({ path: 'news posts', select: '-comments' })
+      .populate({ path: 'news posts', select: '-comments' })
       .then(user => {
         res.json({ user });
       })

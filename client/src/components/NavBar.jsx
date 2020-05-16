@@ -7,6 +7,7 @@ import {
   Grid,
   Avatar,
   Hidden,
+  ClickAwayListener,
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
@@ -18,6 +19,7 @@ import navbarStyles from 'assets/jss/navbarStyles.jsx';
 import { getUser, logoutUser } from '../utils/session';
 import axios from '../axios/instance';
 import { setUser, isLogin } from '../utils/session';
+import SearchBox from './SearchBox/SearchBox';
 
 class NavBar extends Component {
   constructor(props) {
@@ -27,6 +29,7 @@ class NavBar extends Component {
       displayName: '',
       avatar: '',
       popup: null,
+      showSearchBox: false,
     };
     // Make handlePopup can call global
     window.handlePopup = this.handlePopup.bind(this);
@@ -99,8 +102,16 @@ class NavBar extends Component {
     });
   };
 
+  toggleSearch = () => {
+    this.setState({
+      showSearchBox: !this.state.showSearchBox,
+    });
+  };
+
   render() {
     const { classes } = this.props;
+    const { showSearchBox } = this.state;
+
     return (
       <>
         {this.state.popup !== null ? (
@@ -111,8 +122,7 @@ class NavBar extends Component {
             <Grid container justify='space-between'>
               <Grid item sm={2}>
                 <Link to='/' className={classes.link}>
-                  Covid{' '}
-                  <span className={classes.brandHighlight}>Forum</span>
+                  Covid <span className={classes.brandHighlight}>Forum</span>
                 </Link>
               </Grid>
               <Grid container sm={6} justify='center'>
@@ -146,10 +156,18 @@ class NavBar extends Component {
                     placeholder='Search'
                   />
                 </Hidden>
-                {/* USER BUTTON */}
+                {/* SEARCH BOX */}
                 <Button>
-                  <Search className={classes.accountBtn} />
+                  <ClickAwayListener onClickAway={() => this.setState({showSearchBox: false})}>
+                    <SearchBox isOpen={showSearchBox}>
+                      <Search
+                        className={classes.accountBtn}
+                        onClick={this.toggleSearch}
+                      />
+                    </SearchBox>
+                  </ClickAwayListener>
                 </Button>
+                {/* USER PANEL */}
                 <Button onClick={this.handleClickUserBtn}>
                   <Avatar className={classes.avatar} src={this.state.avatar} />
                   <span className={classes.displayName}>

@@ -77,6 +77,16 @@ module.exports = {
       })
       .catch(err => res.status(400).json({ err: err.toString() }));
   },
+  searchNews(req, res) {
+    const keyword = req.body.keyword || '';
+    News.find({ $text: { $search: keyword } })
+      .select('-comments -likes')
+      .limit(10)
+      .then(news => {
+        res.json({ total: news.length, news });
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
+  },
   getNews(req, res) {
     const id = ObjectId(req.params.id);
     News.findByIdAndUpdate(

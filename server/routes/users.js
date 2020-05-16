@@ -19,9 +19,9 @@ router.post('/logout', UserControllers.logoutUser);
 router.put('/', UserControllers.updateInfo);
 router.put('/status', UserControllers.updateStatus);
 router.put('/password', UserControllers.updatePassword);
+router.put('/password/check', UserControllers.checkAndUpdatePassword);
 router.put('/avatar', upload.single('avatar'), UserControllers.updateAvatar);
 // Just for testing
 // router.all('/check', UserControllers.checkUser);
-// router.all('/test', upload.single('upload'), UserControllers.test)
 
 module.exports = router;

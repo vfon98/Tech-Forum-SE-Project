@@ -34,7 +34,20 @@ module.exports = {
   loginUser(req, res) {
     if (req.isAuthenticated()) {
       req.session.method = 'email';
-      res.json({ isAuthenticated: true, user: req.user });
+      const { ban_expired_at, is_banned } = req.user;
+      // Send 403 for banned user
+      if (is_banned && ban_expired_at > new Date()) {
+        req.logOut();
+        return res.status(403).json({
+          message: 'Your account has been banned by admin',
+          ban_expired_at,
+        });
+      }
+      // Unban if ban date passed
+      if (is_banned) {
+        unbanUser(req.user._id);
+      }
+      return res.status(200).json({ isAuthenticated: true, user: req.user });
     }
   },
   logoutUser(req, res) {
@@ -71,6 +84,20 @@ module.exports = {
       })
       .catch(err => res.status(400).json({ err: err.toString() }));
   },
+  checkAndUpdatePassword(req, res) {
+    const { oldPassword, password } = req.body;
+    const user_id = req.user._id;
+    User.findById(user_id)
+      .select('password_hash')
+      .then(user => {
+        if (user.validatePassword(oldPassword)) {
+          module.exports.updatePassword(req, res);
+        } else {
+          return res.status(403).json({ err: 'Old password does not match' });
+        }
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
+  },
   async updateAvatar(req, res) {
     const id = req.user._id;
     let avatar = null;
@@ -101,3 +128,14 @@ module.exports = {
       .catch(err => res.status(400).json({ err }));
   },
 };
+
+function unbanUser(user_id) {
+  User.findByIdAndUpdate(user_id, {
+    is_banned: false,
+    ban_expired_at: null,
+  })
+    .then(() => {
+      console.log('Unbaned user', user_id);
+    })
+    .catch(err => res.status(400).json({ err }));
+}
