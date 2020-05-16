@@ -2,10 +2,16 @@ import { container, secondaryColor, title, primaryColor, textColor,dyan, highlig
 
 const hotTopicStyles = {
   container: {
-    ...container
+    ...container,
+    '@media (max-width: 600px)': {
+      margin: 0,
+    }
   },
   background: {
-    background: secondaryColor
+    background: secondaryColor,
+    '@media (max-width: 600px)': {
+      marginBottom: '-10px'
+    }
   },
   cardBackground: {
     background: primaryColor

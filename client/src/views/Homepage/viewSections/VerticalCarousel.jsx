@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, Divider, Hidden, ButtonBase } from '@material-ui/core';
 import axios from 'axios/instance';
 import { Link } from 'react-router-dom';
 
@@ -59,16 +59,16 @@ const items = [
 function Item(props) {
   const { classes, item } = props;
   return (
-    <div>
-      <Grid container justify='space-between'>
-        <Grid item sm={3}>
+    <ButtonBase component={Link} to={`/news/${item.id}`}>
+      <Grid container justify='space-between' spacing={1}>
+        <Grid item sm={3} xs={4} className={classes.imgWrapper}>
           <img
             className={classNames('slick-image', classes.img)}
             src={item.thumbnail}
             alt=''
           />
         </Grid>
-        <Grid item sm={9} className={classes.caption}>
+        <Grid item sm={9} xs={8} className={classes.caption}>
           <h4 className={classes.title}>{item.header}</h4>
           <p
             className={classes.bodyText}
@@ -84,7 +84,10 @@ function Item(props) {
           </Box>
         </Grid>
       </Grid>
-    </div>
+      <Hidden mdUp>
+        <Divider />
+      </Hidden>
+    </ButtonBase>
   );
 }
 
@@ -99,7 +102,6 @@ class VerticalCarousel extends Component {
 
   componentDidMount() {
     axios.get('/news/trending').then(res => {
-      console.log(res.data.news);
       this.setState({
         news: res.data.news,
         isLoading: false,

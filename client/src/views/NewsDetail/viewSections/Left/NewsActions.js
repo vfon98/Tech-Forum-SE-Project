@@ -8,10 +8,10 @@ import ReportPopup from '../../../../components/ReportPopup';
 
 const newsActionsStyles = {
   wrapper: {
-    padding: '0 1em',
-  },
-  btn: {
-    textTransform: 'none',
+    padding: '0 1rem',
+    '@media (max-width: 600px)': {
+      padding: '0 8px'
+    },
   },
   btnLike: {
     textTransform: 'none',
@@ -19,6 +19,14 @@ const newsActionsStyles = {
   btnShare: {
     textTransform: 'none',
     color: '#A2F6FF',
+    whiteSpace: 'nowrap',
+  },
+  btnReport: {
+    textTransform: 'none',
+    '@media (max-width: 424px)': {
+      margin: '16px -4px',
+      fontSize: '0.8rem'
+    },
   },
 };
 
@@ -42,7 +50,7 @@ class NewsActions extends Component {
     return (
       <CardActions className={classes.wrapper}>
         <Grid container>
-          <Grid container sm justify='flex-start' spacing={1}>
+          <Grid container sm xs={9} justify='flex-start' spacing={1}>
             <Grid item>
               <Button
                 className={classes.btnLike}
@@ -67,9 +75,9 @@ class NewsActions extends Component {
               </FacebookShareButton>
             </Grid>
           </Grid>
-          <Grid container sm justify='flex-end'>
+          <Grid container sm xs={3} justify='flex-end'>
             <Button
-              className={classes.btn}
+              className={classes.btnReport}
               color='secondary'
               variant='outlined'
               startIcon={<ReportRounded />}

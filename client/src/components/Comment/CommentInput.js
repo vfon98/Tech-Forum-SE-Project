@@ -104,7 +104,7 @@ class CommentInput extends Component {
 
     return (
       <Grid container className={classes.container} alignItems='center'>
-        <Grid item sm={1} container justify='center'>
+        <Grid item sm={1} xs={2} container justify='center'>
           <Badge
             overlap='circle'
             variant='dot'
@@ -120,7 +120,7 @@ class CommentInput extends Component {
             <Avatar src={user && user.avatar} alt={user && user.display_name} />
           </Badge>
         </Grid>
-        <Grid item sm={11} container alignItems='center'>
+        <Grid item sm={11} xs={10} container alignItems='center'>
           <FormControl
             component='form'
             fullWidth

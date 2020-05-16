@@ -7,6 +7,7 @@ import {
   CardActionArea,
   ButtonBase,
   Typography,
+  Hidden,
   // Avatar,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -44,6 +45,9 @@ const bannerItemStyles = {
     '&:hover': {
       color: dyan,
     },
+    '@media (max-width: 600px)': {
+      fontSize: '0.9rem',
+    },
   },
   avatarSm: {
     width: '25px',
@@ -58,6 +62,7 @@ const bannerItemStyles = {
     fontWeight: '500',
     display: 'flex',
     alignItems: 'center',
+    whiteSpace: 'nowrap',
     '& span': {
       marginRight: '2px',
       fontWeight: '700',
@@ -108,8 +113,10 @@ class BannerItem extends Component {
               <Typography className={classes.info}>
                 {/* <Avatar src={news.user.avatar} className={classes.avatarSm} /> */}
                 <span>{news.user.display_name}</span>
-                {' • '}
-                {parseDateFrom(news.created_at) || 'Unknown'}
+                <Hidden smDown={this.props.lastRow}>
+                  {' • '}
+                  {parseDateFrom(news.created_at) || 'Unknown'}
+                </Hidden>
                 {' • '}
                 {parseStringFrom(news.views)} views
               </Typography>

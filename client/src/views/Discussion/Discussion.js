@@ -107,7 +107,7 @@ class Discussion extends React.Component {
           <Grid container className={classes.container} spacing={2}>
             {
               this.state.rooms.map(room => (
-                <Grid sm={4} item key={room.id}>
+                <Grid sm={4} xs={6} item key={room.id}>
                   <Card
                     image={room.image}
                     handleClick={this.handleClick}

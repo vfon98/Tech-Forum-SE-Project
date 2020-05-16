@@ -162,6 +162,10 @@ const roomStyles = {
     '&:last-child': {
       paddingBottom: '0.8em',
     },
+    '@media (max-width: 600px)': {
+      paddingLeft: '8px',
+      paddingRight: '8px'
+    }
   },
   comment: {
     position: 'relative',

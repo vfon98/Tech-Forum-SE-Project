@@ -109,13 +109,13 @@ class NavBar extends Component {
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
-              <Grid item sm={2}>
+              <Grid className={classes.navLogo} item sm={2} xs={4}>
                 <Link to='/' className={classes.link}>
                   Covid{' '}
                   <span className={classes.brandHighlight}>Forum</span>
                 </Link>
               </Grid>
-              <Grid container sm={6} justify='center'>
+              <Grid className={classes.navLink} container sm={6} xs={12} justify='center'>
                 <Button className={classes.btn}>
                   <NavLink className={classes.link} to='/'>
                     Home
@@ -137,7 +137,7 @@ class NavBar extends Component {
                   </NavLink>
                 </Button>
               </Grid>
-              <Grid container sm={4} justify='flex-end'>
+              <Grid className={classes.navUser} container sm={4} justify='flex-end' wrap='nowrap' xs={8}>
                 <Hidden smDown>
                   <input
                     type='text'

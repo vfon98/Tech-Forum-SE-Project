@@ -92,15 +92,15 @@ const TrendingNewsItem = props => {
         to={`/news/${props.news.id}`}
       >
         <Grid container className={classes.wrapper}>
-          <Grid item sm={12}>
+          <Grid item sm={12} xs={12}>
             <Typography className={classes.header}>
               {props.news.header}
             </Typography>
           </Grid>
-          <Grid item sm={5} className={classes.imgWrapper}>
+          <Grid item sm={5} xs={5} className={classes.imgWrapper}>
             <img src={props.news.thumbnail} alt='Thumbnail' />
           </Grid>
-          <Grid item sm={7}>
+          <Grid item sm={7} xs={7}>
             <Typography className={classes.content}>
               {parseTextFromHTML(props.news.content)}
             </Typography>

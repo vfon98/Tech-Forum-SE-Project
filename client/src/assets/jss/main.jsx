@@ -14,13 +14,16 @@ const dyan = '#22A2B1';
 
 const container = {
   width: '100%',
-  padding: '0 15%',
+  // padding: '0 15%',
   boxSizing: 'border-box',
   '@media (min-width: 768px)': {
     padding: '0 15px',
   },
   '@media (min-width: 1500px)': {
     padding: '0 15%',
+  },
+  '@media (max-width: 600px)': {
+    padding: '0 8px',
   },
 };
 const title = {

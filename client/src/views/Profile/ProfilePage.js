@@ -58,7 +58,8 @@ export class ProfilePage extends Component {
     super(props);
     this.state = {
       popup: null,
-      userInfo: null
+      userInfo: null,
+      isLogin: null
     };
   }
   componentDidMount() {
@@ -91,6 +92,7 @@ export class ProfilePage extends Component {
           brand='Covid'
           brandHighlight='Forum'
           handlePopup={this.handlePopup}
+          isLogin={state => this.setState({isLogin: state})}
         />
 
         <Header

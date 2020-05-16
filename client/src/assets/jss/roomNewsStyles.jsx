@@ -81,6 +81,9 @@ const roomNewsStyles = {
     color: ({theme}) => theme === 'light' ? primaryColor : textColor,
     '& hr:last-child': {
       display: 'none'
+    },
+    '@media (max-width: 600px)': {
+      padding: '8px'
     }
   },
   titleWrapper: {

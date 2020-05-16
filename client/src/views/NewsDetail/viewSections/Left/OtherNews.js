@@ -108,6 +108,14 @@ class OtherNews extends Component {
       // dots: true,
       slidesToShow: 4,
       autoplay: true,
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+          },
+        },
+      ],
     };
     return isLoading ? (
       <Loading />
