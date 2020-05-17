@@ -47,14 +47,14 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='wrapper'>
+      <div className='login-wrapper'>
         <div className='login-title'>
           SIGN <span className='in'>IN</span>
         </div>
         <div className='form'>
           <form onSubmit={this.handleLogin}>
             <input
-              className='input'
+              className='login-input'
               type='email'
               placeholder='Email'
               required
@@ -64,7 +64,7 @@ class Login extends Component {
               }}
             />
             <input
-              className='input'
+              className='login-input'
               type='password'
               placeholder='Password'
               required
@@ -73,11 +73,11 @@ class Login extends Component {
                 this.setState({ password: e.target.value });
               }}
             />
-            <div className='error'>{this.state.error}</div>
-            <input type='checkbox' /> <label className='lbl'>Remember Me</label>
+            <div className='login-error'>{this.state.error}</div>
+            <input type='checkbox' /> <label className='login-lbl'>Remember Me</label>
             <button
               type='button'
-              className='link'
+              className='login-link'
               onClick={e => {
                 e.preventDefault();
                 this.props.handlePopup('register');

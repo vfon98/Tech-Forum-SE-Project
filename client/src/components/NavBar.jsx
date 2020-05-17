@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -7,6 +7,7 @@ import {
   Grid,
   Avatar,
   Hidden,
+  Link
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
@@ -99,6 +100,10 @@ class NavBar extends Component {
     });
   };
 
+  scrollToBottom = () => {
+    window.scrollTo(0, document.documentElement.scrollHeight);
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -131,10 +136,10 @@ class NavBar extends Component {
                     Discussion
                   </NavLink>
                 </Button>
-                <Button className={classes.btn}>
-                  <NavLink className={classes.link} to='/windows'>
+                <Button className={classes.btn} onClick={this.scrollToBottom}>
+                  <a className={classes.link}>
                     Contact
-                  </NavLink>
+                  </a>
                 </Button>
               </Grid>
               <Grid className={classes.navUser} container sm={4} justify='flex-end' wrap='nowrap' xs={8}>

@@ -40,14 +40,11 @@ class UserSidePanel extends Component {
   render() {
     const { classes } = this.props;
     const { isOpenPopup } = this.state;
-    const { location } = history;
     const user = getUser();
 
     return (
       <Box className={classes.rightWrapper}>
         <Button
-          // component={Link}
-          // to={`${location.pathname}/create`}
           variant='outlined'
           className={classes.btnNewPost}
           startIcon={<BorderColor />}

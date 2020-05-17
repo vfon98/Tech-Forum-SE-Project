@@ -4,7 +4,6 @@ import NavBar from 'components/NavBar.jsx';
 import MainThreads from './viewSections/MainThreads';
 import HomeRecentNews from './viewSections/HomeRecentNews';
 import HotTopic from './viewSections/HotTopic';
-import Footer from '../../components/Footer';
 
 export class Homepage extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ export class Homepage extends Component {
         <MainThreads />
         <HomeRecentNews />
         <HotTopic />
-        <Footer />
+        {/* <Footer /> */}
       </>
     );
   }
