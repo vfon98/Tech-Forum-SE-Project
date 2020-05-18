@@ -212,7 +212,7 @@ class Header extends React.Component {
                 onChange={this.handleFileInputChange}
               />
             </div>
-            <h3 className={classes.displayName}>Nguyen Khoa</h3>
+            <h3 className={classes.displayName}>{this.props.displayName}</h3>
 
 
           </Grid>

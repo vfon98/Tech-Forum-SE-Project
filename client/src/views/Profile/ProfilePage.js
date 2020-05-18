@@ -66,6 +66,7 @@ export class ProfilePage extends Component {
       popup: null,
       avatar: '',
       status: null,
+      displayName : null,
       isLogin: sessionStorage.user ? true : false
     };
   }
@@ -76,7 +77,8 @@ export class ProfilePage extends Component {
         .then(res => {
           this.setState({
             avatar: res.data.user.avatar,
-            status: res.data.user.status
+            status: res.data.user.status,
+            displayName: res.data.user.display_name
           })
         })
     } else {
@@ -110,6 +112,7 @@ export class ProfilePage extends Component {
         <Header
           avatar={this.state.avatar ? this.state.avatar : null}
           status={this.state.status ? this.state.status : null}
+          displayName={this.state.displayName ? this.state.displayName : null}
         />
         <Grid container className={classes.container}>
           <VerticalTabs />

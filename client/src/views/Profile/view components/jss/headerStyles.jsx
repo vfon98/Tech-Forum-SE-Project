@@ -75,6 +75,7 @@ const headerStyles = {
     width: '100%',
     position: "absolute",
     textAlign: 'center',
+    color: "rgba(51,51,51,.8)"
   },
   hiddenEditButton : {
     float: 'right',
