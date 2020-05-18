@@ -3,12 +3,18 @@ import axios from '../../axios/instance'
 import NavBar from '../../components/NavBar'
 import { Dialog, DialogContent, Grid } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
-import profilePageStyles  from '../../assets/jss/profilePageStyles';
+import profilePageStyles from '../../assets/jss/profilePageStyles';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 import Header from './viewSections/Header'
-import Tabs from './viewSections/VerticalTabs'
+import VerticalTabs from './viewSections/VerticalTabs';
+import { getUser } from '../../utils/session'
+
+
+
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 const useStyles = makeStyles({
   root: {
@@ -58,20 +64,26 @@ export class ProfilePage extends Component {
     super(props);
     this.state = {
       popup: null,
-      userInfo: null
+      avatar: '',
+      status: null,
+      isLogin: sessionStorage.user ? true : false
     };
   }
   componentDidMount() {
-    axios
-    .get('/profile')
-    .then(res => {
-      this.setState({
-        userInfo: res.data
-      })
-    })
-    
+    if (this.state.isLogin) {
+      axios
+        .get(`/profile/${getUser()._id}`)
+        .then(res => {
+          this.setState({
+            avatar: res.data.user.avatar,
+            status: res.data.user.status
+          })
+        })
+    } else {
+      window.location.href = '/'
+    }
   }
-  
+
 
   handlePopup = value => {
     this.setState({
@@ -84,6 +96,7 @@ export class ProfilePage extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <ReactNotification />
         {this.state.popup !== null ? (
           <Popup handlePopup={this.handlePopup} type={this.state.popup} />
         ) : null}
@@ -91,14 +104,15 @@ export class ProfilePage extends Component {
           brand='Covid'
           brandHighlight='Forum'
           handlePopup={this.handlePopup}
+          isLogin={state => this.setState({ isLogin: state })}
         />
 
         <Header
-          avatar={userInfo ? userInfo.profile.user_id.avatar: null}
-          // status={userInfo.status}
+          avatar={this.state.avatar ? this.state.avatar : null}
+          status={this.state.status ? this.state.status : null}
         />
         <Grid container className={classes.container}>
-           <Tabs userInfo={this.state.userInfo}/>
+          <VerticalTabs />
         </Grid>
 
       </div>

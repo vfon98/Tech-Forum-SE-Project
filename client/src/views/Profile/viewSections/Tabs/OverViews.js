@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import Item from '../../view components/Item'
 import { LocationOn, Home, School } from '@material-ui/icons'
 import List from '../../view components/List'
-const label = {
-  "hometown" : 'From',
-  "live_at" : "Live at"
-}
+import axios from '../../../../axios/instance'
 
 class OverViews extends Component {
   constructor(props) {
@@ -14,19 +11,33 @@ class OverViews extends Component {
       data: null
     }
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      data: nextProps.userOverview
-    })
+
+  componentDidMount() {
+    axios
+      .get('/profile')
+      .then(res => {
+        res.data.profile ? 
+        this.setState({
+          data: res.data.profile.overview
+        }) : 
+        this.setState({
+          data: null
+        })
+        
+      })
+
   }
+
   render() {
     return (
       <>
-        <h1>Overviews</h1>
-        <List 
+        <h3>
+          Overview
+      </h3>
+        <List
           label={'Education'}
           value={this.state.data ? this.state.data.education : null}
-          id={'education'}
+          id={'educations'}
           icon={<School />}
         />
         <Item
@@ -38,7 +49,7 @@ class OverViews extends Component {
         <Item
           value={this.state.data ? this.state.data.live_at : null}
           label={'Live at'}
-          id="live_at"
+          id="liveAt"
           icon={<Home />}
         />
       </>
