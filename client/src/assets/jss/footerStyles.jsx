@@ -3,7 +3,7 @@ import { primaryColor, highlightColor, textColor } from "./main";
 const footerStyles = {
   background: {
     background: primaryColor,
-    marginTop: '8px',
+    // marginTop: '8px',
     height: '8rem',
     borderTop: '1px solid ' + highlightColor,
     "& p" : {

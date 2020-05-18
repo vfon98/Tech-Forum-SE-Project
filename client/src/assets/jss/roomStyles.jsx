@@ -19,6 +19,9 @@ const roomStyles = {
     fontSize: '0.9rem',
     '@media (max-width: 600px)': {
       padding: '0 8px',
+    },
+    '@media (min-width: 1440px)': {
+      padding: '0 16px'
     }
   },
   roomWrapper: {

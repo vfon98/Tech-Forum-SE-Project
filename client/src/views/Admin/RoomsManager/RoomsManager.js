@@ -79,7 +79,7 @@ class RoomsManager extends Component {
             <AddRoomPopup open={openPopup} onClose={this.togglePopup} />
             <Divider />
             <TableContainer>
-              <Table>
+              <Table size='small'>
                 <TableHead>
                   <TableRow>
                     <StyledCell>#</StyledCell>

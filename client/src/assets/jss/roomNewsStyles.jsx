@@ -80,6 +80,7 @@ const roomNewsStyles = {
   cardBg: {
     padding: '1.2rem',
     position: 'relative',
+    marginBottom: '16px',
     backgroundColor: ({theme}) => theme === 'light' ? lightBg : primaryColor,
     color: ({theme}) => theme === 'light' ? primaryColor : textColor,
     '& hr:last-child': {

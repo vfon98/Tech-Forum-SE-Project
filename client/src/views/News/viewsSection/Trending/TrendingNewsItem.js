@@ -101,9 +101,12 @@ const TrendingNewsItem = props => {
             <img src={props.news.thumbnail} alt='Thumbnail' />
           </Grid>
           <Grid item sm={7} xs={7}>
-            <Typography className={classes.content}>
-              {parseTextFromHTML(props.news.content)}
-            </Typography>
+            <Typography
+              className={classes.content}
+              dangerouslySetInnerHTML={{
+                __html: parseTextFromHTML(props.news.content),
+              }}
+            />
           </Grid>
           {/* Item info data and views */}
           <Grid item sm={12}>

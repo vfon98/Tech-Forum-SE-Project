@@ -71,7 +71,7 @@ const ReportRow = props => {
       <StyledCell className={classes.nowrap} padding='none'>
         {parseLongDateFrom(report.created_at)}
       </StyledCell>
-      <StyledCell align='center'>
+      <StyledCell align='center' className={classes.noWrap}>
         <Tooltip title='Visit this'>
           <IconButton size='small' component={Link} to={getRedirectLink}>
             <VisibilityTwoTone fontSize='small' color='primary' />
@@ -131,7 +131,7 @@ class ReportsManager extends Component {
         <Box className={classes.tableWrapper}>
           <Paper className={classes.table}>
             <TableContainer>
-              <Table>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <StyledCell>#</StyledCell>

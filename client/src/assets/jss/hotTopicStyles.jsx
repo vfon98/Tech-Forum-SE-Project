@@ -9,9 +9,7 @@ const hotTopicStyles = {
   },
   background: {
     background: secondaryColor,
-    '@media (max-width: 600px)': {
-      marginBottom: '-10px'
-    }
+    paddingBottom: '16px'
   },
   cardBackground: {
     background: primaryColor
