@@ -89,6 +89,7 @@ class NavBar extends Component {
         avatar: '',
       });
       this.props.isLogin(false);
+      window.location.reload();
     });
   };
 
@@ -138,14 +139,19 @@ class NavBar extends Component {
                 </Button>
               </Grid>
               <Grid container sm={4} justify='flex-end'>
-                <Hidden smDown>
-                  <input
-                    type='text'
-                    name='searchBox'
-                    className={classes.searchBox}
-                    placeholder='Search'
-                  />
-                </Hidden>
+                <form
+                  autocomplete="off"
+                >
+                  <Hidden smDown>
+                    <input
+                      type='text'
+                      name='searchBox'
+                      className={classes.searchBox}
+                      placeholder='Search'
+                      autoComplete='new-password'
+                    />
+                  </Hidden>
+                </form>
                 {/* USER BUTTON */}
                 <Button>
                   <Search className={classes.accountBtn} />

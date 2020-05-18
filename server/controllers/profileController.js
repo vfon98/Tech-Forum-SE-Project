@@ -20,7 +20,7 @@ module.exports = {
       'overview.hometown': req.body.hometown,
       // Contact
       'contact.phone': req.body.phone,
-      'contact.email': req.body.emails,
+      'contact.emails': req.body.emails,
       'contact.website': req.body.website,
       // Socials
       'socials.facebook': req.body.facebook,
