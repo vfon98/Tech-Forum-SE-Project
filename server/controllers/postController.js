@@ -59,13 +59,14 @@ module.exports = {
     const room_name = req.params.name;
     const size = req.query.size || 5;
     Room.findOne({ name: room_name })
+      .select('name image')
       .then(room => {
         if (room) {
           Post.find({ type: 'post', room_id: room.id })
             .select('-comments -likes -room_id +content')
             .limit(size)
             .then(posts => {
-              res.json({ total: posts.length, posts });
+              res.json({ total: posts.length, room, posts });
             })
             .catch(err => res.json(400).json({ err }));
         } else {
