@@ -10,7 +10,7 @@ import history from './utils/history';
 import Homepage from './views/Homepage/Homepage.jsx';
 import Discussion from './views/Discussion/Discussion';
 import Room from './views/Room/Room';
-import Profile from './views/Profile/ProfilePage';
+import Wall from './views/Wall/Wall';
 import NewsDetail from './views/NewsDetail/NewsDetail';
 import RoomNews from './views/RoomNews/RoomNews';
 import News from './views/News/News';
@@ -32,9 +32,12 @@ ReactDOM.render(
       <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
       <Route path='/posts/:id' exact component={PostDetail} />
-      <Route path='/profile/' render={(props) => (
-        sessionStorage.user ? <Profile {...props} /> : <Redirect to='/'/>
-      )}/>
+      <Route path='/wall/' render={(props) => (
+        <Wall {...props} />
+      )} />
+      {/* <Route path='/profile/' render={(props) => (
+        sessionStorage.user ? <Wall {...props} /> : <Redirect to='/' />
+      )} /> */}
       {/* Admin routes */}
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />

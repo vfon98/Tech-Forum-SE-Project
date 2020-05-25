@@ -7,7 +7,7 @@ import 'react-notifications-component/dist/theme.css'
 import { getUser } from 'utils/session'
 import MainSection from './viewComponent/MainSection'
 
-class ProfilePage extends Component {
+class Wall extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,4 +71,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default ProfilePage
+export default Wall
