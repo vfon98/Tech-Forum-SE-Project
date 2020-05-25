@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import axios from 'axios/instance';
 const loadScript = require('load-script');
 
 var defaultScriptUrl = 'https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js';
@@ -15,7 +16,8 @@ class CKEditor extends React.Component {
 
     //State initialization
     this.state = {
-      isScriptLoaded: props.isScriptLoaded
+      isScriptLoaded: props.isScriptLoaded,
+      postContent: '',
     };
   }
 
@@ -28,22 +30,47 @@ class CKEditor extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    //console.log(window.CKEDITOR)
+    //var editor = window.CKEDITOR.replace('editor');
+    // if(this.state.isScriptLoaded){
+    //   window.CKEDITOR.instance.editor.setData(this.props.postContent);  
+    // }
+    
+  }
+
   componentWillReceiveProps(props) {
     const editor = this.editorInstance;
     if (editor && editor.getData() !== props.content) {
       editor.setData(props.content);
     }
-  }
+    console.log(this.props.postContent);
+    this.setState({
+      postContent: this.props.postContent
+    });
 
+  }
+  
   componentWillUnmount() {
     this.unmounting = true;
   }
+  
 
   passData(editor) {
     editor.on('change', e => {
       this.props.getData(e.editor.getData());
     })
   }
+
+
+  // setData(){
+  //   var editor = window.CKEDITOR.replace('editor');
+  //   const postId = this.props.postId;
+  //   console.log('postId', postId);
+  //   
+  // }
+
+  
 
   onLoad() {
     const { height } = this.props;
@@ -56,26 +83,38 @@ class CKEditor extends React.Component {
     this.setState({
       isScriptLoaded: true
     });
-
+    editor.on('instanceReady', e => {
+      e.editor.setData(this.props.postContent || '')
+    })
     if (!window.CKEDITOR) {
       console.error('CKEditor not found');
       return;
     }
 
     // this.editorInstance = window.CKEDITOR.appendTo(
-    //   ReactDOM.findDOMNode(this),
-    //   this.props.config,
-    //   this.props.content
+    //    ReactDOM.findDOMNode(this),
+    //    this.props.config,
+    //    this.props.content
     // );
 
     //Register listener for custom events if any
     for (var event in this.props.events) {
       var eventHandler = this.props.events[event];
-
       this.editorInstance.on(event, eventHandler);
     }
+    
+    
   }
+  
+
+
+
+
 //className={this.props.activeClass} id="CKEditor"
+
+
+  
+
 
   render() {
     return (

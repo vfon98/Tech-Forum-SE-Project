@@ -39,7 +39,7 @@ class UploadFile extends React.Component {
     return (
       <div>
         <label className='label'>Choose a thumbnail for topic:</label>
-        <input className='input-upload' type="file" onChange={this.props.onFileChange} required />
+        <input className='input-upload' type="file" onChange={this.props.onFileChange}  />
         {/*<button type="submit">Upload</button>*/}
       </div>
    )

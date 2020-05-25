@@ -21,6 +21,9 @@ import {
   hasModifyPermission,
 } from '../../../../utils/session';
 
+import CreatePostPopup from '../../../../components/UserSidePanel/CreatePostPopup';
+import UpdatePostPopup from '../../../../components/UserSidePanel/UpdatePostPopup';
+
 const BlockComments = props => {
   const handleBlockPost = () => {
     // this.toggleConfirmPopup();
@@ -89,6 +92,7 @@ class PostOptions extends Component {
     super(props);
     this.state = {
       isOpenConfirm: false,
+      isOpenPopup: false,
     };
   }
 
@@ -105,7 +109,8 @@ class PostOptions extends Component {
       window.handlePopup('login');
     }
   };
-
+  
+  
   // The result of confirm box
   handleConfirmDelete = option => {
     this.toggleConfirmPopup();
@@ -122,13 +127,23 @@ class PostOptions extends Component {
     }
   };
 
+  
   isOwner = () => {
     const { userId } = this.props;
     return getUser() && getUser()._id === userId;
   };
 
+
+  togglePopup = () => {
+    if (!isLogin()) return window.handlePopup('login');
+    this.setState({
+      isOpenPopup: !this.state.isOpenPopup,
+    });
+  };
+
   render() {
-    const { classes, postId, userId, isBlocked } = this.props;
+    const { classes, postId, userId, isBlocked, content } = this.props;
+    const { isOpenPopup } = this.state;
     return (
       <>
         <Popover
@@ -148,16 +163,23 @@ class PostOptions extends Component {
             {/* Link to update post page */}
             <ListItem
               button
-              component={Link}
-              to={`/posts/update/${postId}`}
-              // disabled={!this.isOwner()}
+              //component={Link}
+              onClick={this.togglePopup}
+              //to={`/posts/update/${postId}`}
+              disabled={!this.isOwner()}
+
             >
               <ListItemIcon className={classes.listPostItem}>
                 <Edit />
               </ListItemIcon>
               <ListItemText>Update</ListItemText>
             </ListItem>
-
+            <UpdatePostPopup 
+              isOpen={isOpenPopup} 
+              onClose={this.togglePopup}
+              postId={postId}
+              content={content}
+            />
             <ListItem
               button
               onClick={this.handleClickDelete}
