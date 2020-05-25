@@ -92,8 +92,8 @@ class VerticalTabs extends React.Component {
                 className={{ root: classes.tabRoot, label: classes.tabLabel }}
               >
                 <CustomTab label="Overview" {...a11yProps(0)} />
-                <CustomTab label="Contact" {...a11yProps(1)} />
-                <CustomTab label="Security" {...a11yProps(2)} />
+                <CustomTab label="Security" {...a11yProps(1)} />
+
               </Tabs>
             </AppBar>
           </Grid>
@@ -102,9 +102,7 @@ class VerticalTabs extends React.Component {
               <OverViews />
             </TabPanel>
             <TabPanel value={this.state.value} index={1}>
-              <Contact />
-              </TabPanel>
-            <TabPanel value={this.state.value} index={2}>
+
               <Security />
               </TabPanel>
           </Grid>

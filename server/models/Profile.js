@@ -18,6 +18,10 @@ const ProfileSchema = new Schema({
       type: String,
       default: null,
     },
+    job: {
+      type: String,
+      default: null,
+    },
   },
   contact: {
     phone: {
