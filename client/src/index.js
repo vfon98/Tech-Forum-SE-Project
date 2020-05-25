@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
@@ -10,7 +10,7 @@ import history from './utils/history';
 import Homepage from './views/Homepage/Homepage.jsx';
 import Discussion from './views/Discussion/Discussion';
 import Room from './views/Room/Room';
-import Profile from './views/Profile/ProfilePage';
+import Wall from './views/Wall/Wall';
 import NewsDetail from './views/NewsDetail/NewsDetail';
 import RoomNews from './views/RoomNews/RoomNews';
 import News from './views/News/News';
@@ -21,6 +21,7 @@ import RoomsManager from 'views/Admin/RoomsManager/RoomsManager';
 import UsersManager from 'views/Admin/UsersManager/UsersManager';
 import ReportsManager from 'views/Admin/ReportsManager/ReportsManager';
 import PostDetail from 'views/PostDetail/PostDetail';
+import ProfilePage from 'views/Profile/ProfilePage'
 
 ReactDOM.render(
   <Router history={history}>
@@ -34,7 +35,12 @@ ReactDOM.render(
       <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
       <Route path='/posts/:id' exact component={PostDetail} />
-      <Route path='/profile' exact component={Profile} />
+      <Route path='/wall/' render={(props) => (
+        <Wall {...props} />
+      )} />
+      <Route path='/profile/' render={(props) => (
+        sessionStorage.user ? <ProfilePage {...props} /> : <Redirect to='/' />
+      )} />
       {/* Admin routes */}
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />

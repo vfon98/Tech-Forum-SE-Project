@@ -26,6 +26,6 @@
     "eslint-plugin-react": "^7.19.0"
   },
   "dependencies": {
-    "passport": "^0.4.1"
+    "react-notifications-component": "^2.4.0"
   }
 }

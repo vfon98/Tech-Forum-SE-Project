@@ -7,23 +7,19 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Grid } from '@material-ui/core'
-import { container } from '../../../assets/jss/main'
-import OverViews from './Tabs/OverViews';
+import axios from '../../../axios/instance'
 
+import verticalTabsStyles from '../view components/jss/verticalTabsStyles'
+import OverViews from './Tabs/OverViews';
+import Contact from './Tabs/Contact'
+import Security from './Tabs/Security'
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index } = props;
 
   return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </Typography>
+    <>
+      {value === index && <Box style={{ paddingTop: '0' }} p={3}>{children}</Box>}
+    </>
   );
 }
 
@@ -40,23 +36,7 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    backgroundColor: "transparent",
-    textAlign: 'left!important'
-  },
-  container: {
-    ...container,
-  },
-  appBar: {
-    boxShadow: 'none',
-    backgroundColor: 'transparent'
-  }
-}
 
-));
 const CustomTab = withStyles({
   root: {
     background: 'transparent',
@@ -75,46 +55,62 @@ const CustomTab = withStyles({
 })(Tab);
 
 
-export default function VerticalTabs(props) {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+class VerticalTabs extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: 0,
+      data: null
+    }
+  }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  handleChange = (event, newValue) => {
+    this.setValue(newValue);
   };
 
-  return (
-    <div className={classes.root}>
-      <Grid container>
-        <Grid item sm={2}>
-          <AppBar position="static" color="default" className={classes.appBar}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="secondary"
-              textColor="secondary"
-              variant="scrollable"
-              scrollButtons="auto"
-              orientation='vertical'
-              className={{ root: classes.tabRoot, label: classes.tabLabel }}
-            >
-              <CustomTab label="Overview" {...a11yProps(0)} />
-              <CustomTab label="Work and Education" {...a11yProps(1)} />
-            </Tabs>
-          </AppBar>
-        </Grid>
-        <Grid item sm={10}>
-          <TabPanel value={value} index={0}>
-            <OverViews 
-            userOverview={props.userInfo ? props.userInfo.profile.overview : null}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
-      </TabPanel>
-        </Grid>
-      </Grid>
+  setValue = (value) => {
+    this.setState({
+      value: value
+    })
+  }
+  render() {
+    const { classes } = this.props;
 
-    </div>
-  );
+    return (
+      <div className={classes.root}>
+        <Grid container>
+          <Grid item sm={2}>
+            <AppBar position="static" color="default" className={classes.appBar}>
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="secondary"
+                textColor="secondary"
+                variant="scrollable"
+                scrollButtons="auto"
+                orientation='vertical'
+                className={{ root: classes.tabRoot, label: classes.tabLabel }}
+              >
+                <CustomTab label="Overview" {...a11yProps(0)} />
+                <CustomTab label="Security" {...a11yProps(1)} />
+
+              </Tabs>
+            </AppBar>
+          </Grid>
+          <Grid item sm={10}>
+            <TabPanel value={this.state.value} index={0}>
+              <OverViews />
+            </TabPanel>
+            <TabPanel value={this.state.value} index={1}>
+
+              <Security />
+              </TabPanel>
+          </Grid>
+        </Grid>
+
+      </div>
+    );
+  }
 }
+
+export default withStyles(verticalTabsStyles)(VerticalTabs)
