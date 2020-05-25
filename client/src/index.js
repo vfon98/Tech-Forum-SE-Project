@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
@@ -32,7 +32,9 @@ ReactDOM.render(
       <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
       <Route path='/posts/:id' exact component={PostDetail} />
-      <Route path='/profile' exact component={Profile} />
+      <Route path='/profile/' render={(props) => (
+        sessionStorage.user ? <Profile {...props} /> : <Redirect to='/'/>
+      )}/>
       {/* Admin routes */}
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />
