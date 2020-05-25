@@ -9,6 +9,7 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { getIdentifier } from '../../utils/userIdentifier';
 import { timeFrom } from '../../utils/converter';
 import { getUser, hasModifyPermission, isAdmin } from '../../utils/session';
@@ -133,8 +134,8 @@ class UserComment extends Component {
   };
 
   toggleReportPopup = () => {
-    this.setState({isOpenReport: !this.state.isOpenReport})
-  }
+    this.setState({ isOpenReport: !this.state.isOpenReport });
+  };
 
   render() {
     const { classes } = this.props;
@@ -144,6 +145,8 @@ class UserComment extends Component {
       <Grid container className={classes.commentContainer}>
         <Grid container sm={1} xs={2} justify='center'>
           <Avatar
+            component={Link}
+            to={`/wall/${comment.user_id}`}
             src={comment && comment.user.avatar}
             alt={comment && comment.user.display_name}
           />
@@ -155,9 +158,12 @@ class UserComment extends Component {
             onMouseLeave={() => this.setState({ shownReportBtn: false })}
           >
             <Typography>
-              <strong className={classes.userName}>
+              <Link
+                to={`/wall/${comment.user_id}`}
+                className={classes.userName}
+              >
                 {comment ? comment.user.display_name : 'Display name'}
-              </strong>
+              </Link>
               <small className={classes.secondaryText}>
                 {comment ? getIdentifier(comment.user.email) : '@example'}
               </small>

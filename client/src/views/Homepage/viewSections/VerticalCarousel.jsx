@@ -77,9 +77,9 @@ function Item(props) {
             }}
           ></p>
           <Box className={classes.authorWrapper}>
-            <p className={classes.author}>
+            <Link to={`/wall/${item.user.id}`} className={classes.author}>
               {item.user ? item.user.display_name : 'John'}
-            </p>
+            </Link>
             <p className={classes.views}>{parseStringFrom(item.views)} views</p>
           </Box>
         </Grid>

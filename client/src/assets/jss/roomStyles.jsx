@@ -80,8 +80,14 @@ const roomStyles = {
     fontSize: '1rem',
   },
   userName: {
+    color: textColor,
     fontWeight: 'bold',
     fontSize: '1rem',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   avatarLg: {
     height: '50px',

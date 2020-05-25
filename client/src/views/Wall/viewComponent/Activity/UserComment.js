@@ -9,6 +9,7 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { getIdentifier } from 'utils/userIdentifier';
 import { timeFrom } from 'utils/converter';
 import { getUser, hasModifyPermission, isAdmin } from 'utils/session';
@@ -144,6 +145,8 @@ class UserComment extends Component {
       <Grid container className={classes.commentContainer}>
         <Grid container sm={1} justify='center'>
           <Avatar
+            component={Link}
+            to={`/wall/${comment.user_id}`}
             src={comment && comment.user.avatar}
             alt={comment && comment.user.display_name}
           />

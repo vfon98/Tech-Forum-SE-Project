@@ -63,12 +63,15 @@ const bannerItemStyles = {
     display: 'flex',
     alignItems: 'center',
     whiteSpace: 'nowrap',
-    '& span': {
-      marginRight: '2px',
-      fontWeight: '700',
-      color: orangeColor,
-      // color:dyan
-    },
+  },
+  userLink: {
+    marginRight: '2px',
+    fontWeight: '700',
+    color: orangeColor,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   bgDark: {
     backgroundColor: darkColor,
@@ -112,7 +115,9 @@ class BannerItem extends Component {
               </Typography>
               <Typography className={classes.info}>
                 {/* <Avatar src={news.user.avatar} className={classes.avatarSm} /> */}
-                <span>{news.user.display_name}</span>
+                <Link to={`/wall/${news.user.id}`} className={classes.userLink}>
+                  {news.user.display_name}
+                </Link>
                 <Hidden smDown={this.props.lastRow}>
                   {' • '}
                   {parseDateFrom(news.created_at) || 'Unknown'}

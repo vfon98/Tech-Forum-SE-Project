@@ -29,7 +29,6 @@ class UserPost extends Component {
   constructor(props) {
     super(props);
     const { post } = this.props;
-    console.log(post)
     this.state = {
       // Default comments expansion state
       isExpanded: true,

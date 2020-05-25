@@ -78,6 +78,10 @@ const useStyles = makeStyles({
     color: dyan,
     fontWeight: '600',
     fontSize: '0.8rem',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
 });
 
@@ -113,11 +117,17 @@ const TrendingNewsItem = props => {
             <Grid container justify='space-between'>
               <Grid item className={classes.actionWrapper}>
                 <Avatar
+                  component={Link}
+                  to={`/wall/${props.news.user.id}`}
                   className={classes.avatarSm}
                   src={props.news.user.avatar || ''}
                   alt={props.news.user.display_name}
                 />
-                <Typography className={classes.username}>
+                <Typography
+                  component={Link}
+                  to={`/wall/${props.news.user.id}`}
+                  className={classes.username}
+                >
                   {props.news.user.display_name}
                 </Typography>
               </Grid>

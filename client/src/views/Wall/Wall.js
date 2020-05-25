@@ -20,7 +20,6 @@ class Wall extends Component {
     let queryID = window.location.pathname.split('/')[2]
 
     if (!queryID || queryID == '' || queryID == getUser()._id) {
-
       this.setState({
         permission: 'edit',
       })

@@ -44,6 +44,10 @@ const verticalCarouselStyles = {
     color: dyan,
     margin: '0.4rem 0',
     fontSize: '0.8rem',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   views: {
     fontSize: '0.8rem',
