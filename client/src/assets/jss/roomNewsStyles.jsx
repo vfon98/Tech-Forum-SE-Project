@@ -28,6 +28,9 @@ const roomNewsStyles = {
     display: 'flex',
     alignItems: 'center',
   },
+  contentWrapper: {
+    padding: '0 8px'
+  },
   newsImg: {
     // maxHeight: '9rem',
     width: '100%',
@@ -81,10 +84,14 @@ const roomNewsStyles = {
   cardBg: {
     padding: '1.2rem',
     position: 'relative',
+    marginBottom: '16px',
     backgroundColor: ({theme}) => theme === 'light' ? lightBg : primaryColor,
     color: ({theme}) => theme === 'light' ? primaryColor : textColor,
     '& hr:last-child': {
       display: 'none'
+    },
+    '@media (max-width: 600px)': {
+      padding: '8px'
     }
   },
   titleWrapper: {
@@ -100,6 +107,10 @@ const roomNewsStyles = {
     marginLeft: '8px',
     paddingLeft: '8px',
     borderLeft: `4px solid ${lightBlueColor}`,
+    '@media (max-width: 350px)': {
+      fontSize: '1rem',
+      padding: '0.4rem'
+    }
   },
   composeBtn: {
     position: 'absolute',

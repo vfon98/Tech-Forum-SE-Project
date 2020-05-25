@@ -21,7 +21,8 @@ import RoomsManager from 'views/Admin/RoomsManager/RoomsManager';
 import UsersManager from 'views/Admin/UsersManager/UsersManager';
 import ReportsManager from 'views/Admin/ReportsManager/ReportsManager';
 import PostDetail from 'views/PostDetail/PostDetail';
-import ProfilePage from 'views/Profile/ProfilePage'
+import ProfilePage from 'views/Profile/ProfilePage';
+import Footer from 'components/Footer';
 
 ReactDOM.render(
   <Router history={history}>
@@ -48,6 +49,7 @@ ReactDOM.render(
       <Route path='/admin/users-manager' exact component={UsersManager} />
       <Route path='/admin/reports-manager' exact component={ReportsManager} />
     </Switch>
+    <Footer />
   </Router>,
   document.getElementById('root')
 );

@@ -61,7 +61,7 @@ class StatisticItem extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container item lg={3} xs={6}>
+      <Grid container item xs={12} sm={6} lg={3}>
         <Card className={classes.wrapper}>
           <CardHeader
             avatar={<Avatar className={classes.icon}>{this.props.icon}</Avatar>}

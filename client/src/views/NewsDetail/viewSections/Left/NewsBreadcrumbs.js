@@ -24,6 +24,9 @@ const breadcurmbStyles = {
     flexGrow: 1,
     // paddingTop: '8px',
     paddingBottom: '0 !important',
+    '@media (max-width: 600px)': {
+      padding: '8px'
+    }
   },
   action: {
     padding: 0,

@@ -6,7 +6,7 @@ const recentNewsStyles = {
     background: primaryColor
   },
   container: {
-    ...container
+    ...container,
   },
   title: {
     ...title
@@ -41,7 +41,10 @@ const recentNewsStyles = {
     marginBottom: '3rem',
     // padding: '1rem',
     position: 'relative',
-    overflow: 'visible'
+    overflow: 'visible',
+    '@media (max-width: 600px)': {
+      margin: '8px 0'
+    }
   },
   linkText: {
     color: textColor,
@@ -88,6 +91,7 @@ const recentNewsStyles = {
     left: '50%',
     transform: 'translate(-50%, 50%)',
     padding: '0.6em 2em',
+    whiteSpace: 'nowrap'
   }
 }
 

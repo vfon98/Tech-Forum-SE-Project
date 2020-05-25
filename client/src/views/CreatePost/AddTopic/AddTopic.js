@@ -61,7 +61,6 @@ class AddTopic extends Component {
   };
 
   togglePreview = () => {
-    console.log('toggle');
     this.setState({
       isOpenPreview: !this.state.isOpenPreview,
     });

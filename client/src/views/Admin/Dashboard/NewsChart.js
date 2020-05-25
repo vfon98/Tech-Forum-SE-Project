@@ -42,7 +42,6 @@ class NewsChart extends Component {
     if (prevState.data.labels !== this.props.roomsName) {
       data.labels = this.props.roomsName;
       data.datasets[0].data = this.props.data;
-      console.log('data', data)
       this.setState({data: data});
     }
   }
@@ -58,7 +57,7 @@ class NewsChart extends Component {
           // width={100}
           // height={50}
           options={{
-            maintainAspectRatio: true,
+            // maintainAspectRatio: false,
             scales: {
               xAxes: [
                 {

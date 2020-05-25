@@ -114,7 +114,7 @@ class Register extends Component {
               }}
             />
             {!this.isPasswordMatched() ? (
-              <div className='error'>Password does not match</div>
+              <div className='reg-error'>Password does not match</div>
             ) : (
               ''
             )}
@@ -144,7 +144,7 @@ class Register extends Component {
             <label className='single-lbl'>Choose your avatar</label>
             <input
               type='file'
-              className='input'
+              className='input file'
               name='avatar'
               accept='image/*'
               ref={this.fileRef}
@@ -168,7 +168,7 @@ class Register extends Component {
             >
               Sign in now!
             </button>
-            <button className='button' type='submit'>
+            <button className='button sign-up' type='submit'>
               SIGN UP
             </button>
           </form>

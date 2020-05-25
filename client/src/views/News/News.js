@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Hidden } from '@material-ui/core';
 
 import NavBar from '../../components/NavBar';
 import BannerNews from './viewsSection/BannerNews';
@@ -13,7 +13,7 @@ class News extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-  
+
   handleAuthChanged = state => {
     this.setState({
       isLogin: state,
@@ -31,11 +31,13 @@ class News extends Component {
               <BannerNews />
             </Grid>
             <Grid container style={{ marginTop: '1.2em' }} spacing={2}>
-              <Grid item sm={9}>
+              <Grid item sm={9} xs={12}>
                 <LeftMainNews />
               </Grid>
-              <Grid item sm={3}>
-                <RightMainNews />
+              <Grid item sm={3} xs={12}>
+                <Hidden only='xs'>
+                  <RightMainNews />
+                </Hidden>
               </Grid>
             </Grid>
           </Container>

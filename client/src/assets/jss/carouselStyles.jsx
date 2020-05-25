@@ -13,14 +13,15 @@ const carouselStyles = {
   caption: {
     color: textColor,
     fontFamily: 'Roboto',
+    maxWidth: '100%'
   },
   itemHeader: {
     ...limitLine(2),
-    fontSize: '16px'
+    fontSize: '1rem'
   },
   itemContent: {
     ...limitLine(3),
-    fontSize: '14px'
+    fontSize: '0.9rem'
   }
 };
 

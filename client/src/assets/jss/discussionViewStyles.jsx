@@ -6,7 +6,10 @@ const discussionViewStyles = {
   },
   background: {
     background: "#fff",
-    padding: '5rem 0'
+    padding: '5rem 0',
+    '@media (max-width: 600px)': {
+      padding: '2rem 0'
+    }
   }
 
 }

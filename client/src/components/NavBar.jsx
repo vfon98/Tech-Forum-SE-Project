@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -8,6 +8,7 @@ import {
   Avatar,
   Hidden,
   ClickAwayListener,
+  Link
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
@@ -109,6 +110,10 @@ class NavBar extends Component {
     });
   };
 
+  scrollToBottom = () => {
+    window.scrollTo(0, document.documentElement.scrollHeight);
+  }
+
   render() {
     const { classes } = this.props;
     const { showSearchBox } = this.state;
@@ -121,12 +126,12 @@ class NavBar extends Component {
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
-              <Grid item sm={2}>
+              <Grid className={classes.navLogo} item sm={2} xs={4}>
                 <Link to='/' className={classes.link}>
                   Covid <span className={classes.brandHighlight}>Forum</span>
                 </Link>
               </Grid>
-              <Grid container sm={6} justify='center'>
+              <Grid className={classes.navLink} container sm={6} xs={12} justify='center'>
                 <Button className={classes.btn}>
                   <NavLink className={classes.link} to='/'>
                     Home
@@ -142,26 +147,21 @@ class NavBar extends Component {
                     Discussion
                   </NavLink>
                 </Button>
-                <Button className={classes.btn}>
-                  <NavLink className={classes.link} to='/windows'>
+                <Button className={classes.btn} onClick={this.scrollToBottom}>
+                  <a className={classes.link}>
                     Contact
-                  </NavLink>
+                  </a>
                 </Button>
               </Grid>
-              <Grid container sm={4} justify='flex-end'>
-                <form
-                  autoComplete="off"
-                >
-                  <Hidden smDown>
-                    <input
-                      type='text'
-                      name='searchBox'
-                      className={classes.searchBox}
-                      placeholder='Search'
-                      autoComplete='new-password'
-                    />
-                  </Hidden>
-                </form>
+              <Grid className={classes.navUser} container sm={4} justify='flex-end' wrap='nowrap' xs={8}>
+                <Hidden smDown>
+                  <input
+                    type='text'
+                    name='searchBox'
+                    className={classes.searchBox}
+                    placeholder='Search'
+                  />
+                </Hidden>
                 {/* USER BUTTON */}
                 <Button>
                   <ClickAwayListener onClickAway={() => this.setState({showSearchBox: false})}>

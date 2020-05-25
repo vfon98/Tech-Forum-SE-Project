@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Layout from './Layout/Layout';
-import Dashboard from './Dashboard/Dashboard'
+import Dashboard from './Dashboard/Dashboard';
 
 class Admin extends Component {
   render() {
     return (
       <>
-      <Dashboard />
+        <Dashboard />
       </>
     );
   }

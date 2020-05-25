@@ -3,10 +3,14 @@ import { limitLine } from './main';
 
 const hotTopicStyles = {
   container: {
-    ...container
+    ...container,
+    '@media (max-width: 600px)': {
+      margin: 0,
+    }
   },
   background: {
-    background: secondaryColor
+    background: secondaryColor,
+    paddingBottom: '16px'
   },
   cardBackground: {
     background: primaryColor

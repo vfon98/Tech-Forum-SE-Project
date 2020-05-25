@@ -58,8 +58,6 @@ class UserSidePanel extends Component {
     return (
       <Box className={classes.rightWrapper}>
         <Button
-          // component={Link}
-          // to={`${location.pathname}/create`}
           variant='outlined'
           className={classes.btnNewPost}
           startIcon={<BorderColor />}

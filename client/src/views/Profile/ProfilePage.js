@@ -67,7 +67,9 @@ export class ProfilePage extends Component {
       avatar: '',
       status: null,
       displayName : null,
-      isLogin: sessionStorage.user ? true : false
+      isLogin: sessionStorage.user ? true : false,
+      userInfo: null,
+      // isLogin: null
     };
   }
   componentDidMount() {

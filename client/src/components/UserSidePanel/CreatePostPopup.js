@@ -69,6 +69,17 @@ const popupStyles = {
     backgroundColor: darkGreen,
     border: `2px solid ${lightBlueColor}`,
   },
+  '@media (max-width: 600px)': {
+    contentWrapper: {
+      padding: '8px',
+    },
+    actionWrapper: {
+      padding: '8px'
+    },
+    title: {
+      padding: '8px'
+    }
+  },
 };
 
 const Transition = React.forwardRef(function Transion(props, ref) {
@@ -97,7 +108,7 @@ class CreatePostPopup extends Component {
       })
       .catch(err => {
         console.log({ err });
-        alert('error')
+        alert('error');
       });
   };
 
@@ -127,7 +138,7 @@ class CreatePostPopup extends Component {
         <div className={classes.bgDark}>
           <DialogTitle className={classes.title}>Create your post</DialogTitle>
           <Divider />
-          <DialogContent>
+          <DialogContent className={classes.contentWrapper}>
             <Box className={classes.avatarWrapper}>
               <Avatar
                 className={classes.avatar}

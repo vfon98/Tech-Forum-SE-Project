@@ -1,14 +1,14 @@
 .top-app {
   background-color: #313947;
   color: rgba(255, 255, 255, 0.8);
-	padding-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .form-wrapper {
-	box-sizing: border-box;
-	background-color: #292E38;
+  box-sizing: border-box;
+  background-color: #292e38;
   border-radius: 8px;
-	padding: 2em 5em 3em;
+  padding: 2em 5em 3em;
   width: 100%;
   margin: 0 auto;
 }
@@ -39,4 +39,29 @@
 
 .ck-input::placeholder {
   font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .ck-wrapper {
+    margin: 0 auto;
+    width: auto;
+    padding: 0 10px;
+    background-color: white;
+    background-color: inherit;
+  }
+  .form-wrapper {
+    box-sizing: border-box;
+    background-color: #292e38;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .ck-input {
+    margin: 8px 0 14px;
+    font-size: 14px;
+  }
+  .ck-input::placeholder {
+    font-size: 14px;
+  }
 }

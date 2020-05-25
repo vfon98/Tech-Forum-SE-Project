@@ -27,12 +27,12 @@ class RoomNews extends Component {
       <>
         <NavBar isLogin={this.handleAuthChanged} />
         <Box className={classes.roomWrapper}>
-          <Container>
+          <Container className={classes.contentWrapper}>
             <Grid container spacing={2}>
-              <Grid item sm={3}>
+              <Grid item sm={3} xs={12}>
                 <LeftRoomNews />
               </Grid>
-              <Grid item sm={9}>
+              <Grid item sm={9} xs={12}>
                 <RightRoomNews />
               </Grid>
             </Grid>

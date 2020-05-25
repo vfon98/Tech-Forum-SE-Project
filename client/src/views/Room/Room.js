@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../../components/NavBar';
-import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Box, Container, Hidden } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
 import roomStyles from '../../assets/jss/roomStyles';
@@ -15,10 +15,10 @@ class Room extends Component {
       isLogin: null,
     };
   }
-  
+
   handleAuthChanged = state => {
     this.setState({
-      isLogin: state
+      isLogin: state,
     });
   };
 
@@ -30,14 +30,16 @@ class Room extends Component {
         <Box className={classes.roomWrapper}>
           <Container>
             <Grid container spacing={2}>
-              <Grid item sm={3}>
+              <Grid item sm={4} md={3} xs={12}>
                 <LeftSection />
               </Grid>
-              <Grid item sm={6}>
+              <Grid item sm={8} md={6} xs={12}>
                 <MainSection />
               </Grid>
-              <Grid item sm={3}>
-                <RightSection />
+              <Grid item md={3}>
+                <Hidden smDown>
+                  <RightSection />
+                </Hidden>
               </Grid>
             </Grid>
           </Container>
