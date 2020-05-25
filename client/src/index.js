@@ -20,6 +20,7 @@ import RoomsManager from 'views/Admin/RoomsManager/RoomsManager';
 import UsersManager from 'views/Admin/UsersManager/UsersManager';
 import ReportsManager from 'views/Admin/ReportsManager/ReportsManager';
 import PostDetail from 'views/PostDetail/PostDetail';
+import ProfilePage from 'views/Profile/ProfilePage'
 
 ReactDOM.render(
   <Router history={history}>
@@ -35,9 +36,9 @@ ReactDOM.render(
       <Route path='/wall/' render={(props) => (
         <Wall {...props} />
       )} />
-      {/* <Route path='/profile/' render={(props) => (
-        sessionStorage.user ? <Wall {...props} /> : <Redirect to='/' />
-      )} /> */}
+      <Route path='/profile/' render={(props) => (
+        sessionStorage.user ? <ProfilePage {...props} /> : <Redirect to='/' />
+      )} />
       {/* Admin routes */}
       <Redirect from='/admin' to='/admin/dashboard' exact />
       <Route path='/admin/dashboard' exact component={Admin} />

@@ -18,12 +18,12 @@ import { getUser, isLogin } from 'utils/session';
 import axios from 'axios/instance';
 
 import { withStyles } from '@material-ui/styles';
-import roomStyles from 'assets/jss/roomStyles';
+import roomStyles from 'assets/jss/wallStyles';
 
 import PostHeader from './PostHeader';
 import ReportPopup from 'components/ReportPopup';
-import UserComment from 'components/Comment/UserComment';
-import CommentInput from 'components/Comment/CommentInput';
+import UserComment from './UserComment';
+import CommentInput from './CommentInput';
 
 class UserPost extends Component {
   constructor(props) {
@@ -222,7 +222,7 @@ class UserPost extends Component {
 
                     {/* COMMENT INPUT SECTION */}
                     {!post.comment_blocked ? (
-                      <Box py={1} className={classes.bgPrimary}>
+                      <Box py={1} className={classes.bgSecondary}>
                         <CommentInput
                           postId={post.id}
                           refreshComments={this.handleRefreshComments}

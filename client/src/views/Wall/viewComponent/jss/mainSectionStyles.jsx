@@ -5,6 +5,10 @@ const mainSectionStyles = {
     ...container,
     background: "#292E38",
     paddingBottom: '0',
+  },
+  title : {
+    color: "#fff",
+    margin: "2rem 0"
   }
 }
 

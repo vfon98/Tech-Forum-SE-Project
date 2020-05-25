@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider'
 import mainSectionStyles from './jss/mainSectionStyles'
 import UserPost from './Activity/UserPost'
 import Loading from 'components/Loading'
@@ -110,49 +111,47 @@ class MainSection extends Component {
     const { classes } = this.props;
     const { tabsIndex, posts, isLoading } = this.state
     return (
-      <>
-        <CustomizeTabs
-          value={tabsIndex}
-          onChange={this.handleTabChange}
-          indicatorColor="primary"
-          textColor="primary"
-
+      <div className={classes.container}>
+        <Divider />
+        <Grid
+          container
         >
-          <CustomTab label="Item One"{...a11yProps(0)} />
-          <CustomTab label="Item Two"{...a11yProps(1)} />
+          <Grid item sm={3}>
 
-        </CustomizeTabs>
-        <div
-          className={classes.container}
-        >
-          <TabPanel value={tabsIndex} index={1}>
-            <Setting />
-          </TabPanel>
-          <TabPanel value={tabsIndex} index={0}>
-            <Grid container>
-              <Grid item sm={3}></Grid>
-              <Grid item sm={6}>
-                {
-                  isLoading && !posts ? (
-                    <Loading />
-                  ) : (
-                      <>
-                        {posts.map(post => {
-                          return (
-                            <UserPost key={post.id} post={post} />
-                          )
-                        })}
-                      </>
-                    )
-                }
+          </Grid>
+          <Grid item sm={6}>
+            <h3
+              className={classes.title}
+            >
+              Recent posts!
+        </h3>
+          </Grid>
+          <Grid item sm={3}>
 
-              </Grid>
-              <Grid item sm={3}></Grid>
-            </Grid>
-          </TabPanel>
+          </Grid>
 
-        </div>
-      </>
+        </Grid>
+        <Grid container>
+          <Grid item sm={3}></Grid>
+          <Grid item sm={6}>
+            {
+              isLoading && !posts ? (
+                <Loading />
+              ) : (
+                  <>
+                    {posts.map(post => {
+                      return (
+                        <UserPost key={post.id} post={post} />
+                      )
+                    })}
+                  </>
+                )
+            }
+
+          </Grid>
+          <Grid item sm={3}></Grid>
+        </Grid>
+      </div>
     )
   }
 }
