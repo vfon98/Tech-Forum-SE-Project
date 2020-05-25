@@ -69,7 +69,7 @@ class NewsOption extends Component {
           <ListItem
             button
             component={Link}
-            to={`/news/update/${newsId}`}
+            to={`/news/${newsId}/update`}
             // disabled={!this.isOwner()}
           >
             <ListItemIcon className={classes.listPostItem}>
