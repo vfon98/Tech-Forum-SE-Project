@@ -58,6 +58,10 @@ const roomNewsStyles = {
     color: dyan,
     fontWeight: '600',
     margin: 0,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   newsInfoText: {
     fontSize: '0.8rem',

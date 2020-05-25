@@ -39,7 +39,7 @@ const ConfirmPopup = props => {
       onClose={props.handleClose}
       TransitionComponent={Transition}
     >
-      <DialogContent>Are you seriously want to delete it?</DialogContent>
+      <DialogContent>{props.message ? props.message : 'Are you seriously want to delete it?'}</DialogContent>
       <DialogActions className={classes.actionBox}>
         <Button className={classes.btn} onClick={handleYesOption}>
           Yes

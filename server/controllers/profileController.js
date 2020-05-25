@@ -18,9 +18,10 @@ module.exports = {
       'overview.education': req.body.educations,
       'overview.live_at': req.body.liveAt,
       'overview.hometown': req.body.hometown,
+      'overview.job': req.body.job,
       // Contact
       'contact.phone': req.body.phone,
-      'contact.email': req.body.emails,
+      'contact.emails': req.body.emails,
       'contact.website': req.body.website,
       // Socials
       'socials.facebook': req.body.facebook,
@@ -58,7 +59,7 @@ module.exports = {
       .populate({
         path: 'profile',
       })
-      .populate({ path: 'news posts', select: '-comments' })
+      .populate({ path: 'news posts' })
       .then(user => {
         res.json({ user });
       })

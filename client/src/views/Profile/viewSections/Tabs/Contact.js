@@ -34,7 +34,7 @@ class Contact extends Component {
       </h3>
         <List
           label={'Email'}
-          value={this.state.data ? this.state.data.contact.email : null}
+          value={this.state.data ? this.state.data.contact.emails : null}
           id={'emails'}
           icon={<AlternateEmail />}
         />

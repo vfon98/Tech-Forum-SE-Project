@@ -48,13 +48,18 @@ class RecentNewsItem extends Component {
                   </Typography>
                   <Box className={classes.newsAvatarWrapper}>
                     <Avatar
+                      component={Link}
+                      to={`/wall/${news.user.id}`}
                       className={classes.avatarSm}
                       src={news.user ? news.user.avatar : ''}
                       alt={news.user ? news.user.display_name : ''}
                     />
-                    <p className={classes.newsAuthorText}>
+                    <Link
+                      className={classes.newsAuthorText}
+                      to={`/wall/${news.user.id}`}
+                    >
                       {news.user ? news.user.display_name : 'Loading'}
-                    </p>
+                    </Link>
                     <Typography
                       className={classes.newsInfoText}
                       color='inherit'
