@@ -15,6 +15,7 @@ import NewsDetail from './views/NewsDetail/NewsDetail';
 import RoomNews from './views/RoomNews/RoomNews';
 import News from './views/News/News';
 import CreatePost from './views/CreatePost/CreatePost';
+import UpdateTopic from './views/CreatePost/UpdatePost';
 import Admin from 'views/Admin/Admin';
 import RoomsManager from 'views/Admin/RoomsManager/RoomsManager';
 import UsersManager from 'views/Admin/UsersManager/UsersManager';
@@ -29,6 +30,7 @@ ReactDOM.render(
       <Route path='/room/:name' exact component={Room} />
       <Route path='/room/:name/news' exact component={RoomNews} />
       <Route path='/room/:name/news/create' exact component={CreatePost} />
+      <Route path='/news/:id/update' exact component={UpdateTopic} />   
       <Route path='/news' exact component={News} />
       <Route path='/news/:id' exact component={NewsDetail} />
       <Route path='/posts/:id' exact component={PostDetail} />
