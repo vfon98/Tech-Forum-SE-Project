@@ -10,6 +10,7 @@ import {
   ListItemText,
   Box,
   Typography,
+  Hidden,
 } from '@material-ui/core';
 import { Forum, MenuBookTwoTone } from '@material-ui/icons';
 import { NavLink, withRouter } from 'react-router-dom';
@@ -19,6 +20,8 @@ import { withStyles } from '@material-ui/styles';
 import roomStyles from '../../../assets/jss/roomStyles';
 
 import RoomList from '../../../components/RoomList.js/RoomList';
+import UserSidePanel from 'components/UserSidePanel/UserSidePanel';
+import { isLogin } from 'utils/session';
 
 const activeLink = {
   background: 'rgb(0,0,0,0.3)',
@@ -30,10 +33,10 @@ class LeftSection extends Component {
     const { params } = this.props.match;
     this.state = {
       roomName: params.name,
-      roomInfo: {}
+      roomInfo: {},
     };
   }
-  
+
   componentDidMount() {
     this.fetchRoomInfo();
   }
@@ -52,10 +55,10 @@ class LeftSection extends Component {
     const { params } = this.props.match;
     axios.get(`/rooms/${params.name}`).then(res => {
       this.setState({
-        roomInfo: res.data.room
-      })
-    })
-  }
+        roomInfo: res.data.room,
+      });
+    });
+  };
 
   render() {
     const { classes } = this.props;
@@ -63,6 +66,10 @@ class LeftSection extends Component {
 
     return (
       <Box>
+        <Hidden smUp>
+          {/* Hide user on small screen */}
+          {isLogin() && <UserSidePanel />}
+        </Hidden>
         <Card variant='outlined' className={classes.bgPrimary}>
           <List style={{ padding: 0 }}>
             <ListSubheader className={classes.leftHeader}>
@@ -115,7 +122,9 @@ class LeftSection extends Component {
           </List>
         </Card>
         {/* SIDEBAR */}
-        <RoomList />
+        <Hidden only='xs'>
+          <RoomList />
+        </Hidden>
       </Box>
     );
   }

@@ -7,9 +7,9 @@ import profilePageStyles from '../../assets/jss/profilePageStyles';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
-import Header from './viewSections/Header'
-import VerticalTabs from './viewSections/VerticalTabs';
-import { getUser } from '../../utils/session'
+import Header from './viewSections/Header';
+import Tabs from './viewSections/VerticalTabs';
+import { getUser } from '../../utils/session';
 
 
 
@@ -67,7 +67,9 @@ export class ProfilePage extends Component {
       avatar: '',
       status: null,
       displayName : null,
-      isLogin: sessionStorage.user ? true : false
+      isLogin: sessionStorage.user ? true : false,
+      userInfo: null,
+      // isLogin: null
     };
   }
   componentDidMount() {
@@ -94,7 +96,6 @@ export class ProfilePage extends Component {
   };
 
   render() {
-    const { userInfo } = this.state;
     const { classes } = this.props;
     return (
       <div>
@@ -115,7 +116,7 @@ export class ProfilePage extends Component {
           displayName={this.state.displayName ? this.state.displayName : null}
         />
         <Grid container className={classes.container}>
-          <VerticalTabs />
+           <Tabs userInfo={this.state.userInfo} />
         </Grid>
 
       </div>

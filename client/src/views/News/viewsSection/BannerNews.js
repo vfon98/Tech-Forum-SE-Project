@@ -73,7 +73,7 @@ class BannerNews extends Component {
           {randomNews &&
             randomNews.map((news, index) => {
               if (index >= 4) {
-                return <BannerItem key={news.id} news={news} />;
+                return <BannerItem key={news.id} news={news} lastRow />;
               }
             })}
         </SliderWrapper>

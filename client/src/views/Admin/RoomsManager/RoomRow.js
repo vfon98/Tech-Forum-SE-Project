@@ -53,7 +53,11 @@ const ActiveButton = props => {
           <VisibilityTwoTone style={{ color: green[400] }} fontSize='small' />
         </IconButton>
       </Tooltip>
-      <ConfirmPopup isOpen={openConfirm} handleClose={handleClose} />
+      <ConfirmPopup
+        isOpen={openConfirm}
+        handleClose={handleClose}
+        message='Are you sure to active this room?'
+      />
     </>
   );
 };
@@ -81,7 +85,11 @@ const HiddenButton = props => {
           <VisibilityOffTwoTone color='error' fontSize='small' />
         </IconButton>
       </Tooltip>
-      <ConfirmPopup isOpen={openConfirm} handleClose={handleClose} />
+      <ConfirmPopup
+        isOpen={openConfirm}
+        handleClose={handleClose}
+        message='Are you sure to hide this room?'
+      />
     </>
   );
 };

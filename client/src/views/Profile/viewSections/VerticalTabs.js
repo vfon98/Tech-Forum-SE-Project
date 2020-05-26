@@ -6,20 +6,26 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Grid } from '@material-ui/core'
-import axios from '../../../axios/instance'
-
-import verticalTabsStyles from '../view components/jss/verticalTabsStyles'
+import { Grid } from '@material-ui/core';
+import { container } from '../../../assets/jss/main';
 import OverViews from './Tabs/OverViews';
-import Contact from './Tabs/Contact'
-import Security from './Tabs/Security'
+import Security from './Tabs/Security';
+
 function TabPanel(props) {
-  const { children, value, index } = props;
+  const { children, value, index, ...other } = props;
+  const classes = useStyles();
 
   return (
-    <>
-      {value === index && <Box style={{ paddingTop: '0' }} p={3}>{children}</Box>}
-    </>
+    <Typography
+      component='div'
+      role='tabpanel'
+      hidden={value !== index}
+      id={`scrollable-auto-tabpanel-${index}`}
+      aria-labelledby={`scrollable-auto-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box className={classes.itemWrapper}>{children}</Box>}
+    </Typography>
   );
 }
 
@@ -36,6 +42,27 @@ function a11yProps(index) {
   };
 }
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: 'transparent',
+    textAlign: 'left!important',
+  },
+  container: {
+    ...container,
+  },
+  appBar: {
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+  },
+  itemWrapper: {
+    padding: '0 0 24px 24px',
+    '@media (max-width: 600px)': {
+      padding: '0 0 16px 16px'
+    }
+  },
+}));
 
 const CustomTab = withStyles({
   root: {
@@ -50,67 +77,47 @@ const CustomTab = withStyles({
   },
   label: {
     textTransform: 'capitalize',
-    textAlign: 'left'
+    textAlign: 'left',
   },
 })(Tab);
 
+export default function VerticalTabs(props) {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
 
-class VerticalTabs extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: 0,
-      data: null
-    }
-  }
-
-  handleChange = (event, newValue) => {
-    this.setValue(newValue);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
-  setValue = (value) => {
-    this.setState({
-      value: value
-    })
-  }
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <Grid container>
-          <Grid item sm={2}>
-            <AppBar position="static" color="default" className={classes.appBar}>
-              <Tabs
-                value={this.state.value}
-                onChange={this.handleChange}
-                indicatorColor="secondary"
-                textColor="secondary"
-                variant="scrollable"
-                scrollButtons="auto"
-                orientation='vertical'
-                className={{ root: classes.tabRoot, label: classes.tabLabel }}
-              >
-                <CustomTab label="Overview" {...a11yProps(0)} />
-                <CustomTab label="Security" {...a11yProps(1)} />
-
-              </Tabs>
-            </AppBar>
-          </Grid>
-          <Grid item sm={10}>
-            <TabPanel value={this.state.value} index={0}>
-              <OverViews />
-            </TabPanel>
-            <TabPanel value={this.state.value} index={1}>
-
-              <Security />
-              </TabPanel>
-          </Grid>
+  return (
+    <div className={classes.root}>
+      <Grid container className={classes.gridWrapper}>
+        <Grid item sm={2}>
+          <AppBar position='static' color='default' className={classes.appBar}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor='secondary'
+              textColor='secondary'
+              variant='scrollable'
+              scrollButtons='auto'
+              orientation='vertical'
+              className={{ root: classes.tabRoot, label: classes.tabLabel }}
+            >
+              <CustomTab label='Overview' {...a11yProps(0)} />
+              <CustomTab label='Security' {...a11yProps(1)} />
+            </Tabs>
+          </AppBar>
         </Grid>
-
-      </div>
-    );
-  }
+        <Grid item xs={12} sm={10}>
+          <TabPanel value={value} index={0}>
+            <OverViews />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Security />
+          </TabPanel>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
-
-export default withStyles(verticalTabsStyles)(VerticalTabs)

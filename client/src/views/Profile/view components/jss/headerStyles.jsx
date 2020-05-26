@@ -4,6 +4,10 @@ const headerStyles = {
   container: {
     ...container,
     height: '20rem',
+    '@media (max-width: 600px)': {
+      height: '18rem',
+      padding: '0 4px'
+    }
   },
 
   img: {
@@ -18,7 +22,8 @@ const headerStyles = {
   },
   headerTitle: {
     marginTop: '-9.5rem',
-    position: 'relative'
+    position: 'relative',
+    textAlign: 'center',
   },
 
   avatar: {
@@ -30,10 +35,15 @@ const headerStyles = {
     objectFit: 'cover',
     objectPosition: 'center',
   },
+  fileIcon: {
+    transform: ' translateY(0.1rem)'
+  },
   editAvatarBtn: {
     position: 'absolute',
-    display: 'inline',
-    margin: '70% -30%',
+    display: 'block',
+    bottom: '3.5rem',
+    right: '3.5rem',
+    // margin: '70% -30%',
     background: '#E4E6EB',
     padding: '.5rem',
     borderRadius: '50%',
@@ -44,17 +54,19 @@ const headerStyles = {
       cursor: 'pointer',
       background: '#E4E6EE'
     }
-
   },
   avatarInputFile: {
-    fontSize: '100px',
+    // fontSize: '100px',
     position: 'absolute',
     top: 0,
     left: 0,
     width: '3rem',
     height: '3rem',
     outline: 'none',
-    opacity: 1,
+    // opacity: 1,
+    // Make button invisible
+    opacity: 0,
+    overflow: 'hidden',
     "&:hover": {
       cursor: 'pointer'
     }
@@ -69,7 +81,7 @@ const headerStyles = {
     display: 'block',
     textAlign:'center',
     position: 'relative',
-    width: '100%'
+    width: '100%',
   },
   status: {
     width: '100%',
@@ -109,10 +121,16 @@ const headerStyles = {
 
   addNewButton: {
     width: '75%',
-    border: " 1px solid #1976D2",
+    border: "1px solid #1976D2",
     marginLeft: '1rem',
     color: "#1976D2",
-    textTransform: 'none'
+    textTransform: 'none',
+    whiteSpace: 'nowrap',
+    textAlign: 'center',
+    '@media (max-width: 600px)': {
+      width: '100%',
+      marginLeft: 0
+    }
   },
   hr: {
     height: "1px",
@@ -120,7 +138,10 @@ const headerStyles = {
     display: 'block',
     background: "rgba(51,51,51,.5)",
     margin: '2rem auto',
-    
+    '@media (max-width: 600px)': {
+      margin: '1.5rem auto',
+      width: '90%'
+    }
   }
 }
 

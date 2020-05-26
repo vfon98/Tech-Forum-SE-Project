@@ -10,18 +10,30 @@ const headerStyles = {
     border: 'none'
   },
   container : {
-    ...container
+    ...container,
+    '@media (max-width: 600px)': {
+      textAlign: 'center'
+    }
   },
   avatar : {
     display: 'flex',
     width: '100%',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    '@media (max-width: 600px)': {
+      justifyContent: 'center'
+    }
   },
   avatarImg: {
     borderRadius: '50%',
     width: '15rem',
     height: '15rem',
     objectFit: 'cover'
+  },
+  contentWrapper: {
+    paddingLeft: '40px',
+    '@media (max-width: 600px)': {
+      padding: 0
+    }
   },
   displayName : {
     fontSize: '2.5rem',

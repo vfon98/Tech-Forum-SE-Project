@@ -3,7 +3,7 @@ const router = express.Router();
 const adminControllers = require('../controllers/adminController');
 const requireAdmin = require('../middlewares/requireAdmin');
 
-// router.use(requireAdmin);
+router.use(requireAdmin);
 router.get('/dashboard', adminControllers.getDashboard);
 router.get('/users', adminControllers.allUsers);
 router.get('/users/banned', adminControllers.getBannedUsers);

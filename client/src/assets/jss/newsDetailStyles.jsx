@@ -29,11 +29,20 @@ const newsDetailStyles = {
     backgroundColor: secondaryColor,
     padding: '2em 0',
   },
+  gridWrapper: {
+    '@media (max-width: 600px)': {
+      padding: '8px',
+      marginTop: '-16px'
+    }
+  },
   leftWrapper: {
     backgroundColor: primaryColor,
     color: textColor,
     padding: '1.2em',
     marginBottom: '0.6em',
+    '@media (max-width: 600px)': {
+      padding: '8px'
+    }
   },
   rightWrapper: {
     backgroundColor: primaryColor,
@@ -46,10 +55,18 @@ const newsDetailStyles = {
   newsHeader: {
     fontSize: '1.8rem',
     fontWeight: '700',
+    '@media (max-width: 600px)': {
+      fontSize: '1.4rem',
+    }
+  },
+  subheaderWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   newsSubheader: {
     color: textColor,
     display: 'flex',
+    whiteSpace: 'nowrap',
     alignItems: 'center',
     marginTop: '0.3em',
     '&:not(:first-child):before': {
@@ -75,7 +92,9 @@ const newsDetailStyles = {
       fontWeight: '450',
     },
     '& img, & iframe': {
+      objectFit: 'contain',
       maxWidth: '100%',
+      height: 'auto !important',
       padding: 0,
       display: 'block',
       margin: '0.6em auto',
@@ -90,11 +109,22 @@ const newsDetailStyles = {
   },
   btnCommentsToggle: {
     margin: '0 15px',
+    '@media (max-width: 600px)': {
+      margin: '0 8px'
+    }
   },
   commentBoxWrapper: {
     padding: '8px 0',
     marginTop: '6px',
   },
+  '@media (max-width: 600px)': {
+    cardHeader: {
+      padding: '8px',
+    },
+    cardContent: {
+      padding: '8px'
+    }
+  }
 };
 
 export default newsDetailStyles;

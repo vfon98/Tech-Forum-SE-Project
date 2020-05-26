@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
 import recentNewsStyles from 'assets/jss/recentNewsStyles';
-import { Grid, Card, Button } from '@material-ui/core';
+import { Grid, Card, Button, Hidden } from '@material-ui/core';
 import { NavLink, Link } from 'react-router-dom';
 
 import img1 from 'assets/img/sidebar/windows.jpg';
@@ -184,17 +184,13 @@ class HomeRecentNews extends Component {
     return (
       <div className={classes.background}>
         <Grid container className={classes.container}>
-          <Grid item sm={3}>
-            <RoomList />
+          <Grid item sm={3} xs={12}>
+            <Hidden only='xs'>
+              <RoomList />
+            </Hidden>
           </Grid>
-          <Grid item sm={9}>
+          <Grid item sm={9} xs={12}>
             <Card className={classes.cardBg}>
-              {/* <h3 className={classes.titleDark}>
-                Recent News
-              </h3>
-              {
-                news.map(item => <NewsItem classes={classes} item={item} />)
-              } */}
               <RecentNews theme='light' isInfinite={false} />
               <Button
                 component={Link}

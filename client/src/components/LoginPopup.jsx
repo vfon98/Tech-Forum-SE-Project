@@ -11,6 +11,11 @@ const useStyles = makeStyles({
     marginTop: '-5%',
     background: 'rgba(0,0,0,.7)',
   },
+  dialogContent: {
+    '@media (max-width: 600px)': {
+      padding: 0
+    }
+  },
   paper: {
     background: 'transparent',
     boxShadow: 'none',
@@ -43,7 +48,7 @@ const Popup = props => {
           },
         }}
       >
-        <DialogContent>
+        <DialogContent className={classes.dialogContent}>
           {type == 'login' ? (
             <Login handlePopup={props.handlePopup} />
           ) : type == 'register' ? (

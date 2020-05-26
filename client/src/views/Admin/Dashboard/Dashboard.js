@@ -13,7 +13,11 @@ const dashboardStyles = {
     background: '#27293D',
     margin: '0 16px',
     marginBottom: '32px',
-    padding: '24px'
+    padding: '24px',
+    '@media (max-width: 600px)': {
+      padding: '8px',
+      marginTop: '16px'
+    }
   }
 };
 

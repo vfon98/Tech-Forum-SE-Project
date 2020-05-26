@@ -42,7 +42,6 @@ class PostChart extends Component {
     if (prevState.data.labels !== this.props.roomsName) {
       data.labels = this.props.roomsName;
       data.datasets[0].data = this.props.data;
-      console.log('data', data);
       this.setState({ data: data });
     }
   }
@@ -55,9 +54,9 @@ class PostChart extends Component {
         <Bar
           data={data}
           // width={100}
-          // height={50}
+          // height={200}
           options={{
-            maintainAspectRatio: true,
+            // maintainAspectRatio: false,
             scales: {
               xAxes: [
                 {

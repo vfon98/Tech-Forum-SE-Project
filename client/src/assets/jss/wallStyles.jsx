@@ -5,6 +5,7 @@ import {
   textColor,
   textSecondaryColor,
 } from './main';
+import { darkColor } from './main';
 
 const lightColor = 'rgba(255,255,255,.9)';
 const feedColor = '#1D1D1D';
@@ -17,6 +18,12 @@ const roomStyles = {
     backgroundColor: secondaryColor,
     color: textColor,
     fontSize: '0.9rem',
+    '@media (max-width: 600px)': {
+      padding: '0 8px',
+    },
+    '@media (min-width: 1440px)': {
+      padding: '0 16px'
+    }
   },
   roomWrapper: {
     backgroundColor: secondaryColor,
@@ -81,6 +88,21 @@ const roomStyles = {
     height: '50px',
     width: '50px',
     backgroundColor: defaultAvatarBg,
+  },
+  cardHeader: {
+    '@media (max-width: 600px)': {
+      padding: '8px'
+    }
+  },
+  cardContent: {
+    '@media (max-width: 600px)': {
+      padding: '8px'
+    }
+  },
+  cardActions: {
+    '@media (max-width: 600px)': {
+      padding: '0 8px'
+    }
   },
   // Post content
   postContent: {
@@ -162,10 +184,14 @@ const roomStyles = {
     '&:last-child': {
       paddingBottom: '0.8em',
     },
+    '@media (max-width: 600px)': {
+      paddingLeft: '8px',
+      paddingRight: '8px'
+    }
   },
   comment: {
     position: 'relative',
-    backgroundColor: secondaryColor,
+    backgroundColor: darkColor,
     padding: '0.5em 1em',
     marginLeft: '6px',
     borderRadius: '0 12px 12px 12px',
@@ -208,6 +234,10 @@ const roomStyles = {
   rightWrapper: {
     position: 'sticky',
     top: '0.8em',
+    '@media (max-width: 600px)': {
+      position: 'static',
+      marginBottom: '16px'
+    }
   },
   btnNewPost: {
     textTransform: 'none',

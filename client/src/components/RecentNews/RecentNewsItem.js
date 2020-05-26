@@ -25,47 +25,45 @@ class RecentNewsItem extends Component {
             to={`/news/${news ? news.id : ''}`}
             className={classes.newsItemTitle}
           >
-            <Grid container>
-              <Grid item sm={4} lg={3} className={classes.imgWrapper}>
+            <Grid container spacing={1}>
+              <Grid item sm={4} lg={3} xs={12} className={classes.imgWrapper}>
                 <img
                   className={classes.newsImg}
                   src={news ? news.thumbnail : ''}
                 />
               </Grid>
-              <Grid item sm={8} lg={9}>
-                <Container>
-                  <h4 className={classes.newsTitle}>
-                    {news ? news.header : ''}
-                  </h4>
-                  <p
-                    className={classes.newsBodyText}
-                    dangerouslySetInnerHTML={{
-                      __html: news ? parseTextFromHTML(news.content) : '',
-                    }}
-                  ></p>
-                  <Typography className={classes.newsRoomName}>
-                    #{news.room.name}
+              <Grid item sm={8} lg={9} xs={12}>
+                <h4 className={classes.newsTitle}>{news ? news.header : ''}</h4>
+                <p
+                  className={classes.newsBodyText}
+                  dangerouslySetInnerHTML={{
+                    __html: news ? parseTextFromHTML(news.content) : '',
+                  }}
+                ></p>
+                <Typography className={classes.newsRoomName}>
+                  #{news.room.name}
+                </Typography>
+                <Box className={classes.newsAvatarWrapper}>
+                  <Avatar
+                    component={Link}
+                    to={`/wall/${news.user.id}`}
+                    className={classes.avatarSm}
+                    src={news.user ? news.user.avatar : ''}
+                    alt={news.user ? news.user.display_name : ''}
+                  />
+                  <Link
+                    className={classes.newsAuthorText}
+                    to={`/wall/${news.user.id}`}
+                  >
+                    {news.user ? news.user.display_name : 'Loading'}
+                  </Link>
+                  <Typography className={classes.newsInfoText} color='inherit'>
+                    {timeFrom(news ? news.created_at : 'long time ago')}
                   </Typography>
-                  <Box className={classes.newsAvatarWrapper}>
-                    <Avatar
-                      className={classes.avatarSm}
-                      src={news.user ? news.user.avatar : ''}
-                      alt={news.user ? news.user.display_name : ''}
-                    />
-                    <p className={classes.newsAuthorText}>
-                      {news.user ? news.user.display_name : 'Loading'}
-                    </p>
-                    <Typography
-                      className={classes.newsInfoText}
-                      color='inherit'
-                    >
-                      {timeFrom(news ? news.created_at : 'long time ago')}
-                    </Typography>
-                    <Typography className={classes.newsInfoText}>
-                      {parseStringFrom(news ? news.views : 0)} views
-                    </Typography>
-                  </Box>
-                </Container>
+                  <Typography className={classes.newsInfoText}>
+                    {parseStringFrom(news ? news.views : 0)} views
+                  </Typography>
+                </Box>
               </Grid>
             </Grid>
           </Link>

@@ -9,6 +9,7 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { getIdentifier } from '../../utils/userIdentifier';
 import { timeFrom } from '../../utils/converter';
 import { getUser, hasModifyPermission, isAdmin } from '../../utils/session';
@@ -133,31 +134,36 @@ class UserComment extends Component {
   };
 
   toggleReportPopup = () => {
-    this.setState({isOpenReport: !this.state.isOpenReport})
-  }
+    this.setState({ isOpenReport: !this.state.isOpenReport });
+  };
 
   render() {
     const { classes } = this.props;
-    const { comment, isOwner, isAdmin, postId } = this.props;
+    const { comment, isFromOwner, isFromAdmin, postId } = this.props;
 
     return (
       <Grid container className={classes.commentContainer}>
-        <Grid container sm={1} justify='center'>
+        <Grid container sm={1} xs={2} justify='center'>
           <Avatar
+            component={Link}
+            to={`/wall/${comment.user_id}`}
             src={comment && comment.user.avatar}
             alt={comment && comment.user.display_name}
           />
         </Grid>
-        <Grid item sm={11}>
+        <Grid item sm={11} xs={10}>
           <Box
             className={classes.comment}
             onMouseEnter={() => this.setState({ shownReportBtn: true })}
             onMouseLeave={() => this.setState({ shownReportBtn: false })}
           >
             <Typography>
-              <strong className={classes.userName}>
+              <Link
+                to={`/wall/${comment.user_id}`}
+                className={classes.userName}
+              >
                 {comment ? comment.user.display_name : 'Display name'}
-              </strong>
+              </Link>
               <small className={classes.secondaryText}>
                 {comment ? getIdentifier(comment.user.email) : '@example'}
               </small>
@@ -202,8 +208,8 @@ class UserComment extends Component {
                 className={classes.timeText}
               >
                 {/* Add icon if owner's comment */}
-                {isOwner && <OwnerIcon classes={classes} />}
-                {isAdmin && <AdminIcon classes={classes} />}
+                {isFromAdmin && <AdminIcon classes={classes} />}
+                {isFromOwner && <OwnerIcon classes={classes} />}
                 <Box>
                   {comment ? timeFrom(comment.created_at) : 'long time ago'}
                 </Box>

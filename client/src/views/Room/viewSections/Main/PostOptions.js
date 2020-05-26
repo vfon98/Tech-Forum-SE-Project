@@ -8,7 +8,6 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { Edit, DeleteForever, Lock, LockOpen } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
 import axios from '../../../../axios/instance';
 
 import { withStyles } from '@material-ui/styles';
@@ -21,7 +20,6 @@ import {
   hasModifyPermission,
 } from '../../../../utils/session';
 
-import CreatePostPopup from '../../../../components/UserSidePanel/CreatePostPopup';
 import UpdatePostPopup from '../../../../components/UserSidePanel/UpdatePostPopup';
 
 const BlockComments = props => {
@@ -133,7 +131,6 @@ class PostOptions extends Component {
     return getUser() && getUser()._id === userId;
   };
 
-
   togglePopup = () => {
     if (!isLogin()) return window.handlePopup('login');
     this.setState({
@@ -163,11 +160,8 @@ class PostOptions extends Component {
             {/* Link to update post page */}
             <ListItem
               button
-              //component={Link}
               onClick={this.togglePopup}
-              //to={`/posts/update/${postId}`}
-              disabled={!this.isOwner()}
-
+              disabled={!hasModifyPermission(userId)}
             >
               <ListItemIcon className={classes.listPostItem}>
                 <Edit />

@@ -9,6 +9,7 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { getIdentifier } from 'utils/userIdentifier';
 import { timeFrom } from 'utils/converter';
 import { getUser, hasModifyPermission, isAdmin } from 'utils/session';
@@ -142,13 +143,15 @@ class UserComment extends Component {
 
     return (
       <Grid container className={classes.commentContainer}>
-        <Grid container sm={1} justify='center'>
+        <Grid container sm={1} xs={2} justify='center'>
           <Avatar
+            component={Link}
+            to={`/wall/${comment.user_id}`}
             src={comment && comment.user.avatar}
             alt={comment && comment.user.display_name}
           />
         </Grid>
-        <Grid item sm={11}>
+        <Grid item sm={11} xs={10}>
           <Box
             className={classes.comment}
             onMouseEnter={() => this.setState({ shownReportBtn: true })}

@@ -20,6 +20,7 @@ import {
   getUser,
   hasModifyPermission,
 } from 'utils/session';
+import UpdatePostPopup from 'components/UserSidePanel/UpdatePostPopup';
 
 const BlockComments = props => {
   const handleBlockPost = () => {
@@ -88,6 +89,7 @@ class PostOptions extends Component {
     super(props);
     this.state = {
       isOpenConfirm: false,
+      isOpenPopup: false,
     };
   }
 
@@ -121,6 +123,13 @@ class PostOptions extends Component {
     }
   };
 
+  togglePopup = () => {
+    if (!isLogin()) return window.handlePopup('login');
+    this.setState({
+      isOpenPopup: !this.state.isOpenPopup,
+    });
+  };
+
   isOwner = () => {
     const { userId } = this.props;
     return getUser() && getUser()._id === userId;
@@ -147,15 +156,20 @@ class PostOptions extends Component {
             {/* Link to update post page */}
             <ListItem
               button
-              component={Link}
-              to={`/posts/update/${postId}`}
-              // disabled={!this.isOwner()}
+              onClick={this.togglePopup}
+              disabled={!hasModifyPermission(userId)}
             >
               <ListItemIcon className={classes.listPostItem}>
                 <Edit />
               </ListItemIcon>
               <ListItemText>Update</ListItemText>
             </ListItem>
+            <UpdatePostPopup
+              isOpen={this.state.isOpenPopup} 
+              onClose={this.togglePopup}
+              postId={postId}
+              // content={content}
+            />
 
             <ListItem
               button

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -7,6 +7,8 @@ import {
   Grid,
   Avatar,
   Hidden,
+  ClickAwayListener,
+  Link
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
@@ -15,9 +17,11 @@ import UserPanel from './UserPanel';
 import LoginPopup from './LoginPopup';
 
 import navbarStyles from 'assets/jss/navbarStyles.jsx';
-import { getUser, logoutUser } from '../utils/session';
+import { getUser, logoutUser, isAdmin } from '../utils/session';
+import history from 'utils/history';
 import axios from '../axios/instance';
 import { setUser, isLogin } from '../utils/session';
+import SearchBox from './SearchBox/SearchBox';
 
 class NavBar extends Component {
   constructor(props) {
@@ -27,6 +31,7 @@ class NavBar extends Component {
       displayName: '',
       avatar: '',
       popup: null,
+      showSearchBox: false,
     };
     // Make handlePopup can call global
     window.handlePopup = this.handlePopup.bind(this);
@@ -89,8 +94,12 @@ class NavBar extends Component {
         avatar: '',
       });
       this.props.isLogin(false);
-      window.location.reload();
+      // window.location.reload();
     });
+    // Redirect admin to avoid another account login admin pages
+    if (isAdmin()) {
+      history.push('/');
+    }
   };
 
   handlePopup = value => {
@@ -100,8 +109,20 @@ class NavBar extends Component {
     });
   };
 
+  toggleSearch = () => {
+    this.setState({
+      showSearchBox: !this.state.showSearchBox,
+    });
+  };
+
+  scrollToBottom = () => {
+    window.scrollTo(0, document.documentElement.scrollHeight);
+  }
+
   render() {
     const { classes } = this.props;
+    const { showSearchBox } = this.state;
+
     return (
       <>
         {this.state.popup !== null ? (
@@ -110,13 +131,12 @@ class NavBar extends Component {
         <AppBar position='relative'>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
-              <Grid item sm={2}>
+              <Grid className={classes.navLogo} item sm={2} xs={4}>
                 <Link to='/' className={classes.link}>
-                  Covid{' '}
-                  <span className={classes.brandHighlight}>Forum</span>
+                  Covid <span className={classes.brandHighlight}>Forum</span>
                 </Link>
               </Grid>
-              <Grid container sm={6} justify='center'>
+              <Grid className={classes.navLink} container sm={6} xs={12} justify='center'>
                 <Button className={classes.btn}>
                   <NavLink className={classes.link} to='/'>
                     Home
@@ -132,30 +152,36 @@ class NavBar extends Component {
                     Discussion
                   </NavLink>
                 </Button>
-                <Button className={classes.btn}>
-                  <NavLink className={classes.link} to='/windows'>
+                <Button className={classes.btn} onClick={this.scrollToBottom}>
+                  <a className={classes.link}>
                     Contact
-                  </NavLink>
+                  </a>
                 </Button>
               </Grid>
-              <Grid container sm={4} justify='flex-end'>
-                <form
-                  autocomplete="off"
-                >
-                  <Hidden smDown>
-                    <input
-                      type='text'
-                      name='searchBox'
-                      className={classes.searchBox}
-                      placeholder='Search'
-                      autoComplete='new-password'
-                    />
-                  </Hidden>
-                </form>
+              <Grid className={classes.navUser} container sm={4} justify='flex-end' wrap='nowrap' xs={8}>
+                <Hidden smDown>
+                  <input
+                    type='text'
+                    name='searchBox'
+                    className={classes.searchBox}
+                    placeholder='Search'
+                    // Show searchbox when hover input
+                    onMouseOver={() => this.setState({ showSearchBox: true })}
+                    disabled
+                  />
+                </Hidden>
                 {/* USER BUTTON */}
                 <Button>
-                  <Search className={classes.accountBtn} />
+                  <ClickAwayListener onClickAway={() => this.setState({ showSearchBox: false })}>
+                    <SearchBox isOpen={showSearchBox}>
+                      <Search
+                        className={classes.accountBtn}
+                        onClick={this.toggleSearch}
+                      />
+                    </SearchBox>
+                  </ClickAwayListener>
                 </Button>
+                {/* USER PANEL */}
                 <Button onClick={this.handleClickUserBtn}>
                   <Avatar className={classes.avatar} src={this.state.avatar} />
                   <span className={classes.displayName}>

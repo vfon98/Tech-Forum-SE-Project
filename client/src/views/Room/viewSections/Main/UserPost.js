@@ -11,10 +11,12 @@ import {
   Box,
   Collapse,
   Tooltip,
+  Hidden,
 } from '@material-ui/core';
 import { ThumbUp, Share, Chat, Report, VerifiedUser } from '@material-ui/icons';
+import { FacebookShareButton } from 'react-share';
 
-import { getUser, isLogin } from '../../../../utils/session';
+import { getUser, isLogin, isAdmin } from '../../../../utils/session';
 import axios from '../../../../axios/instance';
 
 import { withStyles } from '@material-ui/styles';
@@ -144,7 +146,7 @@ class UserPost extends Component {
           <PostHeader post={post} />
           <Divider />
           {/* CONTENT SECTION */}
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             {/* <CardMedia component='img' image='https://placehold.it/400x200' /> */}
             <Typography
               className={classes.postContent}
@@ -153,19 +155,20 @@ class UserPost extends Component {
           </CardContent>
           <Divider />
           {/* ACTIONS SECTION */}
-          <CardActions>
+          <CardActions className={classes.cardActions}>
             <Grid container className={classes.container}>
-              <Grid item container justify='flex-start' sm={3}>
+              <Grid item container justify='flex-start' xs={3}>
                 <Button
-                  className={classes.btnLink}
+                  className={`${classes.btnLink} ${classes.btnLike}`}
                   color={liked ? 'primary' : 'inherit'}
                   onClick={this.toggleLike}
                   startIcon={<ThumbUp />}
                 >
-                  {this.state.likesNum} Likes
+                  {this.state.likesNum}
+                  <Hidden only='xs'> Likes</Hidden>
                 </Button>
               </Grid>
-              <Grid item container justify='center' sm={4}>
+              <Grid item container justify='center' xs={4}>
                 <Button
                   className={classes.btnLink}
                   color='inherit'
@@ -174,23 +177,30 @@ class UserPost extends Component {
                     this.setState({ isExpanded: !this.state.isExpanded })
                   }
                 >
-                  {this.state.commentsNum} Comments
+                  {this.state.commentsNum}
+                  <Hidden only='xs'> Comments</Hidden>
                 </Button>
               </Grid>
-              <Grid item container justify='center' sm={4}>
-                <Button
-                  color='inherit'
-                  className={classes.btnLink}
-                  startIcon={<Share />}
+              <Grid item container justify='center' xs={4}>
+                <FacebookShareButton
+                  // Change it later
+                  url='google.com'
                 >
-                  Share
-                </Button>
+                  <Button
+                    color='inherit'
+                    className={classes.btnLink}
+                    startIcon={<Share />}
+                  >
+                    <Hidden only='xs'>Share</Hidden>
+                  </Button>
+                </FacebookShareButton>
               </Grid>
-              <Grid item container justify='flex-end' sm={1}>
+              <Grid item container justify='flex-end' xs={1}>
                 <IconButton
                   color='inherit'
                   className={classes.btnLink}
                   onClick={this.toggleReportPopup}
+                  edge='end'
                 >
                   <Tooltip title='Report this post' arrow placement='top'>
                     <Report />
@@ -237,14 +247,12 @@ class UserPost extends Component {
                   key={comment.id}
                   comment={comment}
                   postId={post.id}
-                  isOwner={post.user_id === comment.user_id}
+                  isFromOwner={post.user_id === comment.user_id}
+                  isFromAdmin={isAdmin() && comment.user_id === getUser()._id}
                   onUpdateComment={this.handleUpdateComment}
                   onDeleteComment={this.handleDeleteComment}
                 />
               ))}
-            {/* <UserComment isAdmin />
-          <UserComment isOwner />
-          <UserComment /> */}
           </Collapse>
         </Card>
       </Box>

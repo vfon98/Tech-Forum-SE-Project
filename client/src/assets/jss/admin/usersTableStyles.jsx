@@ -1,4 +1,4 @@
-import { blue, green, red } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import { textColor, textSecondaryColor, orangeColor } from '../main';
 import { limitLine } from '../main';
 import { darkGreen } from '../main';
@@ -7,6 +7,9 @@ const usersTableStyles = {
   tableWrapper: {
     marginLeft: '16px',
     marginRight: '16px',
+    '@media (max-width: 600px)': {
+      marginTop: '16px'
+    }
   },
   table: {
     background: '#27293D',
@@ -34,9 +37,14 @@ const usersTableStyles = {
     fontWeight: 500,
   },
   username: {
+    color: textColor,
     fontWeight: 500,
     display: 'flex',
     alignItems: 'center',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   avatar: {
     boxSizing: 'border-box',
@@ -49,9 +57,7 @@ const usersTableStyles = {
   },
   viewIcon: {
     color: blue[400],
-  },
-  iconButton: {
-    padding: '8px',
+  }, iconButton: { padding: '8px',
   },
   searchInput: {
     flex: 1,
@@ -77,15 +83,21 @@ const usersTableStyles = {
     color: textColor
   },
   reasonsCell: {
-    maxWidth: '16em'
+    maxWidth: '16em',
+    '@media (max-width: 600px)': {
+      minWidth: '20em',
+    }
   },
   contentCell: {
     maxWidth: '8em',
     maxHeight: '4rem',
+    '@media (max-width: 600px)': {
+      minWidth: '10em',
+    }
   },
   content: {
     ...limitLine(3),
-    fontSize: '14px'
+    fontSize: '0.9rem'
   },
   imageCell: {
     maxWidth: '6em',
@@ -116,6 +128,9 @@ const usersTableStyles = {
     color: textColor,
     padding: '0.3em 1.5em',
     margin: '10px 16px'
+  },
+  noWrap: {
+    whiteSpace: 'nowrap'
   }
 };
 

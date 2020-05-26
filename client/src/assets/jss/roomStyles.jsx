@@ -17,6 +17,12 @@ const roomStyles = {
     backgroundColor: primaryColor,
     color: textColor,
     fontSize: '0.9rem',
+    '@media (max-width: 600px)': {
+      padding: '0 8px',
+    },
+    '@media (min-width: 1440px)': {
+      padding: '0 16px'
+    }
   },
   roomWrapper: {
     backgroundColor: secondaryColor,
@@ -74,13 +80,34 @@ const roomStyles = {
     fontSize: '1rem',
   },
   userName: {
+    color: textColor,
     fontWeight: 'bold',
     fontSize: '1rem',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   avatarLg: {
     height: '50px',
     width: '50px',
     backgroundColor: defaultAvatarBg,
+  },
+  cardHeader: {
+    '@media (max-width: 600px)': {
+      padding: '8px'
+    }
+  },
+  cardContent: {
+    '@media (max-width: 600px)': {
+      padding: '8px'
+    }
+  },
+  cardActions: {
+    '@media (max-width: 600px)': {
+      padding: '0 8px'
+    }
   },
   // Post content
   postContent: {
@@ -97,6 +124,9 @@ const roomStyles = {
   btnLink: {
     textTransform: 'none',
     fontSize: '0.9rem',
+  },
+  btnLike: {
+    paddingLeft: 0,
   },
   bgPrimary: {
     backgroundColor: primaryColor,
@@ -162,6 +192,10 @@ const roomStyles = {
     '&:last-child': {
       paddingBottom: '0.8em',
     },
+    '@media (max-width: 600px)': {
+      paddingLeft: '8px',
+      paddingRight: '8px'
+    }
   },
   comment: {
     position: 'relative',
@@ -182,10 +216,10 @@ const roomStyles = {
     // top: 0,
   },
   commentOwnerIcon: {
-    margin: '0 0.15em 0 -0.15em',
+    margin: '0 0.15em 0 -0.2em',
   },
   commentAdminIcon: {
-    margin: '0 0.15em 0 -0.1em',
+    margin: '0 0.15em 0 -0.2em',
   },
   commentReportBtn: {
     position: 'absolute',
@@ -208,6 +242,10 @@ const roomStyles = {
   rightWrapper: {
     position: 'sticky',
     top: '0.8em',
+    '@media (max-width: 600px)': {
+      position: 'static',
+      marginBottom: '16px'
+    }
   },
   btnNewPost: {
     textTransform: 'none',

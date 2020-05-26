@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { CardActions, Grid, Button } from '@material-ui/core';
 import { ReportRounded, ThumbUpRounded, Facebook } from '@material-ui/icons';
+import { FacebookShareButton } from 'react-share';
 
 import { withStyles } from '@material-ui/styles';
 import ReportPopup from '../../../../components/ReportPopup';
 
 const newsActionsStyles = {
   wrapper: {
-    padding: '0 1em',
-  },
-  btn: {
-    textTransform: 'none',
+    padding: '0 1rem',
+    '@media (max-width: 600px)': {
+      padding: '0 8px'
+    },
   },
   btnLike: {
     textTransform: 'none',
@@ -18,6 +19,14 @@ const newsActionsStyles = {
   btnShare: {
     textTransform: 'none',
     color: '#A2F6FF',
+    whiteSpace: 'nowrap',
+  },
+  btnReport: {
+    textTransform: 'none',
+    '@media (max-width: 424px)': {
+      margin: '16px -4px',
+      fontSize: '0.8rem'
+    },
   },
 };
 
@@ -25,8 +34,8 @@ class NewsActions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenReport: false
-    }
+      isOpenReport: false,
+    };
   }
 
   toggleReportPopup = () => {
@@ -34,14 +43,14 @@ class NewsActions extends Component {
       isOpenReport: !this.state.isOpenReport,
     });
   };
-  
+
   render() {
     const { classes, likesNum } = this.props;
 
     return (
       <CardActions className={classes.wrapper}>
         <Grid container>
-          <Grid container sm justify='flex-start' spacing={1}>
+          <Grid container sm xs={9} justify='flex-start' spacing={1}>
             <Grid item>
               <Button
                 className={classes.btnLike}
@@ -54,19 +63,21 @@ class NewsActions extends Component {
               </Button>
             </Grid>
             <Grid item>
-              <Button
-                className={classes.btnShare}
-                color='inherit'
-                variant='outlined'
-                startIcon={<Facebook />}
-              >
-                Share this post
-              </Button>
+              <FacebookShareButton url='google.com'>
+                <Button
+                  className={classes.btnShare}
+                  color='inherit'
+                  variant='outlined'
+                  startIcon={<Facebook />}
+                >
+                  Share this post
+                </Button>
+              </FacebookShareButton>
             </Grid>
           </Grid>
-          <Grid container sm justify='flex-end'>
+          <Grid container sm xs={3} justify='flex-end'>
             <Button
-              className={classes.btn}
+              className={classes.btnReport}
               color='secondary'
               variant='outlined'
               startIcon={<ReportRounded />}

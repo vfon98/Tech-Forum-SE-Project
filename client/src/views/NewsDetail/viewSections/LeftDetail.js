@@ -137,7 +137,7 @@ class LeftDetail extends Component {
             />
             <Divider />
 
-            <CardContent>
+            <CardContent className={classes.cardContent}>
               <CardMedia
                 className={classes.newsThumbnail}
                 component='img'

@@ -78,6 +78,10 @@ const useStyles = makeStyles({
     color: dyan,
     fontWeight: '600',
     fontSize: '0.8rem',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
 });
 
@@ -92,29 +96,38 @@ const TrendingNewsItem = props => {
         to={`/news/${props.news.id}`}
       >
         <Grid container className={classes.wrapper}>
-          <Grid item sm={12}>
+          <Grid item sm={12} xs={12}>
             <Typography className={classes.header}>
               {props.news.header}
             </Typography>
           </Grid>
-          <Grid item sm={5} className={classes.imgWrapper}>
+          <Grid item sm={5} xs={5} className={classes.imgWrapper}>
             <img src={props.news.thumbnail} alt='Thumbnail' />
           </Grid>
-          <Grid item sm={7}>
-            <Typography className={classes.content}>
-              {parseTextFromHTML(props.news.content)}
-            </Typography>
+          <Grid item sm={7} xs={7}>
+            <Typography
+              className={classes.content}
+              dangerouslySetInnerHTML={{
+                __html: parseTextFromHTML(props.news.content),
+              }}
+            />
           </Grid>
           {/* Item info data and views */}
           <Grid item sm={12}>
             <Grid container justify='space-between'>
               <Grid item className={classes.actionWrapper}>
                 <Avatar
+                  component={Link}
+                  to={`/wall/${props.news.user.id}`}
                   className={classes.avatarSm}
                   src={props.news.user.avatar || ''}
                   alt={props.news.user.display_name}
                 />
-                <Typography className={classes.username}>
+                <Typography
+                  component={Link}
+                  to={`/wall/${props.news.user.id}`}
+                  className={classes.username}
+                >
                   {props.news.user.display_name}
                 </Typography>
               </Grid>

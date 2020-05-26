@@ -6,6 +6,7 @@ import {
   CardHeader,
   Avatar,
   Box,
+  Hidden,
 } from '@material-ui/core';
 import {
   EventAvailableTwoTone,
@@ -25,7 +26,7 @@ class NewsHeader extends Component {
 
     return (
       <>
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography className={classes.newsHeader}>
             {news
               ? news.header
@@ -34,6 +35,7 @@ class NewsHeader extends Component {
         </CardContent>
         <Divider />
         <CardHeader
+          className={classes.cardHeader}
           avatar={
             <Avatar
               className={classes.avatarLg}
@@ -44,7 +46,7 @@ class NewsHeader extends Component {
             </Avatar>
           }
           title={
-            <Box verticalAlign='middle'>
+            <Box>
               <strong className={classes.userName}>
                 {news.user ? news.user.display_name : 'Display name'}
               </strong>
@@ -55,7 +57,7 @@ class NewsHeader extends Component {
             </Box>
           }
           subheader={
-            <Box display='flex'>
+            <Box className={classes.subheaderWrapper}>
               <Box className={classes.newsSubheader}>
                 <EventAvailableTwoTone
                   className={classes.headerIcon}
@@ -65,12 +67,14 @@ class NewsHeader extends Component {
                   {news ? parseDateFrom(news.created_at) : 'unknown'}
                 </Typography>
               </Box>
-              <Box className={classes.newsSubheader}>
-                <ChatTwoTone className={classes.headerIcon} color='inherit' />
-                <Typography component='span' className={classes.timeText}>
-                  {commentsNum} comments
-                </Typography>
-              </Box>
+              <Hidden only='xs'>
+                <Box className={classes.newsSubheader}>
+                  <ChatTwoTone className={classes.headerIcon} color='inherit' />
+                  <Typography component='span' className={classes.timeText}>
+                    {commentsNum} comments
+                  </Typography>
+                </Box>
+              </Hidden>
               <Box className={classes.newsSubheader}>
                 <VisibilityTwoTone
                   className={classes.headerIcon}

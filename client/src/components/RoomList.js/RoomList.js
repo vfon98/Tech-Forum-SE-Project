@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Grid, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import history from 'utils/history';
+import axios from 'axios/instance';
 
 import recentNewsStyles from 'assets/jss/recentNewsStyles';
 import { withStyles } from '@material-ui/styles';
@@ -72,16 +73,16 @@ const CardItem = props => {
     <>
       <Button className={classes.btn} style={{ paddingLeft: 0 }}>
         <Link
-          to={`/room/${room.title}/${isNews ? 'news' : ''}`}
+          to={`/room/${room.name}/${isNews ? 'news' : ''}`}
           replace
           style={{ textDecoration: 'none', textTransform: 'none' }}
         >
           <Grid container spacing={2}>
             <Grid item sm={4}>
-              <img className={classes.img} src={props.room.img} alt='' />
+              <img className={classes.img} src={room.image} alt='' />
             </Grid>
             <Grid item sm={8}>
-              <h4 className={classes.linkText}>{props.room.title}</h4>
+              <h4 className={classes.linkText}>{room.name}</h4>
             </Grid>
           </Grid>
         </Link>
@@ -95,10 +96,12 @@ class RoomList extends Component {
     super(props);
     this.state = {
       isNews: false,
+      rooms: [],
     };
   }
 
   componentDidMount() {
+    this.fetchRooms();
     const { pathname } = history.location;
     if (pathname.endsWith('/news')) {
       this.setState({
@@ -107,6 +110,17 @@ class RoomList extends Component {
     }
   }
 
+  fetchRooms = () => {
+    axios
+      .get('/rooms')
+      .then(res => {
+        this.setState({
+          rooms: res.data.rooms,
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { classes } = this.props;
     const { isNews } = this.state;
@@ -114,7 +128,7 @@ class RoomList extends Component {
     return (
       <Box>
         <h3 className={classes.title}>Our Community</h3>
-        {rooms.map(room => (
+        {this.state.rooms.map(room => (
           <CardItem
             key={room.id}
             room={room}

@@ -51,7 +51,7 @@ const ReportRow = props => {
       <StyledCell>{props.index + 1}</StyledCell>
       <StyledCell padding='none' className={classes.nameCell}>
         {report.user ? (
-          <Link className={classes.nameLink} to={`/profile/${report.user_id}`}>
+          <Link className={classes.nameLink} to={`/wall/${report.user_id}`}>
             {report.user.display_name}
           </Link>
         ) : (
@@ -71,7 +71,7 @@ const ReportRow = props => {
       <StyledCell className={classes.nowrap} padding='none'>
         {parseLongDateFrom(report.created_at)}
       </StyledCell>
-      <StyledCell align='center'>
+      <StyledCell align='center' className={classes.noWrap}>
         <Tooltip title='Visit this'>
           <IconButton size='small' component={Link} to={getRedirectLink}>
             <VisibilityTwoTone fontSize='small' color='primary' />
@@ -131,7 +131,7 @@ class ReportsManager extends Component {
         <Box className={classes.tableWrapper}>
           <Paper className={classes.table}>
             <TableContainer>
-              <Table>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <StyledCell>#</StyledCell>

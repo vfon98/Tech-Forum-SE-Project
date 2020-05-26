@@ -54,7 +54,7 @@ module.exports = {
       .catch(err => res.status(400).json({ err: 'Not a valid room name!' }));
   },
   randomNews(req, res) {
-    const size = req.query.size || 10;
+    const size = parseInt(req.query.size) || 10;
     News.aggregate()
       .sample(size)
       .project('-likes -comments -__v -updated_at')
@@ -71,6 +71,16 @@ module.exports = {
   getRelateNews(req, res) {
     const keyword = req.body.keyword || '';
     News.find({ $text: { $search: keyword } })
+      .limit(10)
+      .then(news => {
+        res.json({ total: news.length, news });
+      })
+      .catch(err => res.status(400).json({ err: err.toString() }));
+  },
+  searchNews(req, res) {
+    const keyword = req.body.keyword || '';
+    News.find({ $text: { $search: keyword } })
+      .select('-comments -likes')
       .limit(10)
       .then(news => {
         res.json({ total: news.length, news });
@@ -95,14 +105,20 @@ module.exports = {
   testRoute(req, res) {
     paginateByRoomId(null, req, res);
   },
-  updateNews(req, res) {
+  async updateNews(req, res) {
     const id = ObjectId(req.params.id);
+    const body = {
+      header: req.body.header,
+      content: req.body.content
+    }
+    if (req.file) {
+      let thumbnail = await Uploader.uploadImage(req.file.path, 'news');
+      body.thumbnail = thumbnail.url;
+    }
+
     News.findByIdAndUpdate(
       id,
-      {
-        header: req.body.header,
-        content: req.body.content,
-      },
+      body,
       { new: true }
     )
       .then(news => {

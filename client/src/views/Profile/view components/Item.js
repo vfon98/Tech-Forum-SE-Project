@@ -11,11 +11,13 @@ import notification from 'components/Notification'
 
 const StyledButton = withStyles({
   root: {
-    margin: '0 .2rem',
-    transition: 'cubic-bezier(0.895, 0.03, 0.685, 0.22)',
-    textTransform: "capitalize",
+    width: '1rem',
+    margin: '0 .5rem',
+    transition: 'cubic-bezier(0.895, 0.03, 0.685, 0.22)'
+
   }
 })(Button)
+
 const SuccessButton = withStyles({
   root: {
     margin: '0 .2rem',
@@ -29,7 +31,6 @@ const SuccessButton = withStyles({
   }
 })(Button)
 
-
 class Item extends React.Component {
   constructor(props) {
     super(props)
@@ -41,7 +42,7 @@ class Item extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps){
     this.setState({
       data: nextProps.value
     })
@@ -147,7 +148,7 @@ class Item extends React.Component {
           onMouseLeave={() => this.handleShowEditButton(false)}
 
         >
-          <Grid item sm={3}>
+          <Grid item xs={4} sm={3}>
             <span
               className={classes.icon}
             >
@@ -159,7 +160,7 @@ class Item extends React.Component {
               {label}
             </span>
           </Grid>
-          <Grid item sm={6}>
+          <Grid item xs={7} sm={6}>
             {
               data != null ?
                 (
@@ -194,7 +195,7 @@ class Item extends React.Component {
             }
 
           </Grid>
-          <Grid item sm={3} >
+          <Grid item xs={1} sm={3}>
             {
               status ?
                 (<div className={classes.buttonGroup}>

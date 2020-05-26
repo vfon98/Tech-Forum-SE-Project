@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Box, Container } from '@material-ui/core';
+import { Grid, Box, Container, Hidden } from '@material-ui/core';
 
 import newsDetailStyles from '../../assets/jss/newsDetailStyles';
 import { withStyles } from '@material-ui/styles';
@@ -29,13 +29,15 @@ class NewsDetail extends Component {
       <>
         <NavBar isLogin={this.handleAuthChanged} />
         <Box className={classes.pageWrapper}>
-          <Container>
+          <Container className={classes.gridWrapper}>
             <Grid container spacing={4}>
-              <Grid item sm={9}>
+              <Grid item md={9} xs={12}>
                 <LeftDetail />
               </Grid>
-              <Grid item sm={3}>
-                <RightDetail />
+              <Grid item md={3}>
+                <Hidden smDown>
+                  <RightDetail />
+                </Hidden>
               </Grid>
             </Grid>
           </Container>

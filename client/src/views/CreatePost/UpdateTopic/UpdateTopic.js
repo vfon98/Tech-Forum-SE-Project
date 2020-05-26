@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CKEditor from '../CKEditor';
-import './UpdateTopic.css';
+import '../AddTopic/AddTopic.css';
 import UploadFile from '../UploadFile/UploadFile';
 import PostTopic from '../PostTopic/PostTopic';
 import axios from 'axios/instance';
@@ -27,7 +27,6 @@ class UpdateTopic extends Component {
   componentDidMount(){
     const { params } = this.props.match;
     axios.get(`/news/${params.id}`).then(res => {
-      console.log(res.data)
       this.setState({
         newsContent: res.data.news.content,
         header: res.data.news.header,
@@ -38,7 +37,6 @@ class UpdateTopic extends Component {
     e.preventDefault();
     if (!isAuthenticated()) return;
     const { header, content, file } = this.state;
-    console.log('testttt', header, content, file);
     if (content === '') return alert('Content required');
     // Display a loading button
     this.setState({ isWaiting: true });
@@ -49,9 +47,8 @@ class UpdateTopic extends Component {
     formData.append('thumbnail', file);
     formData.append('roomName', params.name);
     axios
-      .put(`/news/${params.id}`, {header, content})
+      .put(`/news/${params.id}`, formData)
       .then((res) => {
-        console.log('res', res.data);
         this.setState({ isWaiting: false });
         this.props.history.goBack();
       })
@@ -71,7 +68,6 @@ class UpdateTopic extends Component {
   };
 
   togglePreview = () => {
-    console.log('toggle');
     this.setState({
       isOpenPreview: !this.state.isOpenPreview,
     });

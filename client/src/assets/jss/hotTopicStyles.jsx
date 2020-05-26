@@ -1,11 +1,16 @@
 import { container, secondaryColor, title, primaryColor, textColor,dyan, highlightColor } from "./main";
+import { limitLine } from './main';
 
 const hotTopicStyles = {
   container: {
-    ...container
+    ...container,
+    '@media (max-width: 600px)': {
+      margin: 0,
+    }
   },
   background: {
-    background: secondaryColor
+    background: secondaryColor,
+    paddingBottom: '16px'
   },
   cardBackground: {
     background: primaryColor
@@ -40,8 +45,11 @@ const hotTopicStyles = {
     display: 'block',
     color: textColor,
     textDecoration: 'none',
-    padding: ".5rem 1rem",
+    // padding: ".5rem 1rem",
+    margin: ".5rem 1rem",
     transition: 'cubic-bezier(.17,.67,.83,.67)',
+    cursor: 'pointer',
+    ...limitLine(2),
 
     '&:hover' : {
       color: highlightColor

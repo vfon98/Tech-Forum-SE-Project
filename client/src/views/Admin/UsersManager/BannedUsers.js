@@ -24,6 +24,7 @@ import {
   orangeColor,
 } from 'assets/jss/main';
 import ConfirmPopup from 'components/ConfirmPopup';
+import { Link } from 'react-router-dom';
 
 const listStyles = {
   wrapper: {
@@ -52,6 +53,14 @@ const listStyles = {
     marginLeft: '16px',
     fontStyle: 'italic',
   },
+  userLink: {
+    color: textColor,
+    fontWeight: 500,
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  }
 };
 
 const BannedUser = props => {
@@ -82,7 +91,11 @@ const BannedUser = props => {
       <ListItemAvatar>
         <Avatar src={user ? user.avatar : ''} className={classes.avatar} />
       </ListItemAvatar>
-      <ListItemText>{user ? user.display_name : 'Display name'}</ListItemText>
+      <ListItemText>
+        <Link to={`/wall/${user.id}`} className={classes.userLink}>
+          {user ? user.display_name : 'Display name'}
+        </Link>
+      </ListItemText>
       <ListItemSecondaryAction>
         <IconButton edge='end' onClick={togglePopup}>
           <Tooltip title='Unlock this account' placement='top' arrow>
@@ -90,7 +103,11 @@ const BannedUser = props => {
           </Tooltip>
         </IconButton>
       </ListItemSecondaryAction>
-      <ConfirmPopup isOpen={openPopup} handleClose={handleClose} />
+      <ConfirmPopup
+        isOpen={openPopup}
+        handleClose={handleClose}
+        message='Are you sure to unban this user?'
+      />
     </ListItem>
   );
 };

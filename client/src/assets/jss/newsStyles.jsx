@@ -41,6 +41,12 @@ const newsStyles = {
     paddingLeft: '8px',
     borderLeft: `4px solid ${lightBlueColor}`,
   },
+  // Responsive
+  '@media (max-width: 600px)': {
+    bannerWrapper: {
+      padding: '8px'
+    }
+  }
 };
 
 export default newsStyles;
