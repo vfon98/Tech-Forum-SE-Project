@@ -105,14 +105,20 @@ module.exports = {
   testRoute(req, res) {
     paginateByRoomId(null, req, res);
   },
-  updateNews(req, res) {
+  async updateNews(req, res) {
     const id = ObjectId(req.params.id);
+    const body = {
+      header: req.body.header,
+      content: req.body.content
+    }
+    if (req.file) {
+      let thumbnail = await Uploader.uploadImage(req.file.path, 'news');
+      body.thumbnail = thumbnail.url;
+    }
+
     News.findByIdAndUpdate(
       id,
-      {
-        header: req.body.header,
-        content: req.body.content,
-      },
+      body,
       { new: true }
     )
       .then(news => {

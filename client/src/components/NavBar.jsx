@@ -165,11 +165,14 @@ class NavBar extends Component {
                     name='searchBox'
                     className={classes.searchBox}
                     placeholder='Search'
+                    // Show searchbox when hover input
+                    onMouseOver={() => this.setState({ showSearchBox: true })}
+                    disabled
                   />
                 </Hidden>
                 {/* USER BUTTON */}
                 <Button>
-                  <ClickAwayListener onClickAway={() => this.setState({showSearchBox: false})}>
+                  <ClickAwayListener onClickAway={() => this.setState({ showSearchBox: false })}>
                     <SearchBox isOpen={showSearchBox}>
                       <Search
                         className={classes.accountBtn}

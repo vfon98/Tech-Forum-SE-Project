@@ -14,9 +14,9 @@ router.post('/recent', newsControllers.getRecentNews);
 router.post('/room/:name', newsControllers.getNewsByRoom);
 router.post('/test', newsControllers.testRoute);
 
-router.use(authenticate);
+// router.use(authenticate);
 router.post('/', upload.single('thumbnail'), newsControllers.createNews);
-router.put('/:id', newsControllers.updateNews);
+router.put('/:id', upload.single('thumbnail'), newsControllers.updateNews);
 router.post('/block', newsControllers.blockNews);
 router.delete('/:id', newsControllers.deleteNews);
 
