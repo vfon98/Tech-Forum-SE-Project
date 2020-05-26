@@ -17,7 +17,8 @@ import UserPanel from './UserPanel';
 import LoginPopup from './LoginPopup';
 
 import navbarStyles from 'assets/jss/navbarStyles.jsx';
-import { getUser, logoutUser } from '../utils/session';
+import { getUser, logoutUser, isAdmin } from '../utils/session';
+import history from 'utils/history';
 import axios from '../axios/instance';
 import { setUser, isLogin } from '../utils/session';
 import SearchBox from './SearchBox/SearchBox';
@@ -93,8 +94,12 @@ class NavBar extends Component {
         avatar: '',
       });
       this.props.isLogin(false);
-      window.location.reload();
+      // window.location.reload();
     });
+    // Redirect admin to avoid another account login admin pages
+    if (isAdmin()) {
+      history.push('/');
+    }
   };
 
   handlePopup = value => {

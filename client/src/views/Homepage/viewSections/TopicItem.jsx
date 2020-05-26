@@ -21,7 +21,6 @@ class TopicItem extends Component {
     axios
       .get(`/posts/room/${topicName}/hot`)
       .then(res => {
-        console.log(res.data);
         this.setState({
           topic: res.data,
         });

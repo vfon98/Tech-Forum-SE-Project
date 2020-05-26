@@ -5,6 +5,7 @@ import {
   textColor,
   textSecondaryColor,
 } from './main';
+import { darkColor } from './main';
 
 const lightColor = 'rgba(255,255,255,.9)';
 const feedColor = '#1D1D1D';
@@ -165,7 +166,7 @@ const roomStyles = {
   },
   comment: {
     position: 'relative',
-    backgroundColor: secondaryColor,
+    backgroundColor: darkColor,
     padding: '0.5em 1em',
     marginLeft: '6px',
     borderRadius: '0 12px 12px 12px',

@@ -25,7 +25,6 @@ class Login extends Component {
         password,
       })
       .then(res => {
-        console.log('Logged in');
         // Set user to session storage
         setUser({
           displayName: res.data.user.display_name,

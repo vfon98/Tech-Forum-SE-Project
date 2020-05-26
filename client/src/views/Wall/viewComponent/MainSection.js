@@ -123,7 +123,7 @@ class MainSection extends Component {
             <h3
               className={classes.title}
             >
-              Recent posts!
+              Recent posts
         </h3>
           </Grid>
           <Grid item sm={3}>
