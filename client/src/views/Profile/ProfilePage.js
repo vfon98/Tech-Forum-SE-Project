@@ -116,7 +116,7 @@ export class ProfilePage extends Component {
           displayName={this.state.displayName ? this.state.displayName : null}
         />
         <Grid container className={classes.container}>
-           <Tabs userInfo={this.state.userInfo}/>
+           <Tabs userInfo={this.state.userInfo} />
         </Grid>
 
       </div>

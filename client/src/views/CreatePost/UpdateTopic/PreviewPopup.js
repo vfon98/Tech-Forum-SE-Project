@@ -21,7 +21,14 @@ const popupStyles = {
   content: {
     // paddingTop: '1em',
     paddingBottom: '1em',
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    '& a': {
+      color: textColor,
+      fontWeight: 'bold',
+    },
+    '& img': {
+      maxWidth: '100%',
+    },
   },
 };
 

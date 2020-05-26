@@ -13,6 +13,7 @@ import Security from './Tabs/Security';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const classes = useStyles();
 
   return (
     <Typography
@@ -23,7 +24,7 @@ function TabPanel(props) {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={3}>{children}</Box>}
+      {value === index && <Box className={classes.itemWrapper}>{children}</Box>}
     </Typography>
   );
 }
@@ -55,7 +56,14 @@ const useStyles = makeStyles(theme => ({
     boxShadow: 'none',
     backgroundColor: 'transparent',
   },
+  itemWrapper: {
+    padding: '0 0 24px 24px',
+    '@media (max-width: 600px)': {
+      padding: '0 0 16px 16px'
+    }
+  },
 }));
+
 const CustomTab = withStyles({
   root: {
     background: 'transparent',
@@ -83,7 +91,7 @@ export default function VerticalTabs(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container>
+      <Grid container className={classes.gridWrapper}>
         <Grid item sm={2}>
           <AppBar position='static' color='default' className={classes.appBar}>
             <Tabs
@@ -101,7 +109,7 @@ export default function VerticalTabs(props) {
             </Tabs>
           </AppBar>
         </Grid>
-        <Grid item sm={10}>
+        <Grid item xs={12} sm={10}>
           <TabPanel value={value} index={0}>
             <OverViews />
           </TabPanel>

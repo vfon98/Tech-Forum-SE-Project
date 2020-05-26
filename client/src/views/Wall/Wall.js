@@ -17,10 +17,20 @@ class Wall extends Component {
       permission: 'view',
       userId: null,
     };
+    // Have to be the same name with fetchPosts in room
+    window.fetchPosts = this.fetchProfile.bind(this);
   }
   componentDidMount() {
-    let queryID = window.location.pathname.split('/')[2];
+    this.fetchProfile();
+    history.listen(() => {
+      // Reset data before refetching
+      this.setState({ data: null });
+      this.fetchProfile();
+    });
+  }
 
+  fetchProfile = () => {
+    let queryID = window.location.pathname.split('/')[2];
     if (!queryID || (isLogin() && queryID == getUser()._id)) {
       this.setState({
         permission: 'edit',
@@ -33,31 +43,24 @@ class Wall extends Component {
 
     this.setState({
       userId: queryID,
+      data: null
     });
-
-    this.fetchProfile();
-    history.listen(() => {
-      // Reset data before refetching
-      this.setState({ data: null });
-      this.fetchProfile();
-    });
-  }
-
-  fetchProfile = () => {
-    let queryID = window.location.pathname.split('/')[2];
-    axios.get(`/profile/${queryID}`).then(response => {
-      let res = response.data.user;
-      this.setState({
-        data: {
-          avatar: res.avatar,
-          createOn: res.created_at,
-          displayName: res.display_name,
-          status: res.status,
-          job: response.data.user.profile?.overview.job,
-          posts: res.posts,
-        },
-      });
-    });
+    axios
+      .get(`/profile/${queryID}`)
+      .then(response => {
+        let res = response.data.user;
+        this.setState({
+          data: {
+            avatar: res.avatar,
+            createOn: res.created_at,
+            displayName: res.display_name,
+            status: res.status,
+            job: response.data.user.profile?.overview.job,
+            posts: res.posts,
+          },
+        });
+      })
+      .catch(err => console.log({ err }));
   };
 
   render() {

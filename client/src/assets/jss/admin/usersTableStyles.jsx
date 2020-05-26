@@ -37,9 +37,14 @@ const usersTableStyles = {
     fontWeight: 500,
   },
   username: {
+    color: textColor,
     fontWeight: 500,
     display: 'flex',
     alignItems: 'center',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   avatar: {
     boxSizing: 'border-box',

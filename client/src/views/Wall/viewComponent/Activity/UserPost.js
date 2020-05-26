@@ -11,6 +11,7 @@ import {
   Box,
   Collapse,
   Tooltip,
+  Hidden,
 } from '@material-ui/core';
 import { ThumbUp, Share, Chat, Report, VerifiedUser } from '@material-ui/icons';
 
@@ -46,7 +47,7 @@ class UserPost extends Component {
       isShadow: false,
       post: this.props.post,
       isLogin: true,
-      comment: []
+      comment: [],
     };
   }
 
@@ -58,7 +59,6 @@ class UserPost extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.post) {
-
       const { comments } = this.state.post;
       // Adjust comment numbers when state changed
       if (prevState.commentsNum !== comments?.length) {
@@ -72,7 +72,10 @@ class UserPost extends Component {
       }
       // Check like status when login
       if (isLogin() && isLogin() !== this.state.isLogin) {
-        this.setState({ isLogin: true, liked: this.checkLiked(this.state.post) });
+        this.setState({
+          isLogin: true,
+          liked: this.checkLiked(this.state.post),
+        });
       }
     }
   }
@@ -139,127 +142,125 @@ class UserPost extends Component {
 
     return (
       <>
-        {
-          this.state.post ?
-            (
-              <Box className={classes.postWrapper}>
-                <Card
-                  className={classes.bgSecondary}
-                  raised={isShadow}
-                  onMouseEnter={this.toggleShadow}
-                  onMouseLeave={this.toggleShadow}
-                >
-                  {/* HEADER SECTION */}
-                  <PostHeader post={post} />
-                  <Divider />
-                  {/* CONTENT SECTION */}
-                  <CardContent>
-                    {/* <CardMedia component='img' image='https://placehold.it/400x200' /> */}
-                    <Typography
-                      className={classes.postContent}
-                      dangerouslySetInnerHTML={{ __html: post.content }}
+        {this.state.post ? (
+          <Box className={classes.postWrapper}>
+            <Card
+              className={classes.bgSecondary}
+              raised={isShadow}
+              onMouseEnter={this.toggleShadow}
+              onMouseLeave={this.toggleShadow}
+            >
+              {/* HEADER SECTION */}
+              <PostHeader post={post} />
+              <Divider />
+              {/* CONTENT SECTION */}
+              <CardContent className={classes.cardContent}>
+                {/* <CardMedia component='img' image='https://placehold.it/400x200' /> */}
+                <Typography
+                  className={classes.postContent}
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
+              </CardContent>
+              <Divider />
+              {/* ACTIONS SECTION */}
+              <CardActions className={classes.cardActions}>
+                <Grid container className={classes.container}>
+                  <Grid item container justify='flex-start' xs={3}>
+                    <Button
+                      className={classes.btnLink}
+                      color={liked ? 'primary' : 'inherit'}
+                      onClick={this.toggleLike}
+                      startIcon={<ThumbUp />}
+                    >
+                      {this.state.likesNum}
+                      <Hidden only='xs'> Likes</Hidden>
+                    </Button>
+                  </Grid>
+                  <Grid item container justify='center' xs={4}>
+                    <Button
+                      className={classes.btnLink}
+                      color='inherit'
+                      startIcon={<Chat />}
+                      onClick={() =>
+                        this.setState({ isExpanded: !this.state.isExpanded })
+                      }
+                    >
+                      {this.state.commentsNum}
+                      <Hidden only='xs'> Comments</Hidden>
+                    </Button>
+                  </Grid>
+                  <Grid item container justify='center' xs={4}>
+                    <Button
+                      color='inherit'
+                      className={classes.btnLink}
+                      startIcon={<Share />}
+                    >
+                      <Hidden only='xs'>Share</Hidden>
+                    </Button>
+                  </Grid>
+                  <Grid item container justify='flex-end' xs={1}>
+                    <IconButton
+                      color='inherit'
+                      className={classes.btnLink}
+                      onClick={this.toggleReportPopup}
+                    >
+                      <Tooltip title='Report this post' arrow placement='top'>
+                        <Report />
+                      </Tooltip>
+                    </IconButton>
+                    <ReportPopup
+                      isOpen={this.state.isOpenReport}
+                      onClose={this.toggleReportPopup}
+                      postId={post.id}
+                      type='post'
                     />
-                  </CardContent>
-                  <Divider />
-                  {/* ACTIONS SECTION */}
-                  <CardActions>
-                    <Grid container className={classes.container}>
-                      <Grid item container justify='flex-start' sm={3}>
-                        <Button
-                          className={classes.btnLink}
-                          color={liked ? 'primary' : 'inherit'}
-                          onClick={this.toggleLike}
-                          startIcon={<ThumbUp />}
-                        >
-                          {this.state.likesNum} Likes
-                </Button>
-                      </Grid>
-                      <Grid item container justify='center' sm={4}>
-                        <Button
-                          className={classes.btnLink}
-                          color='inherit'
-                          startIcon={<Chat />}
-                          onClick={() =>
-                            this.setState({ isExpanded: !this.state.isExpanded })
-                          }
-                        >
-                          {this.state.commentsNum} Comments
-                </Button>
-                      </Grid>
-                      <Grid item container justify='center' sm={4}>
-                        <Button
-                          color='inherit'
-                          className={classes.btnLink}
-                          startIcon={<Share />}
-                        >
-                          Share
-                </Button>
-                      </Grid>
-                      <Grid item container justify='flex-end' sm={1}>
-                        <IconButton
-                          color='inherit'
-                          className={classes.btnLink}
-                          onClick={this.toggleReportPopup}
-                        >
-                          <Tooltip title='Report this post' arrow placement='top'>
-                            <Report />
-                          </Tooltip>
-                        </IconButton>
-                        <ReportPopup
-                          isOpen={this.state.isOpenReport}
-                          onClose={this.toggleReportPopup}
-                          postId={post.id}
-                          type='post'
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardActions>
+                  </Grid>
+                </Grid>
+              </CardActions>
 
-                  {/* COLLAPSE SECTION */}
-                  <Collapse in={this.state.isExpanded} timeout='auto' unmountOnExit>
-                    <Divider />
+              {/* COLLAPSE SECTION */}
+              <Collapse in={this.state.isExpanded} timeout='auto' unmountOnExit>
+                <Divider />
 
-                    {/* COMMENT INPUT SECTION */}
-                    {!post.comment_blocked ? (
-                      <Box py={1} className={classes.bgSecondary}>
-                        <CommentInput
-                          postId={post.id}
-                          refreshComments={this.handleRefreshComments}
-                          needUpdateComment={this.state.needUpdateComment}
-                          cancelUpdateMode={() =>
-                            this.setState({ needUpdateComment: null })
-                          }
-                        />
-                      </Box>
-                    ) : (
-                        <Typography className={classes.blockedComment}>
-                          <VerifiedUser className={classes.blockedIcon} />
-                Comment blocked by Admin
-                        </Typography>
-                      )}
-                    <Divider />
+                {/* COMMENT INPUT SECTION */}
+                {!post.comment_blocked ? (
+                  <Box py={1} className={classes.bgSecondary}>
+                    <CommentInput
+                      postId={post.id}
+                      refreshComments={this.handleRefreshComments}
+                      needUpdateComment={this.state.needUpdateComment}
+                      cancelUpdateMode={() =>
+                        this.setState({ needUpdateComment: null })
+                      }
+                    />
+                  </Box>
+                ) : (
+                  <Typography className={classes.blockedComment}>
+                    <VerifiedUser className={classes.blockedIcon} />
+                    Comment blocked by Admin
+                  </Typography>
+                )}
+                <Divider />
 
-                    {/* COMMENT SECTION */}
-                    {post &&
-                      post?.comments?.map(comment => (
-                        <UserComment
-                          key={comment.id}
-                          comment={comment}
-                          postId={post.id}
-                          isOwner={post.user_id === comment.user_id}
-                          onUpdateComment={this.handleUpdateComment}
-                          onDeleteComment={this.handleDeleteComment}
-                        />
-                      ))}
-                    {/* <UserComment isAdmin />
+                {/* COMMENT SECTION */}
+                {post &&
+                  post?.comments?.map(comment => (
+                    <UserComment
+                      key={comment.id}
+                      comment={comment}
+                      postId={post.id}
+                      isOwner={post.user_id === comment.user_id}
+                      onUpdateComment={this.handleUpdateComment}
+                      onDeleteComment={this.handleDeleteComment}
+                    />
+                  ))}
+                {/* <UserComment isAdmin />
           <UserComment isOwner />
           <UserComment /> */}
-                  </Collapse>
-                </Card>
-              </Box>
-            )
-            : null
-        }
+              </Collapse>
+            </Card>
+          </Box>
+        ) : null}
       </>
     );
   }

@@ -148,7 +148,7 @@ class Item extends React.Component {
           onMouseLeave={() => this.handleShowEditButton(false)}
 
         >
-          <Grid item sm={3}>
+          <Grid item xs={4} sm={3}>
             <span
               className={classes.icon}
             >
@@ -160,7 +160,7 @@ class Item extends React.Component {
               {label}
             </span>
           </Grid>
-          <Grid item sm={6}>
+          <Grid item xs={7} sm={6}>
             {
               data != null ?
                 (
@@ -195,7 +195,7 @@ class Item extends React.Component {
             }
 
           </Grid>
-          <Grid item sm={3} >
+          <Grid item xs={1} sm={3}>
             {
               status ?
                 (<div className={classes.buttonGroup}>

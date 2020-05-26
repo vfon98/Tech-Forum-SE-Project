@@ -51,7 +51,7 @@ const ReportRow = props => {
       <StyledCell>{props.index + 1}</StyledCell>
       <StyledCell padding='none' className={classes.nameCell}>
         {report.user ? (
-          <Link className={classes.nameLink} to={`/profile/${report.user_id}`}>
+          <Link className={classes.nameLink} to={`/wall/${report.user_id}`}>
             {report.user.display_name}
           </Link>
         ) : (

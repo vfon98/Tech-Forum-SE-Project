@@ -46,7 +46,7 @@ const UserRow = props => {
     <TableRow>
       {/* <StyledCell padding='checkbox'>{props.no + 1}</StyledCell> */}
       <StyledCell>
-        <Box className={classes.username}>
+        <Box className={classes.username} component={Link} to={`/wall/${user.id}`}>
           <Avatar
             className={classes.avatar}
             src={user.avatar}

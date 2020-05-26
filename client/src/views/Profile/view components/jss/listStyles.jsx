@@ -2,13 +2,20 @@ const itemStyles = {
   icon : {
     display: 'inline-flex',
     verticalAlign: 'middle',
-    paddingBottom: '.4rem'
+    paddingBottom: '.4rem',
+    '@media (max-width: 600px)': {
+      fontSize: '0.9rem !important',
+    }
   },
   label: {
     fontSize: '1rem',
     fontWeight: '300',
     paddingLeft: ".5rem",
-    marginLeft: '.5rem'
+    marginLeft: '.5rem',
+    '@media (max-width: 600px)': {
+      fontSize: '0.9rem',
+      paddingLeft: 0,
+    }
   },
   valueRow: {
     marginTop: '.25rem',
@@ -43,10 +50,11 @@ const itemStyles = {
   },
   button: {
     width: '75%',
-    border:" 1px solid #1976D2",
+    border:"1px solid #1976D2",
     marginLeft: '1rem',
     color: "#1976D2",
-    textTransform: 'none'
+    textTransform: 'none',
+    whiteSpace: 'nowrap',
   }
 }
 export default itemStyles

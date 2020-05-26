@@ -33,6 +33,7 @@ class PostHeader extends Component {
     const { classes, post } = this.props;
     return (
       <CardHeader
+        className={classes.cardHeader}
         avatar={
           <Avatar
             className={classes.avatarLg}

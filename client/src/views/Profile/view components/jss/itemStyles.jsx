@@ -7,7 +7,11 @@ const itemStyles = {
   label: {
     fontSize: '1rem',
     fontWeight: '300',
-    marginLeft: '1rem'
+    marginLeft: '1rem',
+    '@media (max-width: 600px)': {
+      fontSize: '0.9rem',
+      marginLeft: '0.5rem'
+    }
   },
   value: {
     margin: '0 1rem',
@@ -39,7 +43,7 @@ const itemStyles = {
   },
   buttonGroup: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-start'
   },
   row: {
     display: 'flex',
@@ -47,10 +51,11 @@ const itemStyles = {
   },
   addNewButton: {
     width: '75%',
-    border: " 1px solid #1976D2",
+    border: "1px solid #1976D2",
     marginLeft: '1rem',
     color: "#1976D2",
-    textTransform: 'none'
+    textTransform: 'none',
+    whiteSpace: 'nowrap'
   },
   link: {
     textDecoration: 'none',

@@ -131,7 +131,6 @@ class PostOptions extends Component {
     return getUser() && getUser()._id === userId;
   };
 
-
   togglePopup = () => {
     if (!isLogin()) return window.handlePopup('login');
     this.setState({

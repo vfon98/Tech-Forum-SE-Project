@@ -44,7 +44,6 @@ class CKEditor extends React.Component {
     if (editor && editor.getData() !== props.content) {
       editor.setData(props.content);
     }
-    console.log(this.props.postContent);
     this.setState({
       postContent: this.props.postContent
     });

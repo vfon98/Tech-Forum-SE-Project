@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CKEditor from '../CKEditor';
-import './UpdateTopic.css';
+import '../AddTopic/AddTopic.css';
 import UploadFile from '../UploadFile/UploadFile';
 import PostTopic from '../PostTopic/PostTopic';
 import axios from 'axios/instance';

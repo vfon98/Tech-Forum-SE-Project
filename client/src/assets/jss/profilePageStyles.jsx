@@ -2,7 +2,10 @@ import { container } from "./main";
 
 const profilePageStyles = {
   container : {
-    ...container
+    ...container,
+    '@media (max-width: 600px)': {
+      padding: 0
+    }
   }
 }
 

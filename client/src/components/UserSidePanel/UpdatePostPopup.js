@@ -26,7 +26,6 @@ import { PostAddRounded } from '@material-ui/icons';
 import { getUser } from '../../utils/session';
 import { getIdentifier } from '../../utils/userIdentifier';
 import { withRouter } from 'react-router-dom';
-import UserPost from '../../views/Room/viewSections/Main/UserPost';
 
 const popupStyles = {
   paper: {
@@ -71,6 +70,17 @@ const popupStyles = {
     backgroundColor: darkGreen,
     border: `2px solid ${lightBlueColor}`,
   },
+  '@media (max-width: 600px)': {
+    contentWrapper: {
+      padding: '8px',
+    },
+    actionWrapper: {
+      padding: '8px'
+    },
+    title: {
+      padding: '8px'
+    }
+  },
 };
 
 const Transition = React.forwardRef(function Transion(props, ref) {
@@ -84,12 +94,13 @@ class UpdatePostPopup extends Component {
       content: '',
       postContent: '',
     };
-     
   }
+
   componentDidMount() {
     this.getPostContent();
   }
-   updatePost = () => {  
+
+  updatePost = () => {
     const postId = this.props.postId;
     console.log('postId', postId);
     axios
@@ -103,38 +114,34 @@ class UpdatePostPopup extends Component {
       })
       .catch(err => {
         console.log({ err });
-        alert('update error')
+        alert('update error');
       });
-      
   };
-  
-  getPostContent = () =>{
-      const postId = this.props.postId;
-      axios
-        .get(`/posts/${postId}`)
-        .then((response) => {
-          console.log(response);
-          var postContent = response.data.post.content;
-          //console.log('postcontent', postContent);
-          this.setState({
-            postContent: postContent,
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
+
+  getPostContent = () => {
+    const postId = this.props.postId;
+    axios
+      .get(`/posts/${postId}`)
+      .then(response => {
+        var postContent = response.data.post.content;
+        //console.log('postcontent', postContent);
+        this.setState({
+          postContent: postContent,
         });
-  }
-  
-  
-  
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   getData = data => {
     this.setState({
       content: data,
     });
   };
-  
+
   render() {
-    const { classes , postId} = this.props;
+    const { classes, postId } = this.props;
     const user = getUser();
 
     return (
@@ -153,7 +160,7 @@ class UpdatePostPopup extends Component {
         <div className={classes.bgDark}>
           <DialogTitle className={classes.title}>Update your post</DialogTitle>
           <Divider />
-          <DialogContent>
+          <DialogContent className={classes.contentWrapper}>
             <Box className={classes.avatarWrapper}>
               <Avatar
                 className={classes.avatar}
@@ -163,11 +170,11 @@ class UpdatePostPopup extends Component {
               <small>{user && getIdentifier(user.email)}</small>
             </Box>
 
-            <CKEditor 
-              height={150} 
+            <CKEditor
+              height={150}
               getData={this.getData}
-              postId =  {postId} 
-              postContent = {this.state.postContent}
+              postId={postId}
+              postContent={this.state.postContent}
             />
           </DialogContent>
           <Divider />
