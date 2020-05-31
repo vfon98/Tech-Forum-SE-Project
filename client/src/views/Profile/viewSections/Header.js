@@ -7,7 +7,7 @@ import ConfirmPopup from '../../../components/ConfirmPopup';
 import notification from '../../../components/Notification';
 import { Grid, TextField } from '@material-ui/core';
 import { CameraAlt } from '@material-ui/icons';
-
+import img from 'assets/img/profiles/background.jpg'
 import headerStyles from '../view components/jss/headerStyles';
 
 const StyledButton = withStyles({
@@ -34,7 +34,6 @@ const SuccessButton = withStyles({
   },
 })(Button);
 
-const img = 'https://wallpaperaccess.com/full/7280.jpg';
 class Header extends React.Component {
   constructor(props) {
     super(props);
