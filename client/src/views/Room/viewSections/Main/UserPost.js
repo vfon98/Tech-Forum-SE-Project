@@ -248,7 +248,7 @@ class UserPost extends Component {
                   comment={comment}
                   postId={post.id}
                   isFromOwner={post.user_id === comment.user_id}
-                  isFromAdmin={isAdmin() && comment.user_id === getUser()._id}
+                  isFromAdmin={comment.user.role === 'admin'}
                   onUpdateComment={this.handleUpdateComment}
                   onDeleteComment={this.handleDeleteComment}
                 />

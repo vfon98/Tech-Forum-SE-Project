@@ -18,6 +18,8 @@ module.exports = {
   },
   allUsers(req, res) {
     User.find({ is_banned: false })
+      .where('role')
+      .ne('admin')
       .sort({ created_at: -1 })
       .then(users => {
         res.json({ users });

@@ -97,7 +97,8 @@ class NavBar extends Component {
       // window.location.reload();
     });
     // Redirect admin to avoid another account login admin pages
-    if (isAdmin()) {
+    let isProfile = history.location.pathname.startsWith('/profile');
+    if (isAdmin() || isProfile) {
       history.push('/');
     }
   };
@@ -132,9 +133,9 @@ class NavBar extends Component {
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
               <Grid className={classes.navLogo} item sm={2} xs={4}>
-                <Link to='/' className={classes.link}>
+                <NavLink to='/' className={classes.link}>
                   Covid <span className={classes.brandHighlight}>Forum</span>
-                </Link>
+                </NavLink>
               </Grid>
               <Grid className={classes.navLink} container sm={6} xs={12} justify='center'>
                 <Button className={classes.btn}>
@@ -159,7 +160,7 @@ class NavBar extends Component {
                 </Button>
               </Grid>
               <Grid className={classes.navUser} container sm={4} justify='flex-end' wrap='nowrap' xs={8}>
-                <Hidden smDown>
+                <Hidden smUp>
                   <input
                     type='text'
                     name='searchBox'

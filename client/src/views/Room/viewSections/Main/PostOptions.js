@@ -161,7 +161,8 @@ class PostOptions extends Component {
             <ListItem
               button
               onClick={this.togglePopup}
-              disabled={!hasModifyPermission(userId)}
+              // disabled={!hasModifyPermission(userId)}
+              disabled={!this.isOwner()}
             >
               <ListItemIcon className={classes.listPostItem}>
                 <Edit />

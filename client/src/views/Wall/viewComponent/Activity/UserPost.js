@@ -25,6 +25,7 @@ import PostHeader from './PostHeader';
 import ReportPopup from 'components/ReportPopup';
 import UserComment from './UserComment';
 import CommentInput from './CommentInput';
+import { FacebookShareButton } from 'react-share';
 
 class UserPost extends Component {
   constructor(props) {
@@ -190,13 +191,18 @@ class UserPost extends Component {
                     </Button>
                   </Grid>
                   <Grid item container justify='center' xs={4}>
-                    <Button
-                      color='inherit'
-                      className={classes.btnLink}
-                      startIcon={<Share />}
+                    <FacebookShareButton
+                      // Change it later
+                      url='google.com'
                     >
-                      <Hidden only='xs'>Share</Hidden>
-                    </Button>
+                      <Button
+                        color='inherit'
+                        className={classes.btnLink}
+                        startIcon={<Share />}
+                      >
+                        <Hidden only='xs'>Share</Hidden>
+                      </Button>
+                    </FacebookShareButton>
                   </Grid>
                   <Grid item container justify='flex-end' xs={1}>
                     <IconButton
@@ -249,7 +255,8 @@ class UserPost extends Component {
                       key={comment.id}
                       comment={comment}
                       postId={post.id}
-                      isOwner={post.user_id === comment.user_id}
+                      isFromOwner={post.user_id === comment.user_id}
+                      isFromAdmin={comment.user.role === 'admin'}
                       onUpdateComment={this.handleUpdateComment}
                       onDeleteComment={this.handleDeleteComment}
                     />

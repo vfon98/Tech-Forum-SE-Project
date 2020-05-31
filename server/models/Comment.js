@@ -35,7 +35,7 @@ CommentSchema.virtual('user', {
 });
 
 function populateComment(next) {
-  this.populate('user', '-_id email display_name avatar');
+  this.populate('user', '-_id email display_name avatar role');
   next();
 }
 

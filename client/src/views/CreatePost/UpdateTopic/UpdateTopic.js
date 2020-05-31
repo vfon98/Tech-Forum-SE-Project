@@ -18,20 +18,22 @@ class UpdateTopic extends Component {
       file: null,
       isWaiting: false,
       isOpenPreview: false,
-      newsContent: ''
+      newsContent: '',
+      thumbnail: null,
     };
 
     this.handleChangeField = this.handleChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     const { params } = this.props.match;
     axios.get(`/news/${params.id}`).then(res => {
       this.setState({
         newsContent: res.data.news.content,
         header: res.data.news.header,
-      })
-    })
+        thumbnail: res.data.news.thumbnail,
+      });
+    });
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -48,7 +50,7 @@ class UpdateTopic extends Component {
     formData.append('roomName', params.name);
     axios
       .put(`/news/${params.id}`, formData)
-      .then((res) => {
+      .then(res => {
         this.setState({ isWaiting: false });
         this.props.history.goBack();
       })
@@ -65,6 +67,15 @@ class UpdateTopic extends Component {
     this.setState({
       file: e.target.files[0],
     });
+    // Insert thumbnail to preview section
+    if (!e.target.files.length) return;
+    let reader = new FileReader();
+    reader.onload = ev => {
+      this.setState({
+        thumbnail: ev.target.result
+      })
+    }
+    reader.readAsDataURL(e.target.files[0])
   };
 
   togglePreview = () => {
@@ -74,7 +85,7 @@ class UpdateTopic extends Component {
   };
 
   render() {
-    const { header, content, isWaiting, isOpenPreview } = this.state;
+    const { header, content, thumbnail, isWaiting, isOpenPreview } = this.state;
     return (
       <div className='ck-wrapper'>
         <h1>Update Topic</h1>
@@ -101,6 +112,11 @@ class UpdateTopic extends Component {
             />
           </div>
           <UploadFile onFileChange={this.handleFileChange} />
+          <img
+            src={thumbnail}
+            alt='Thumbnail'
+            className='thumbnail-preview'
+          />
           <PostTopic isWaiting={isWaiting} handlePreview={this.togglePreview} />
           <PreviewPopup
             isOpen={isOpenPreview}

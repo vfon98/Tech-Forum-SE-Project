@@ -74,7 +74,7 @@ const UserRow = props => {
               color='inherit'
               size='small'
               component={Link}
-              to={`/profile/${user._id}`}
+              to={`/wall/${user._id}`}
             >
               <DirectionsTwoTone
                 fontSize='small'

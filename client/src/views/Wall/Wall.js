@@ -22,10 +22,12 @@ class Wall extends Component {
   }
   componentDidMount() {
     this.fetchProfile();
-    history.listen(() => {
-      // Reset data before refetching
-      this.setState({ data: null });
-      this.fetchProfile();
+    history.listen(location => {
+      if (location.pathname.startsWith('/wall')) {
+        // Reset data before refetching
+        this.setState({ data: null });
+        this.fetchProfile();
+      }
     });
   }
 
@@ -37,13 +39,13 @@ class Wall extends Component {
       });
     }
 
-    if (!queryID) {
+    if (!queryID && isLogin()) {
       queryID = getUser()._id;
     }
 
     this.setState({
       userId: queryID,
-      data: null
+      data: null,
     });
     axios
       .get(`/profile/${queryID}`)

@@ -139,7 +139,7 @@ class UserComment extends Component {
 
   render() {
     const { classes } = this.props;
-    const { comment, isOwner, isAdmin, postId } = this.props;
+    const { comment, isFromOwner, isFromAdmin, postId } = this.props;
 
     return (
       <Grid container className={classes.commentContainer}>
@@ -205,8 +205,8 @@ class UserComment extends Component {
                 className={classes.timeText}
               >
                 {/* Add icon if owner's comment */}
-                {isOwner && <OwnerIcon classes={classes} />}
-                {isAdmin && <AdminIcon classes={classes} />}
+                {isFromOwner && <OwnerIcon classes={classes} />}
+                {isFromAdmin && <AdminIcon classes={classes} />}
                 <Box>
                   {comment ? timeFrom(comment.created_at) : 'long time ago'}
                 </Box>
