@@ -1,14 +1,14 @@
 .top-app {
   background-color: #313947;
   color: rgba(255, 255, 255, 0.8);
-	padding-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .form-wrapper {
-	box-sizing: border-box;
-	background-color: #292E38;
+  box-sizing: border-box;
+  background-color: #292e38;
   border-radius: 8px;
-	padding: 2em 5em 3em;
+  padding: 2em 5em 3em;
   width: 100%;
   margin: 0 auto;
 }

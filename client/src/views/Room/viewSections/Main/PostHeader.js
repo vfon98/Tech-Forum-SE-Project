@@ -46,11 +46,9 @@ class PostHeader extends Component {
             component={Link}
             to={`/wall/${post.user.id}`}
             className={classes.avatarLg}
-            src={post && post.user.avatar}
-            alt={post && post.user.display_name}
-          >
-            Ex
-          </Avatar>
+            src={post ? post.user.avatar : ''}
+            alt={post ? post.user.display_name : ''}
+          />
         }
         title={
           <Box verticalAlign='middle'>

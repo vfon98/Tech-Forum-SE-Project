@@ -1,94 +1,95 @@
-import React from 'react'
+import React from 'react';
 
-import { Grid } from '@material-ui/core'
-import { withStyles } from '@material-ui/styles'
-import axios from '../../axios/instance'
+import { Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
+import axios from '../../axios/instance';
 
-import discussionViewStyles from '../../assets/jss/discussionViewStyles'
+import discussionViewStyles from '../../assets/jss/discussionViewStyles';
 
-import windows from '../../assets/img/title/windows.jpg'
-import macos from '../../assets/img/title/macos.jpg'
-import ios from '../../assets/img/title/ios.jpg'
-import android from '../../assets/img/title/android.jpg'
-import linux from '../../assets/img/title/linux.jpg'
-import smartphone from '../../assets/img/title/smartphone.jpg'
-import laptop_desktop from '../../assets/img/title/laptop_desktop.jpg'
-import programing from '../../assets/img/title/programing.jpg'
+import windows from '../../assets/img/title/windows.jpg';
+import macos from '../../assets/img/title/macos.jpg';
+import ios from '../../assets/img/title/ios.jpg';
+import android from '../../assets/img/title/android.jpg';
+import linux from '../../assets/img/title/linux.jpg';
+import smartphone from '../../assets/img/title/smartphone.jpg';
+import laptop_desktop from '../../assets/img/title/laptop_desktop.jpg';
+import programing from '../../assets/img/title/programing.jpg';
 
-import Card from './view components/CustomCard'
-import NavBar from '../../components/NavBar'
+import Card from './view components/CustomCard';
+import NavBar from '../../components/NavBar';
+import Loading from 'components/Loading';
 
 const rooms = [
   {
     id: '5e5e76ff0df4c97fa160c193',
     title: 'Windows',
     img: windows,
-    newPost: 1
+    newPost: 1,
   },
   {
     id: '5e5e770c0df4c97fa160c194',
     title: 'macOS',
     img: macos,
-    newPost: 3
+    newPost: 3,
   },
   {
     id: '5e5e77110df4c97fa160c195',
     title: 'Linux',
     img: linux,
-    newPost: 5
+    newPost: 5,
   },
   {
     id: '5e5e77170df4c97fa160c196',
     title: 'iOS',
     img: ios,
-    newPost: 2
+    newPost: 2,
   },
   {
     id: '5e5e771c0df4c97fa160c197',
     title: 'Android',
     img: android,
-    newPost: 1
+    newPost: 1,
   },
   {
     id: '5e5e77250df4c97fa160c198',
     title: 'Smartphone',
     img: smartphone,
-    newPost: 1
+    newPost: 1,
   },
   {
     id: '5e5e772d0df4c97fa160c199',
     title: 'Laptop - Desktop',
     img: laptop_desktop,
-    newPost: 8
+    newPost: 8,
   },
   {
     id: '5e5e77340df4c97fa160c19a',
     title: 'Programming',
     img: programing,
-    newPost: 1
+    newPost: 1,
   },
-]
+];
 
 class Discussion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rooms: []
-    }
+      rooms: [],
+    };
   }
-  
+
   componentDidMount() {
     axios.get('/rooms').then(res => {
       this.setState({
-        rooms: res.data.rooms
-      })
-    })
+        rooms: res.data.rooms,
+      });
+    });
   }
-  
+
   handleClick = value => {
-    console.log(value)
-    this.props.history.push(`/room/${value}`)
-  }
+    console.log(value);
+    this.props.history.push(`/room/${value}`);
+  };
 
   handleAuthChanged = state => {
     this.setState({
@@ -97,15 +98,13 @@ class Discussion extends React.Component {
   };
 
   render() {
-    const { classes } = this.props
+    const { classes } = this.props;
     return (
       <>
         <NavBar isLogin={this.handleAuthChanged} />
-        <div
-          className={classes.background}
-        >
+        <div className={classes.background}>
           <Grid container className={classes.container} spacing={2}>
-            {
+            {this.state.rooms.length ? (
               this.state.rooms.map(room => (
                 <Grid sm={4} xs={6} item key={room.id}>
                   <Card
@@ -117,13 +116,14 @@ class Discussion extends React.Component {
                   />
                 </Grid>
               ))
-            }
+            ) : (
+              <Loading />
+            )}
           </Grid>
         </div>
       </>
-    )
+    );
   }
 }
 
-
-export default withStyles(discussionViewStyles)(Discussion)
+export default withStyles(discussionViewStyles)(Discussion);

@@ -141,6 +141,7 @@ const Popup = props => {
   const [updateData, setUpdateData] = React.useState({});
   const { isOpen } = props;
   const classes = useStyles();
+  let avatarRef = null;
 
   useEffect(() => {
     setData(props.data)
@@ -152,7 +153,12 @@ const Popup = props => {
   }
 
   const handleAvatarUpdate = (e) => {
-    setUpdateData({ ...updateData, avatar: e.target.files[0] })
+    // setUpdateData({ ...updateData, avatar: e.target.files[0] })
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      avatarRef.src = ev.target.result
+    }
+    reader.readAsDataURL(e.target.files[0])
   }
 
 
@@ -270,6 +276,7 @@ const Popup = props => {
 
               >
                 <img
+                  ref={node => avatarRef = node}
                   className={classes.avatarImg}
                   src={data ? data.avatar : null}
                 />

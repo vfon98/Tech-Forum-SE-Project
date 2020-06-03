@@ -40,10 +40,8 @@ class NewsHeader extends Component {
             <Avatar
               className={classes.avatarLg}
               src={news.user ? news.user.avatar : ''}
-              alt={news.user ? news.user.display_name : 'Example'}
-            >
-              Ex
-            </Avatar>
+              alt={news.user ? news.user.display_name : ''}
+            />
           }
           title={
             <Box>

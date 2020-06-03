@@ -61,7 +61,6 @@ const UnblockComments = props => {
         postId: props.postId,
       })
       .then(res => {
-        console.log(res.data);
         props.handleClosePopover();
         window.fetchPosts();
       })
@@ -111,12 +110,10 @@ class PostOptions extends Component {
   handleConfirmDelete = option => {
     this.toggleConfirmPopup();
     const { postId } = this.props;
-    console.log('postId', postId);
     if (option === 'yes') {
       axios
         .delete(`/posts/${postId}`)
         .then(res => {
-          console.log(res);
           window.fetchPosts();
         })
         .catch(err => console.log(err));

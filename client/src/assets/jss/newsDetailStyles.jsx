@@ -94,7 +94,7 @@ const newsDetailStyles = {
     '& img, & iframe': {
       objectFit: 'contain',
       maxWidth: '100%',
-      height: 'auto !important',
+      // height: 'auto !important',
       padding: 0,
       display: 'block',
       margin: '0.6em auto',

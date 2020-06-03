@@ -67,7 +67,7 @@ PostSchema.virtual('user', {
 
 function populatePost(next) {
   this.sort({ created_at: -1 })
-    .populate('user', 'email display_name avatar')
+    .populate('user', 'email display_name avatar role')
     .populate('room', 'name')
     .populate('likes', 'user_id')
     .populate({
@@ -75,7 +75,7 @@ function populatePost(next) {
       select: '-post_id -updated_at',
       populate: {
         path: 'user',
-        select: '-_id email display_name avatar',
+        select: '-_id email display_name avatar role',
       },
       options: {
         sort: {

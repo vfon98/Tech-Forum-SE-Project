@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import Layout from '../Layout/Layout';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
 import axios from 'axios/instance';
 
 import PostChart from './PostChart';
 import NewsChart from './NewsChart';
+import NewsLineChart from './NewsLineChart';
+import PostLineChart from './PostLineChart';
+// import tablelabels for all child components
+import 'chartjs-plugin-datalabels';
 
 const dashboardStyles = {
   chartWrapper: {
@@ -16,9 +20,19 @@ const dashboardStyles = {
     padding: '24px',
     '@media (max-width: 600px)': {
       padding: '8px',
-      marginTop: '16px'
-    }
-  }
+      marginTop: '16px',
+    },
+  },
+  lineChartWrapper: {
+    background: '#27293D',
+    margin: '0 16px',
+    marginBottom: '32px',
+    padding: '16px',
+    '@media (max-width: 600px)': {
+      padding: '8px',
+      marginTop: '16px',
+    },
+  },
 };
 
 class Dashboard extends Component {
@@ -27,6 +41,9 @@ class Dashboard extends Component {
     this.state = {
       rooms: [],
       roomsName: [],
+      // For line chart
+      labels: [],
+      data: { news: [], posts: [] },
     };
   }
 
@@ -40,6 +57,12 @@ class Dashboard extends Component {
         });
       })
       .catch(err => console.log(err));
+    axios.get('/admin/statistic').then(res => {
+      this.setState({
+        data: res.data.statistics,
+        labels: this.getDataField(res.data.statistics.posts, 'date'),
+      });
+    });
   }
 
   getDataField = (arr, field) => {
@@ -48,7 +71,7 @@ class Dashboard extends Component {
 
   render() {
     const { classes } = this.props;
-    const { rooms, roomsName } = this.state;
+    const { rooms, roomsName, labels, data } = this.state;
 
     return (
       <Layout>
@@ -64,6 +87,26 @@ class Dashboard extends Component {
             data={this.getDataField(rooms, 'total_news')}
           />
         </Paper>
+        {data.posts.length && (
+          <Grid container>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.lineChartWrapper}>
+                <PostLineChart
+                  labels={labels}
+                  data={this.getDataField(data.posts, 'total')}
+                />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.lineChartWrapper}>
+                <NewsLineChart
+                  labels={labels}
+                  data={this.getDataField(data.news, 'total')}
+                />
+              </Paper>
+            </Grid>
+          </Grid>
+        )}
       </Layout>
     );
   }

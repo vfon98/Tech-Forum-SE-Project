@@ -45,6 +45,7 @@ class PostChart extends Component {
       this.setState({ data: data });
     }
   }
+
   render() {
     return (
       <>
@@ -57,6 +58,15 @@ class PostChart extends Component {
           // height={200}
           options={{
             // maintainAspectRatio: false,
+            plugins: {
+              datalabels: {
+                display: 'auto',
+                color: 'white',
+                anchor: 'end',
+                align: 'end',
+                offset: '-1',
+              },
+            },
             scales: {
               xAxes: [
                 {
