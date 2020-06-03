@@ -20,6 +20,8 @@ const layoutStyles = {
   },
   sidebar: {
     flexBasis: '260px',
+    // width: '260px',
+    flexGrow: 1,
     height: '100vh',
     background: `linear-gradient(${primaryColor}, #000 85%)`,
     position: 'sticky',

@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/styles';
 
 import RoomList from '../../../components/RoomList.js/RoomList';
 import UserSidePanel from 'components/UserSidePanel/UserSidePanel';
+import { isLogin } from 'utils/session';
 
 class RightDetail extends Component {
   render() {
@@ -20,7 +21,7 @@ class RightDetail extends Component {
           </Grid>
         </Paper>
 
-        <UserSidePanel />
+        {isLogin() && <UserSidePanel />}
       </>
     );
   }

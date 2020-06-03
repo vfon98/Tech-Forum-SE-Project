@@ -42,7 +42,7 @@ class NewsChart extends Component {
     if (prevState.data.labels !== this.props.roomsName) {
       data.labels = this.props.roomsName;
       data.datasets[0].data = this.props.data;
-      this.setState({data: data});
+      this.setState({ data: data });
     }
   }
 
@@ -56,8 +56,23 @@ class NewsChart extends Component {
           data={data}
           // width={100}
           // height={50}
+          plugins={{
+            datalabels: {
+              display: true,
+              color: 'white',
+            },
+          }}
           options={{
             // maintainAspectRatio: false,
+            plugins: {
+              datalabels: {
+                display: 'auto',
+                color: 'white',
+                anchor: 'end',
+                align: 'end',
+                offset: '-1',
+              },
+            },
             scales: {
               xAxes: [
                 {
