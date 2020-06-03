@@ -1,0 +1,53 @@
+*{
+  user-select: none;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background: #292E38;
+}
+.content {
+  min-width: 300px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.t1 {
+  font-family: 'Indie Flower', cursive;
+  color: rgba(255,255,255,.8);
+  font-size: 10rem;
+  padding-right: 3rem;
+  display: inline-block;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+.t2 {
+  font-size: 2rem;
+  color: rgba(255,255,255,.8);
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  font-family: 'Indie Flower', cursive;
+text-align: center;
+width: 100%;
+}
+.btn {
+  margin:3rem auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wartermark {
+  color: #DD163B;
+  opacity: .12;
+  font-size: 20rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

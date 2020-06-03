@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from '../../axios/instance';
+import axios from '../../../axios/instance';
 import './Register.css';
 
 class Register extends Component {

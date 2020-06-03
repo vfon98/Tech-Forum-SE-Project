@@ -5,7 +5,7 @@ import { Dialog, DialogContent, Grid } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import profilePageStyles from '../../assets/jss/profilePageStyles';
 import Login from '../Login/Login';
-import Register from '../Register/Register';
+import Register from '../Login/Register/Register';
 
 import Header from './viewSections/Header';
 import Tabs from './viewSections/VerticalTabs';
