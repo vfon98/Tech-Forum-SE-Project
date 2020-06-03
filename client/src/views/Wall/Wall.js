@@ -51,6 +51,7 @@ class Wall extends Component {
       .get(`/profile/${queryID}`)
       .then(response => {
         let res = response.data.user;
+        console.log(response)
         this.setState({
           data: {
             avatar: res.avatar,
@@ -62,7 +63,7 @@ class Wall extends Component {
           },
         });
       })
-      .catch(err => console.log({ err }));
+      .catch(err => history.push('/404', { errorCode: 404 }));
   };
 
   render() {

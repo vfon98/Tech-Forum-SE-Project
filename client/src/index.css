@@ -9,12 +9,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.messenger-popup {
+  display: none;
+}
+.messenger-popup.active {
+  display: block;
+}
 @media only screen and (max-width: 600px) {
   html {
     font-size: 14px;

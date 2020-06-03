@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from '@material-ui/core';
 import Slide from '@material-ui/core/Slide';
 
 import Login from '../views/Login/Login';
-import Register from '../views/Register/Register';
+import Register from '../views/Login/Register/Register';
 
 const useStyles = makeStyles({
   root: {

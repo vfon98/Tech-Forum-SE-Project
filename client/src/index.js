@@ -23,6 +23,7 @@ import ReportsManager from 'views/Admin/ReportsManager/ReportsManager';
 import PostDetail from 'views/PostDetail/PostDetail';
 import ProfilePage from 'views/Profile/ProfilePage';
 import Footer from 'components/Footer';
+import NotFound from 'views/NotFound/NotFound'
 
 ReactDOM.render(
   <Router history={history}>
@@ -50,6 +51,9 @@ ReactDOM.render(
       <Route path='/admin/rooms-manager' exact component={RoomsManager} />
       <Route path='/admin/users-manager' exact component={UsersManager} />
       <Route path='/admin/reports-manager' exact component={ReportsManager} />
+      <Route path='/404' render={props => <NotFound {...props} errorCode={404}/>} />
+      <Route path='/401' render={props => <NotFound {...props} errorCode={401}/>} />
+      <Redirect from='*' to='/404' />
     </Switch>
     <Footer />
   </Router>,

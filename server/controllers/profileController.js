@@ -63,6 +63,6 @@ module.exports = {
       .then(user => {
         res.json({ user });
       })
-      .catch(err => console.log({ err }));
+      .catch(err => res.status(404).json({ ...err }));
   },
 };
