@@ -63,7 +63,7 @@ class NewsActions extends Component {
               </Button>
             </Grid>
             <Grid item>
-              <FacebookShareButton url='google.com'>
+              <FacebookShareButton url='https://covid-forum.tech'>
                 <Button
                   className={classes.btnShare}
                   color='inherit'
