@@ -92,6 +92,7 @@ class Item extends React.Component {
   }
 
   handleUpdate = async () => {
+    if (!this.state.data) return;
     let errorNotificationOption = {
       type: 'danger',
       title: 'Error!',

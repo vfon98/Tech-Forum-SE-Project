@@ -7,6 +7,7 @@ const navbarStyles = {
   appBar: {
     display: 'flex',
     background: primaryColor,
+    padding: '1rem 0',
     // "padding": "0 15%",
     lineHeight: '5rem',
     '@media (min-width: 768px)': {
@@ -20,12 +21,23 @@ const navbarStyles = {
     color: highlightColor,
   },
   btn: {
-    padding: '2rem',
+    '& span':{
+      width: '100%',
+      height: '100%',
+      display: 'block',
+      '& a' : {
+        width: '100%',
+        height: '100%',
+        display: 'block', 
+        lineHeight: '5rem'
+      }
+    },
+    // padding: '2rem',
     '@media (min-width: 768px)': {
-      padding: '1rem',
+      // padding: '1rem',
     },
     '@media (min-width: 1400px)': {
-      padding: '2rem',
+      // padding: '2rem',
     },
   },
   link: {
@@ -83,6 +95,9 @@ const navbarStyles = {
     },
     link: {
       fontSize: '0.8rem',
+      width: '100%',
+      height: '100%',
+      display: 'block'
     },
     navUser: {
       order: 2,

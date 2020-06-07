@@ -153,12 +153,14 @@ const Popup = props => {
   }
 
   const handleAvatarUpdate = (e) => {
-    // setUpdateData({ ...updateData, avatar: e.target.files[0] })
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      avatarRef.src = ev.target.result
-    }
-    reader.readAsDataURL(e.target.files[0])
+    // const reader = new FileReader();
+    // reader.onload = function(ev) {
+    //   if (avatarRef) {
+    //     avatarRef.src = ev.target.result
+    //   }
+    // }
+    // reader.readAsDataURL(e.target.files[0])
+    setUpdateData({ ...updateData, avatar: e.target.files[0] })
   }
 
 
