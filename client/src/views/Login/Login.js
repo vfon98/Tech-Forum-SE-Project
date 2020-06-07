@@ -5,6 +5,7 @@ import { Facebook } from '@material-ui/icons';
 import axios from '../../axios/instance';
 import { setUser } from '../../utils/session';
 import { parseLongDateFrom } from '../../utils/converter';
+import { serverURL } from 'axios/instance';
 
 class Login extends Component {
   constructor(props) {
@@ -106,7 +107,7 @@ class Login extends Component {
               </Grid>
               <Grid item>
                 <Button
-                  href='http://localhost:9000/auth/facebook'
+                  href={`${serverURL}/auth/facebook`}
                   variant='contained'
                   color='primary'
                   startIcon={<Facebook />}

@@ -38,21 +38,6 @@ require('./config/passportLocal');
 app.use(passport.initialize());
 app.use(passport.session());
 
-const Room = require('./models/Room');
-app.post('/room/create', (req, res) => {
-  const room = new Room();
-  room.name = req.body.name;
-  room.save().then(result => res.json(result));
-})
-
-// app.use((req, res, next) => {
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-//   );
-//   next();
-// });
-
 // Route config
 app.use(require('./routes'));
 

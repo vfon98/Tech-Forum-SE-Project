@@ -193,7 +193,7 @@ class UserPost extends Component {
                   <Grid item container justify='center' xs={4}>
                     <FacebookShareButton
                       // Change it later
-                      url='google.com'
+                      url='https://covid-forum.tech'
                     >
                       <Button
                         color='inherit'

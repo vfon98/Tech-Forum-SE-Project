@@ -5,6 +5,7 @@ import { Paper, Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import axios from 'axios/instance';
 
+import Loading from 'components/Loading';
 import PostChart from './PostChart';
 import NewsChart from './NewsChart';
 import NewsLineChart from './NewsLineChart';
@@ -87,7 +88,7 @@ class Dashboard extends Component {
             data={this.getDataField(rooms, 'total_news')}
           />
         </Paper>
-        {data.posts.length && (
+        {data.posts.length ? (
           <Grid container>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.lineChartWrapper}>
@@ -106,6 +107,8 @@ class Dashboard extends Component {
               </Paper>
             </Grid>
           </Grid>
+        ) : (
+          <Loading />
         )}
       </Layout>
     );
