@@ -4,12 +4,16 @@ const navbarStyles = {
   navMenu: {
     position: 'fixed',
   },
+  topbar: {
+    height: 'auto',
+    lineHeight: '3rem',
+  },
   appBar: {
     display: 'flex',
     background: primaryColor,
     padding: '1rem 0',
     // "padding": "0 15%",
-    lineHeight: '5rem',
+    // lineHeight: '5rem',
     '@media (min-width: 768px)': {
       padding: '0 15px',
     },
@@ -21,16 +25,21 @@ const navbarStyles = {
     color: highlightColor,
   },
   btn: {
-    '& span':{
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // margin: '0 1rem',
+    '& span': {
       width: '100%',
       height: '100%',
-      display: 'block',
-      '& a' : {
+      // display: 'block',
+      '& a': {
         width: '100%',
         height: '100%',
-        display: 'block', 
-        lineHeight: '5rem'
-      }
+        display: 'block',
+        padding: '.2rem .5rem',
+        textAlign : 'center'
+      },
     },
     // padding: '2rem',
     '@media (min-width: 768px)': {
@@ -47,30 +56,17 @@ const navbarStyles = {
   accountBtn: {
     color: textColor,
   },
-  searchBox: {
-    width: '10rem',
-    height: ' 2rem',
-    background: 'transparent',
-    borderRadius: '1rem',
-    border: '1px solid #fff',
-    alignSelf: 'center',
-    outline: 'none',
-    color: textColor,
-    fontSize: '.8rem',
-    padding: '0 .5rem',
-    '@media (min-width: 768px)': {
-      width: '6rem',
-    },
-    '@media (min-width: 1400px)': {
-      width: '10rem',
-    },
-  },
   displayName: {
     color: textColor,
     textTransform: 'none',
   },
   avatar: {
     marginRight: '0.5em',
+  },
+  navLink: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   // Responsive navbar
   '@media (max-width: 600px)': {
@@ -79,7 +75,7 @@ const navbarStyles = {
     },
     navLogo: {
       order: 1,
-      maxHeight: '4rem',
+      // maxHeight: '4rem',
       display: 'flex',
       alignItems: 'center',
       // justifyContent: 'center',
@@ -103,6 +99,27 @@ const navbarStyles = {
       order: 2,
     },
   },
+  mContainer :{
+    width: '50vw',
+    height: '100%',
+    background: primaryColor,
+    color: textColor
+  },
+  mlink: {
+    width: '100%',
+    display: 'block',
+    textDecoration: 'none',
+    padding: 0,
+    '&:active': {
+      background: "transparent"
+    }
+  },
+  mbutton: {
+    width: '100%',
+    height: '100%',
+    textAlign: 'center',
+    padding: '2rem '
+  }
 };
 
 export default navbarStyles;

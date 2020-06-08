@@ -8,7 +8,9 @@ import {
   Avatar,
   Hidden,
   ClickAwayListener,
-  Link
+  Link,
+  Drawer,
+  SwipeableDrawer
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/styles';
@@ -32,6 +34,7 @@ class NavBar extends Component {
       avatar: '',
       popup: null,
       showSearchBox: false,
+      mobileMenuOpen: true
     };
     // Make handlePopup can call global
     window.handlePopup = this.handlePopup.bind(this);
@@ -120,6 +123,11 @@ class NavBar extends Component {
     window.scrollTo(0, document.documentElement.scrollHeight);
   }
 
+  toggleMenu = value => {
+    this.setState({
+      mobileMenuOpen: value
+    })
+  }
   render() {
     const { classes } = this.props;
     const { showSearchBox } = this.state;
@@ -129,7 +137,7 @@ class NavBar extends Component {
         {this.state.popup !== null ? (
           <LoginPopup handlePopup={this.handlePopup} type={this.state.popup} />
         ) : null}
-        <AppBar position='relative'>
+        <AppBar position='relative' className={classes.topbar}>
           <Toolbar className={classes.appBar}>
             <Grid container justify='space-between'>
               <Grid className={classes.navLogo} item sm={2} xs={4}>
@@ -160,17 +168,7 @@ class NavBar extends Component {
                 </Button>
               </Grid>
               <Grid className={classes.navUser} container sm={4} justify='flex-end' wrap='nowrap' xs={8}>
-                <Hidden smUp>
-                  <input
-                    type='text'
-                    name='searchBox'
-                    className={classes.searchBox}
-                    placeholder='Search'
-                    // Show searchbox when hover input
-                    onMouseOver={() => this.setState({ showSearchBox: true })}
-                    disabled
-                  />
-                </Hidden>
+
                 {/* USER BUTTON */}
                 <Button>
                   <ClickAwayListener onClickAway={() => this.setState({ showSearchBox: false })}>
