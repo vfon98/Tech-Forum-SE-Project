@@ -54,6 +54,7 @@ class List extends Component {
   };
 
   handleStatus = value => {
+    if (!this.state.data[0]) return;
     this.setState({
       status: value,
     });
@@ -97,6 +98,7 @@ class List extends Component {
     });
   };
   handleUpdate = () => {
+    if (!this.state.data[0]) return;
     let errorNotificationOption = {
       type: 'danger',
       title: 'Error!',

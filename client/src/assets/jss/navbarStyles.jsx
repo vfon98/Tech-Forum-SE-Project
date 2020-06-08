@@ -7,7 +7,6 @@ const navbarStyles = {
   topbar: {
     height: 'auto',
     lineHeight: '3rem',
-    
   },
   appBar: {
     display: 'flex',
@@ -26,10 +25,10 @@ const navbarStyles = {
     color: highlightColor,
   },
   btn: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '0 1rem',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // margin: '0 1rem',
     '& span': {
       width: '100%',
       height: '100%',
@@ -92,6 +91,9 @@ const navbarStyles = {
     },
     link: {
       fontSize: '0.8rem',
+      width: '100%',
+      height: '100%',
+      display: 'block'
     },
     navUser: {
       order: 2,
