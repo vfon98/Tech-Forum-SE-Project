@@ -51,12 +51,24 @@ const recentNewsStyles = {
     textDecoration: 'none',
     display: 'block',
     // marginLeft: '2rem',
-    textAlign: 'right'
+    textAlign: 'left',
+    marginLeft: '1rem'
   },
   btn: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    '& a': {
+      width: '100%',
+      height: '100%',
+      display: 'block'
+    }
+
+  },
+  navLink: {
+    display: 'block',
+    width: '100%',
+    height: '100%',
 
   },
   newsItem: {
